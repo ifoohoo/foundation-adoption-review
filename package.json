@@ -1,0 +1,27 @@
+{
+  "name": "foundation-adoption-review",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only diagnosis of Foundation capability adoption and migration plans.",
+  "author": {
+    "name": "广州市风荷科技有限公司"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ifoohoo/foundation-adoption-review.git"
+  },
+  "homepage": "https://github.com/ifoohoo/foundation-adoption-review",
+  "bugs": {
+    "url": "https://github.com/ifoohoo/foundation-adoption-review/issues"
+  },
+  "engines": {
+    "node": ">=22.22.2 <23"
+  },
+  "packageManager": "pnpm@10.30.0",
+  "scripts": {
+    "check": "node --test",
+    "test": "node --test"
+  },
+  "//": "同仓开发的独立 Plugin 发布单元；private 仅用于禁止 npm publish。"
+}

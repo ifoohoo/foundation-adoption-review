@@ -1,0 +1,29 @@
+{
+  "name": "foundation-adoption-review",
+  "version": "0.1.0",
+  "description": "Read-only diagnosis of Foundation capability adoption and migration plans.",
+  "author": {
+    "name": "广州市风荷科技有限公司"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "skill-family",
+    "foundation",
+    "adoption",
+    "capability"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Foundation Adoption Review",
+    "shortDescription": "Review Foundation capability matches without changing projects.",
+    "longDescription": "Reads caller-provided Foundation capability catalogs and adopt-plan results to classify matches, surface missed reuse, and recommend the smallest adoption path.",
+    "developerName": "广州市风荷科技有限公司",
+    "category": "Productivity",
+    "capabilities": [
+      "Read-only diagnosis",
+      "Capability matching",
+      "Adoption guidance"
+    ],
+    "defaultPrompt": "Review this Foundation capability adoption plan."
+  }
+}

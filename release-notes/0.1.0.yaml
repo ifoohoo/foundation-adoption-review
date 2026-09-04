@@ -1,0 +1,17 @@
+version: 0.1.0
+date: 2026-09-01
+locales:
+  en:
+    summary: Initial open-source release of the read-only Foundation adoption diagnosis Plugin.
+    changes:
+      added:
+        - Adds one foundation-adoption-review Skill with Codex and Claude manifests.
+        - Adds read-only guidance for direct adoption, thin adaptation, candidate matches, no match, and missed existing capabilities.
+    upgradeNotes: This is an independent Plugin release unit inside the Foundation monorepo. It is not an npm package and does not run qualification or Audit compliance checks.
+  zh-CN:
+    summary: 首次发布只读的 Foundation 采用诊断 Plugin。
+    changes:
+      added:
+        - 新增一份 foundation-adoption-review Skill，以及 Codex 和 Claude manifest。
+        - 新增直接采用、薄适配、候选匹配、无匹配和漏看已有能力的只读指引。
+    upgradeNotes: 这是 Foundation monorepo 内的独立 Plugin 发布单元，不是 npm 包，也不执行资格检查或 Audit 合规检查。
