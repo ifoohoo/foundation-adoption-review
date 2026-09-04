@@ -10,30 +10,36 @@ This directory is an independent Plugin release unit inside the Foundation monor
 
 The Plugin contains one shared Skill. Codex and Claude use their own manifests; Kimi, Qoder, WorkBuddy, and CodeBuddy consume the same Skill content through their host-specific integration paths and do not require duplicate manifests here.
 
+Starting with 0.17.0, the Plugin's version number aligns with Foundation. This is numerical alignment only: the Plugin remains an independent release unit, and the historical 0.1.0 release remains unchanged.
+
 The Plugin reads supplied results and writes nothing. It does not install or update Foundation, invoke a host, run qualification, or decide Audit compliance.
 
 <!-- release-skill:capability:safe-first-command -->
 
 ## Installation
 
-This is an open-source Plugin, not an npm package. It becomes available only after the Plugin has been published to the `release-skill` Marketplace. Install it through the host Marketplace entries:
+This is an open-source Plugin, not an npm package. Skill Family Hub is its only public Marketplace. The Plugin repository carries the two host manifests and the Skill payload, but no Marketplace index. Add the Hub once, then install the Plugin:
 
 ```text
 # Codex
-codex plugin marketplace add ifoohoo/release-skill
-codex plugin add foundation-adoption-review@release-skill
+codex plugin marketplace add ifoohoo/skill-family-hub
+# Then install foundation-adoption-review from the interactive /plugins browser.
 
 # Claude
-claude plugin marketplace add ifoohoo/release-skill
-claude plugin install foundation-adoption-review@release-skill
+claude plugin marketplace add ifoohoo/skill-family-hub
+claude plugin install foundation-adoption-review@skill-family-hub
 ```
+
+These commands become valid only after the release is published, verified, and accepted by the Hub. The repository's current source state does not by itself prove Marketplace availability.
+
+Because this is the Plugin's first Hub registration, the post-verification step creates a manual onboarding handoff. Later version updates can use the Hub's existing-entry proposal inbox.
 
 ## Minimal use
 
 Call `foundation-adoption-review` with the evidence that the diagnosis needs. The caller must provide the published Foundation version, a `capability-catalog` query result, and an `adopt-plan` result. Keep the request read-only:
 
 ```text
-Call foundation-adoption-review for this proposal.
+Help me run foundation-adoption-review for this proposal.
 I will provide:
 - the published Foundation version;
 - the capability-catalog query result;

@@ -1,0 +1,19 @@
+version: 0.17.0
+date: 2026-09-05
+locales:
+  en:
+    summary: Aligns the read-only Foundation adoption diagnosis Plugin with Foundation 0.17.0 and moves public installation to Skill Family Hub.
+    changes:
+      changed:
+        - Aligns the Plugin version with Foundation 0.17.0 without joining the three-package Foundation dependency chain.
+        - Makes Skill Family Hub the only public Marketplace; the Plugin repository carries no Marketplace index.
+        - Produces a manual onboarding handoff after release verification because this is the Plugin's first Hub registration.
+    upgradeNotes: Version 0.1.0 remains an immutable historical PUBLISHED release and is not retroactively reported as VERIFIED. Install 0.17.0 only after its GitHub release is verified and Skill Family Hub accepts and publishes the first registration.
+  zh-CN:
+    summary: 将只读的 Foundation 采用诊断 Plugin 与 Foundation 0.17.0 数值对齐，并把公开安装入口迁移到 Skill Family Hub。
+    changes:
+      changed:
+        - Plugin 版本与 Foundation 0.17.0 数值对齐，不进入 Foundation 三包依赖链。
+        - Skill Family Hub 成为唯一公开市场；Plugin 仓不携带市场索引。
+        - 该版本首次进入 Hub，因此发布验证后生成一份人工登记交接单。
+    upgradeNotes: 0.1.0 保留为不可变的历史 PUBLISHED 版本，不追认其为 VERIFIED。0.17.0 的 GitHub 发布完成验证且 Hub 接受并公开首次登记后，才能从 Hub 安装。
