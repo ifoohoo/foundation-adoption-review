@@ -1,0 +1,17 @@
+version: 0.19.0
+date: 2026-09-07
+locales:
+  en:
+    summary: Aligns the read-only Foundation adoption diagnosis Plugin with Foundation 0.19.0 and adds batch entry-point selection guidance.
+    changes:
+      changed:
+        - Aligns the Plugin version with Foundation 0.19.0 without joining the three-package Foundation dependency chain.
+        - "Adds minimal batch entry selection rules to the Skill: same-process calls keep the existing object entry; independent cross-process canonical-json requests within capacity are batch candidates; dependent, oversized, or unsupported requests keep the original path; an exact version without the entry cannot claim availability; a candidate catalog match is not stable adoption."
+    upgradeNotes: Versions 0.1.0 and 0.17.0 remain immutable published history. Install 0.19.0 only after its GitHub release is verified and Skill Family Hub publishes the registration. The Skill keeps its read-only diagnosis boundary and reads caller-provided catalogs and adopt-plan results.
+  zh-CN:
+    summary: 将只读的 Foundation 采用诊断 Plugin 与 Foundation 0.19.0 数值对齐，并补充批量入口选择指导。
+    changes:
+      changed:
+        - Plugin 版本与 Foundation 0.19.0 数值对齐，不进入 Foundation 三包依赖链。
+        - Skill 补充最小批量入口选择规则：同进程调用保留既有对象入口；跨进程、相互独立且容量允许的 canonical-json 请求作为批量候选；有依赖、超限或未支持的请求保留原路径；旧精确版本没有该入口时不能声称可用；候选目录命中不构成稳定采用。
+    upgradeNotes: 0.1.0 与 0.17.0 保留为不可变的历史发布。0.19.0 的 GitHub 发布完成验证且 Skill Family Hub 公开登记后，才能安装。Skill 保持只读诊断边界，继续读取调用方提供的能力目录与 adopt-plan 结果。

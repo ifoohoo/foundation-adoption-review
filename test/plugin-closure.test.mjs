@@ -19,7 +19,7 @@ test("plugin closure contains one skill and two host manifests", async () => {
   const releaseNotes017 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.17.0.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.17.0");
+  assert.equal(packageJson.version, "0.19.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -52,7 +52,7 @@ test("plugin closure contains one skill and two host manifests", async () => {
     assert.equal(Object.hasOwn(packageJson, field), false, `package.json must not declare ${field}`);
   }
   assert.equal(codex.name, "foundation-adoption-review");
-  assert.equal(codex.version, "0.17.0");
+  assert.equal(codex.version, "0.19.0");
   assert.equal(claude.name, codex.name);
   assert.equal(claude.version, codex.version);
   assert.equal(claude.skills, codex.skills);
@@ -65,9 +65,9 @@ test("plugin closure contains one skill and two host manifests", async () => {
   );
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "010e8143b9dbf8f436fc7daae6590a0503ce07f1a9d7cb4db13cd499a8e02c2f"],
-    [".claude-plugin/plugin.json", "9b014c7ba30f04dbb58e46aba4c1b308a97dc718b479af2d156e461ee0566c1d"],
-    ["skills/foundation-adoption-review/SKILL.md", "11495686fbf9b0f882e9fb25881301710a85511767cfcecfb70d0c4b5ba3aac8"],
+    [".codex-plugin/plugin.json", "2343490097b12179a6076b0b23b59bd2ed49a46529043b63f0d6288cebb6580a"],
+    [".claude-plugin/plugin.json", "5354cc8dca6c42f1164db4f18ec2300cc27c4b076999fd5bc0ab387438a2f817"],
+    ["skills/foundation-adoption-review/SKILL.md", "60af0cff92e4ae1fbfdf4805d12ec6bbde23bbf781a2b73fee587e25c792a61f"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
   for (const [relativePath, expected] of expectedHashes) {
