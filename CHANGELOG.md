@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.19.1] - 2026-09-08
+
+- Aligned the Plugin source candidate with the Foundation 0.19.1 patch version; its independent release authority and package boundary are unchanged.
+- Verified the batch entry-point guidance through the real Skill entry with exact 0.19.0 and 0.18.0 Foundation inputs. The existing instructions covered the frozen scenarios, so no Skill change was required.
+
 ## [0.19.0] - 2026-09-07
 
 - Aligned the Plugin's version number with Foundation 0.19.0 while preserving its independent release authority and package boundary.

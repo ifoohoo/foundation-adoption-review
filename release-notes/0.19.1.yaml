@@ -1,0 +1,17 @@
+version: 0.19.1
+date: 2026-09-08
+locales:
+  en:
+    summary: Foundation Adoption Review 0.19.1 aligns the read-only Plugin with the Foundation patch and confirms its existing batch guidance through the real Skill entry.
+    changes:
+      changed:
+        - Aligns the independent Plugin version with Foundation 0.19.1 without joining the three-package dependency chain.
+        - Confirms that the existing Skill guidance handles the frozen 0.19.0 and 0.18.0 scenarios, so no Skill instruction change is required.
+    upgradeNotes: Install 0.19.1 only after its GitHub release is verified and Skill Family Hub publishes the registration update. The Plugin remains read-only and independently released.
+  zh-CN:
+    summary: Foundation Adoption Review 0.19.1 与 Foundation 补丁版本对齐，并通过真实 Skill 入口确认既有批量指导。
+    changes:
+      changed:
+        - 独立 Plugin 版本与 Foundation 0.19.1 对齐，不进入三包依赖链。
+        - 真实补验确认既有 Skill 指令能处理冻结的 0.19.0 与 0.18.0 场景，因此无需修改 Skill 指令。
+    upgradeNotes: 0.19.1 的 GitHub Release 验证完成且 Skill Family Hub 发布登记更新后，才能安装。Plugin 保持只读和独立发布边界。
