@@ -1,0 +1,21 @@
+version: 0.19.2
+date: 2026-09-08
+locales:
+  en:
+    summary: Foundation Adoption Review 0.19.2 adds Kimi Code, CodeBuddy, and WorkBuddy distribution compatibility while keeping one read-only Skill and unchanged diagnosis semantics.
+    changes:
+      added:
+        - Adds a Kimi Code manifest that points to the existing shared Skill directory.
+      changed:
+        - Extends Skill Family Hub distribution to Kimi Code and to the shared CodeBuddy/WorkBuddy surface. CodeBuddy and WorkBuddy use the existing Claude manifest compatibility path and remain separate host qualifications.
+        - Aligns the independent Plugin version with Foundation 0.19.2 without joining the three-package dependency chain.
+    upgradeNotes: Install 0.19.2 only after its GitHub Release is verified and Skill Family Hub publishes the immutable registration update. Kimi Code, CodeBuddy, and WorkBuddy must each complete their own installation, discovery, and invocation checks.
+  zh-CN:
+    summary: Foundation Adoption Review 0.19.2 增加 Kimi Code、CodeBuddy 和 WorkBuddy 分发兼容性，继续共用一份只读 Skill，诊断语义不变。
+    changes:
+      added:
+        - 新增 Kimi Code manifest，指向既有共享 Skill 目录。
+      changed:
+        - Skill Family Hub 分发面扩展到 Kimi Code 和 CodeBuddy/WorkBuddy 共享入口。CodeBuddy 与 WorkBuddy 使用既有 Claude manifest 兼容路径，两个宿主仍须分别验收。
+        - 独立 Plugin 版本与 Foundation 0.19.2 对齐，不进入三包依赖链。
+    upgradeNotes: 0.19.2 的 GitHub Release 验证完成且 Skill Family Hub 发布不可变登记更新后，才能安装。Kimi Code、CodeBuddy 和 WorkBuddy 须分别完成安装、发现与调用检查。

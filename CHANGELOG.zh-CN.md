@@ -1,5 +1,11 @@
 # 变更日志
 
+## [0.19.2] - 2026-09-08
+
+- 新增 Kimi Code manifest，继续只维护一份规范、只读的 Skill。
+- Skill Family Hub 分发兼容面扩展到 Kimi Code 和 CodeBuddy/WorkBuddy 共享入口。CodeBuddy 与 WorkBuddy 保留 Claude manifest 兼容回退，并分别验收宿主结果。
+- 独立 Plugin 源码候选版本与 Foundation 0.19.2 数值对齐，诊断语义和三包依赖边界不变。
+
 ## [0.19.1] - 2026-09-08
 
 - Plugin 源码候选版本与 Foundation 0.19.1 补丁版本对齐；独立发布权威和包边界不变。

@@ -7,19 +7,21 @@ import { fileURLToPath } from "node:url";
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-test("plugin closure contains one skill and two host manifests", async () => {
+test("plugin closure contains one skill and three host manifests", async () => {
   const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
   const codex = JSON.parse(await readFile(path.join(PACKAGE_ROOT, ".codex-plugin/plugin.json"), "utf8"));
   const claude = JSON.parse(await readFile(path.join(PACKAGE_ROOT, ".claude-plugin/plugin.json"), "utf8"));
+  const kimi = JSON.parse(await readFile(path.join(PACKAGE_ROOT, ".kimi-plugin/plugin.json"), "utf8"));
   const readme = await readFile(path.join(PACKAGE_ROOT, "README.md"), "utf8");
   const readmeZh = await readFile(path.join(PACKAGE_ROOT, "README.zh-CN.md"), "utf8");
   const changelog = await readFile(path.join(PACKAGE_ROOT, "CHANGELOG.md"), "utf8");
   const changelogZh = await readFile(path.join(PACKAGE_ROOT, "CHANGELOG.zh-CN.md"), "utf8");
   const releaseNotes010 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.1.0.yaml"), "utf8");
   const releaseNotes017 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.17.0.yaml"), "utf8");
+  const releaseNotes0192 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.2.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.19.1");
+  assert.equal(packageJson.version, "0.19.2");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -34,7 +36,7 @@ test("plugin closure contains one skill and two host manifests", async () => {
   }
   assert.match(readme, /published, verified, and accepted by the Hub/);
   assert.match(readmeZh, /发布完成、验证通过且 Hub 接受登记/);
-  for (const source of [changelog, changelogZh, releaseNotes017]) {
+  for (const source of [changelog, changelogZh, releaseNotes017, releaseNotes0192]) {
     assert.ok(source.includes("Skill Family Hub"), "release documentation must name Skill Family Hub");
     assert.equal(source.includes("ifoohoo/release-skill"), false, "release documentation must not restore the obsolete Marketplace");
   }
@@ -44,6 +46,8 @@ test("plugin closure contains one skill and two host manifests", async () => {
     ".claude-plugin/marketplace.json",
     ".agents/plugins/marketplace.json",
     ".codebuddy-plugin/marketplace.json",
+    ".codebuddy-plugin/plugin.json",
+    ".workbuddy-plugin/plugin.json",
     "kimi-marketplace.json",
   ]) {
     await assert.rejects(access(path.join(PACKAGE_ROOT, relative)), { code: "ENOENT" });
@@ -51,12 +55,13 @@ test("plugin closure contains one skill and two host manifests", async () => {
   for (const field of ["exports", "bin", "files", "dependencies", "devDependencies"]) {
     assert.equal(Object.hasOwn(packageJson, field), false, `package.json must not declare ${field}`);
   }
-  assert.equal(codex.name, "foundation-adoption-review");
-  assert.equal(codex.version, "0.19.1");
-  assert.equal(claude.name, codex.name);
-  assert.equal(claude.version, codex.version);
-  assert.equal(claude.skills, codex.skills);
+  for (const manifest of [claude, codex, kimi]) {
+    assert.equal(manifest.name, "foundation-adoption-review");
+    assert.equal(manifest.version, "0.19.2");
+    assert.equal(manifest.skills, "./skills/");
+  }
   assert.equal(Object.hasOwn(claude, "interface"), false);
+  assert.equal(Object.hasOwn(kimi, "interface"), false);
   assert.ok(Object.hasOwn(codex, "interface"));
   assert.deepEqual(await readdir(path.join(PACKAGE_ROOT, "skills")), ["foundation-adoption-review"]);
   assert.deepEqual(
@@ -65,8 +70,9 @@ test("plugin closure contains one skill and two host manifests", async () => {
   );
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "5a3d6cded9ab8dd9c95dda4b6040e351c71566b045ae63803a03684589c1cccf"],
-    [".claude-plugin/plugin.json", "72e299c814b93537eb2ba83bcefc59b7906017d5bee9088267a0a6e3e5674903"],
+    [".codex-plugin/plugin.json", "6acff3f90ad544d3dfdb226eb917e01726e8d5dc755407818ffca7dc189574d2"],
+    [".claude-plugin/plugin.json", "b01fc9b86bb15604edd41335b6b2b478efb049a69268c0f486a3192b74cb85a2"],
+    [".kimi-plugin/plugin.json", "b01fc9b86bb15604edd41335b6b2b478efb049a69268c0f486a3192b74cb85a2"],
     ["skills/foundation-adoption-review/SKILL.md", "60af0cff92e4ae1fbfdf4805d12ec6bbde23bbf781a2b73fee587e25c792a61f"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);

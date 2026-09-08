@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.19.2] - 2026-09-08
+
+- Added the Kimi Code manifest while retaining one canonical read-only Skill.
+- Extended Skill Family Hub distribution compatibility to Kimi Code and the shared CodeBuddy/WorkBuddy surface. CodeBuddy and WorkBuddy keep the Claude-manifest fallback and require separate host verification.
+- Aligned the independent Plugin source candidate with Foundation 0.19.2 without changing diagnosis semantics or joining the three-package dependency chain.
+
 ## [0.19.1] - 2026-09-08
 
 - Aligned the Plugin source candidate with the Foundation 0.19.1 patch version; its independent release authority and package boundary are unchanged.
