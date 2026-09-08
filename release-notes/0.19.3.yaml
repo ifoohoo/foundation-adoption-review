@@ -1,0 +1,21 @@
+version: 0.19.3
+date: 2026-09-08
+locales:
+  en:
+    summary: Foundation Adoption Review 0.19.3 adds Qoder packaging and prepares immutable Skill Family Hub distribution while keeping one read-only Skill and unchanged diagnosis semantics.
+    changes:
+      added:
+        - Adds a Qoder manifest that points to the existing shared Skill directory.
+      changed:
+        - Prepares immutable Qoder distribution through Skill Family Hub. Installation, discovery, source binding, Skill loading, and invocation remain separate post-release checks.
+        - Aligns the independent Plugin version with Foundation 0.19.3 without joining the three-package dependency chain.
+    upgradeNotes: Install 0.19.3 only after its GitHub Release is verified and Skill Family Hub publishes the immutable registration update. Qoder CLI 1.1.30 must then complete separate installation, discovery, source-binding, Skill-loading, and invocation checks.
+  zh-CN:
+    summary: Foundation Adoption Review 0.19.3 增加 Qoder 打包并准备通过 Skill Family Hub 提供不可变分发，继续共用一份只读 Skill，诊断语义不变。
+    changes:
+      added:
+        - 新增 Qoder manifest，指向既有共享 Skill 目录。
+      changed:
+        - 准备通过 Skill Family Hub 提供不可变 Qoder 分发。安装、发现、来源绑定、Skill 加载和调用仍在发布后分别验收。
+        - 独立 Plugin 版本与 Foundation 0.19.3 对齐，不进入三包依赖链。
+    upgradeNotes: 0.19.3 的 GitHub Release 验证完成且 Skill Family Hub 发布不可变登记更新后，才能安装。随后须使用 Qoder CLI 1.1.30 分别完成安装、发现、来源绑定、Skill 加载和调用检查。

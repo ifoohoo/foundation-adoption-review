@@ -1,5 +1,11 @@
 # 变更日志
 
+## [0.19.3] - 2026-09-08
+
+- 新增 Qoder manifest，指向既有规范、只读的 Skill。
+- 准备通过 Skill Family Hub 提供不可变 Qoder 分发；安装、发现、来源绑定、Skill 加载和调用仍在发布后分别验收。
+- 独立 Plugin 源码候选版本与 Foundation 0.19.3 数值对齐，诊断语义和三包依赖边界不变。
+
 ## [0.19.2] - 2026-09-08
 
 - 新增 Kimi Code manifest，继续只维护一份规范、只读的 Skill。

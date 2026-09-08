@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.19.3] - 2026-09-08
+
+- Added a Qoder manifest that points to the existing canonical read-only Skill.
+- Prepared immutable Qoder distribution through Skill Family Hub while keeping installation, discovery, source binding, Skill loading, and invocation as separate post-release checks.
+- Aligned the independent Plugin source candidate with Foundation 0.19.3 without changing diagnosis semantics or joining the three-package dependency chain.
+
 ## [0.19.2] - 2026-09-08
 
 - Added the Kimi Code manifest while retaining one canonical read-only Skill.
