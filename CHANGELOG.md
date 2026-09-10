@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0] - 2026-09-10
+
+- Added the standard root `plugin.json` required to submit the public mirror as a Cursor Agent Plugin.
+- Extended the verified public release closure with the Cursor manifest while retaining one shared read-only Skill and all existing host manifests.
+- Aligned the independent Plugin source with Foundation 0.20.0 without changing diagnosis semantics or joining the three-package dependency chain.
+- Kept Cursor Marketplace submission and review outside this GitHub release.
+
 ## [0.19.3] - 2026-09-08
 
 - Added a Qoder manifest that points to the existing canonical read-only Skill.

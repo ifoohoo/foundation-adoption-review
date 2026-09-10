@@ -6,12 +6,72 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const AGENT_PLUGIN_MANIFEST_PATH = "plugin.json";
+const AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json";
+const AGENT_PLUGIN_NAME = /^(?!.*(?:--|\.\.))[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
+const AGENT_PLUGIN_FIELDS = Object.freeze([
+  "$schema",
+  "name",
+  "version",
+  "description",
+  "author",
+  "license",
+]);
+const AGENT_PLUGIN_AUTHOR_FIELDS = Object.freeze(["email", "name", "url"]);
 const MANIFEST_PATHS = Object.freeze([
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
   ".kimi-plugin/plugin.json",
   ".qoder-plugin/plugin.json",
 ]);
+
+function agentPluginProblems({ packageJson, manifest }) {
+  if (!manifest) return [`${AGENT_PLUGIN_MANIFEST_PATH}:missing`];
+
+  const problems = [];
+  const expected = {
+    $schema: AGENT_PLUGIN_SCHEMA,
+    name: packageJson.name,
+    version: packageJson.version,
+    description: packageJson.description,
+    author: packageJson.author,
+    license: packageJson.license,
+  };
+  for (const [field, value] of Object.entries(expected)) {
+    if (!Object.hasOwn(manifest, field) || JSON.stringify(manifest[field]) !== JSON.stringify(value)) {
+      problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:${field}`);
+    }
+  }
+  if (
+    typeof manifest.name !== "string"
+    || manifest.name.length < 1
+    || manifest.name.length > 64
+    || !AGENT_PLUGIN_NAME.test(manifest.name)
+  ) {
+    problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:name`);
+  }
+  for (const field of ["version", "description", "license"]) {
+    if (typeof manifest[field] !== "string") {
+      problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:${field}`);
+    }
+  }
+  const author = manifest.author;
+  if (author === null || typeof author !== "object" || Array.isArray(author)) {
+    problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:author`);
+  } else {
+    if (Object.keys(author).some((field) => !AGENT_PLUGIN_AUTHOR_FIELDS.includes(field))) {
+      problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:author`);
+    }
+    if (Object.values(author).some((value) => typeof value !== "string")) {
+      problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:author`);
+    }
+  }
+  if (Object.hasOwn(manifest, "skills")) problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:skills`);
+  if (JSON.stringify(Object.keys(manifest).sort()) !== JSON.stringify([...AGENT_PLUGIN_FIELDS].sort())) {
+    problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:fields`);
+  }
+  return problems;
+}
 
 function manifestProblems({ packageJson, manifests, skillDirectories, skillFiles }) {
   const problems = [];
@@ -48,8 +108,11 @@ function manifestProblems({ packageJson, manifests, skillDirectories, skillFiles
   return problems;
 }
 
-test("plugin closure contains one skill and four host manifests", async () => {
+test("plugin closure contains one skill, four host manifests, and one Agent Plugin manifest", async () => {
   const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
+  const agentPluginManifest = JSON.parse(
+    await readFile(path.join(PACKAGE_ROOT, AGENT_PLUGIN_MANIFEST_PATH), "utf8"),
+  );
   const manifests = Object.fromEntries(await Promise.all(MANIFEST_PATHS.map(async (manifestPath) => [
     manifestPath,
     JSON.parse(await readFile(path.join(PACKAGE_ROOT, manifestPath), "utf8")),
@@ -68,7 +131,7 @@ test("plugin closure contains one skill and four host manifests", async () => {
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.19.3");
+  assert.equal(packageJson.version, "0.20.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -105,16 +168,17 @@ test("plugin closure contains one skill and four host manifests", async () => {
   const skillDirectories = await readdir(path.join(PACKAGE_ROOT, "skills"));
   const skillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-adoption-review"));
   assert.deepEqual(manifestProblems({ packageJson, manifests, skillDirectories, skillFiles }), []);
+  assert.deepEqual(agentPluginProblems({ packageJson, manifest: agentPluginManifest }), []);
   assert.equal(Object.hasOwn(claude, "interface"), false);
   assert.equal(Object.hasOwn(kimi, "interface"), false);
   assert.equal(Object.hasOwn(qoder, "interface"), false);
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "eae437c98d5002b3de920cf629ccd62049d60b14947a9d0afb6b78547aef8667"],
-    [".claude-plugin/plugin.json", "f78993d693b88f6e3c0d6be8c5c3e3fed573918894dd115ff9ce515a7c2c28bf"],
-    [".kimi-plugin/plugin.json", "f78993d693b88f6e3c0d6be8c5c3e3fed573918894dd115ff9ce515a7c2c28bf"],
-    [".qoder-plugin/plugin.json", "f78993d693b88f6e3c0d6be8c5c3e3fed573918894dd115ff9ce515a7c2c28bf"],
+    [".codex-plugin/plugin.json", "d758b63e553370b66733d7f9aadc498a26143b2f482b665a32d41395632a2e92"],
+    [".claude-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
+    [".kimi-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
+    [".qoder-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
     ["skills/foundation-adoption-review/SKILL.md", "60af0cff92e4ae1fbfdf4805d12ec6bbde23bbf781a2b73fee587e25c792a61f"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
@@ -152,4 +216,77 @@ test("plugin closure rejects missing or drifted Qoder metadata and extra Skill c
   const copiedSkill = structuredClone(valid);
   copiedSkill.skillDirectories.push("foundation-adoption-review-qoder");
   assert.ok(manifestProblems(copiedSkill).includes("skills:directories"));
+});
+
+test("plugin closure rejects missing or drifted Agent Plugin metadata and explicit Skill routing", async () => {
+  const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
+  const manifest = JSON.parse(await readFile(path.join(PACKAGE_ROOT, AGENT_PLUGIN_MANIFEST_PATH), "utf8"));
+
+  assert.ok(agentPluginProblems({ packageJson, manifest: undefined }).includes("plugin.json:missing"));
+
+  const driftedSchema = structuredClone(manifest);
+  driftedSchema.$schema = "https://agent-plugins.org/schemas/0.9.0/plugin.schema.json";
+  assert.ok(agentPluginProblems({ packageJson, manifest: driftedSchema }).includes("plugin.json:$schema"));
+
+  const driftedIdentity = structuredClone(manifest);
+  driftedIdentity.version = "0.19.2";
+  assert.ok(agentPluginProblems({ packageJson, manifest: driftedIdentity }).includes("plugin.json:version"));
+
+  for (const invalidName of [42, "", "a".repeat(65), "Uppercase", "double--dash", "double..dot", "trailing-"]) {
+    const invalidIdentity = {
+      packageJson: structuredClone(packageJson),
+      manifest: structuredClone(manifest),
+    };
+    invalidIdentity.packageJson.name = invalidName;
+    invalidIdentity.manifest.name = invalidName;
+    assert.ok(
+      agentPluginProblems(invalidIdentity).includes("plugin.json:name"),
+      `synchronized invalid name must fail: ${JSON.stringify(invalidName)}`,
+    );
+  }
+
+  for (const [field, value] of [
+    ["version", 193],
+    ["description", ["read-only"]],
+    ["license", null],
+  ]) {
+    const invalidIdentity = {
+      packageJson: structuredClone(packageJson),
+      manifest: structuredClone(manifest),
+    };
+    invalidIdentity.packageJson[field] = value;
+    invalidIdentity.manifest[field] = value;
+    assert.ok(
+      agentPluginProblems(invalidIdentity).includes(`plugin.json:${field}`),
+      `synchronized invalid ${field} type must fail`,
+    );
+  }
+
+  for (const author of [
+    [],
+    null,
+    { name: "Foundation", company: "Example" },
+    { name: 42 },
+    { name: "Foundation", email: ["maintainer@example.test"] },
+    { name: "Foundation", url: { href: "https://example.test" } },
+  ]) {
+    const invalidIdentity = {
+      packageJson: structuredClone(packageJson),
+      manifest: structuredClone(manifest),
+    };
+    invalidIdentity.packageJson.author = author;
+    invalidIdentity.manifest.author = author;
+    assert.ok(
+      agentPluginProblems(invalidIdentity).includes("plugin.json:author"),
+      `synchronized invalid author must fail: ${JSON.stringify(author)}`,
+    );
+  }
+
+  const explicitSkills = structuredClone(manifest);
+  explicitSkills.skills = "./skills/";
+  assert.ok(agentPluginProblems({ packageJson, manifest: explicitSkills }).includes("plugin.json:skills"));
+
+  const expandedSurface = structuredClone(manifest);
+  expandedSurface.homepage = packageJson.homepage;
+  assert.ok(agentPluginProblems({ packageJson, manifest: expandedSurface }).includes("plugin.json:fields"));
 });

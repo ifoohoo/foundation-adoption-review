@@ -1,5 +1,12 @@
 # 变更日志
 
+## [0.20.0] - 2026-09-10
+
+- 增加标准根级 `plugin.json`，公开镜像可以据此提交 Cursor Agent Plugin 审核。
+- 经验证的公开发布闭包纳入 Cursor manifest，继续共用一份只读 Skill，并保留既有宿主清单。
+- 独立 Plugin 源码与 Foundation 0.20.0 数值对齐，诊断语义和三包依赖边界不变。
+- Cursor Marketplace 的提交与审核不属于本次 GitHub 发布。
+
 ## [0.19.3] - 2026-09-08
 
 - 新增 Qoder manifest，指向既有规范、只读的 Skill。

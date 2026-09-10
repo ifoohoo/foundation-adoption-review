@@ -8,7 +8,7 @@
 
 这个目录位于 Foundation monorepo 内，但它是独立的 Plugin 发布单元，不是第四个 Foundation npm 包。`package.json` 保持 `private`，目的只是禁止 `npm publish`；开源镜像是 [ifoohoo/foundation-adoption-review](https://github.com/ifoohoo/foundation-adoption-review)，按 Apache-2.0 许可证发布。
 
-Plugin 只维护一份共享 Skill。Claude、Codex、Kimi 与 Qoder 的 manifest 都指向同一个 `skills/` 目录。CodeBuddy 和 WorkBuddy 使用 Hub 已声明的 Claude manifest 兼容路径，宿主资格仍分别验收。任何宿主都不复制 Skill。
+Plugin 只维护一份共享 Skill。根级 Agent Plugin manifest 用于准备 Cursor 分发；Claude、Codex、Kimi 与 Qoder 的 manifest 都指向同一个 `skills/` 目录。CodeBuddy 和 WorkBuddy 使用 Hub 已声明的 Claude manifest 兼容路径，宿主资格仍分别验收。任何宿主都不复制 Skill。
 
 从 0.17.0 开始，Plugin 版本号与 Foundation 数值对齐。该调整只涉及版本号；Plugin 继续作为独立发布单元，历史 0.1.0 发布保持不变。
 
@@ -18,7 +18,7 @@ Plugin 只读取调用方提供的结果，不写入项目。它不会安装或�
 
 ## 安装
 
-这是一个开源 Plugin，不是 npm 包。Skill Family Hub 是唯一公开市场。插件仓只携带四份宿主清单和一份 Skill 载荷，不携带市场索引。先添加 Hub，再安装插件：
+这是一个开源 Plugin，不是 npm 包。Skill Family Hub 是当前公开市场。插件仓携带一份根级 Agent Plugin manifest、四份宿主清单和一份 Skill 载荷，不携带市场索引。Cursor Marketplace 的提交与审核另行处理。先添加 Hub，再从已支持的 Hub 路径安装插件：
 
 ```text
 # Codex
@@ -38,7 +38,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code 由 release-skill 的受控交互流程从冻结的 Plugin 公开仓和精确 0.19.3 tag 安装。它在 Hub 中的登记与 gate 单独验证，Hub 更新完成后才执行宿主路径。WorkBuddy 使用桌面端插件市场，并与 CodeBuddy 共用 Hub 的 `codebuddy` 分发面，但它的安装、发现和调用结果必须独立检查。Qoder 使用 Hub 的 `qoder` 分发面；安装、发现、来源绑定、Skill 加载和一次只读调用须在 Qoder CLI 1.1.30 上分别验收。
+Kimi Code 由 release-skill 的受控交互流程从冻结的 Plugin 公开仓和精确 0.20.0 tag 安装。它在 Hub 中的登记与 gate 单独验证，Hub 更新完成后才执行宿主路径。WorkBuddy 使用桌面端插件市场，并与 CodeBuddy 共用 Hub 的 `codebuddy` 分发面，但它的安装、发现和调用结果必须独立检查。Qoder 使用 Hub 的 `qoder` 分发面；安装、发现、来源绑定、Skill 加载和一次只读调用须在 Qoder CLI 1.1.30 上分别验收。
 
 只有发布完成、验证通过且 Hub 接受登记后，才执行这些宿主检查。发布后验证步骤会为既有条目生成冻结的更新提案，再由 Hub 的独立流程摄入、校验并发布。仓库当前的源码状态不能单独证明市场已经可用。
 

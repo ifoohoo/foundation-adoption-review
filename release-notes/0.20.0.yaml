@@ -1,0 +1,21 @@
+version: 0.20.0
+date: 2026-09-10
+locales:
+  en:
+    summary: Foundation Adoption Review 0.20.0 adds a root Agent Plugin manifest for Cursor while preserving one shared read-only Skill and the existing host manifests.
+    changes:
+      added:
+        - Adds the standard root `plugin.json` required to submit the public mirror as an Agent Plugin.
+      changed:
+        - Extends the verified public release closure to include the Cursor manifest without copying the shared Skill.
+        - Aligns the independent Plugin version with Foundation 0.20.0 without joining the three-package dependency chain.
+    upgradeNotes: The GitHub release publishes a Cursor-ready Agent Plugin repository, but Cursor Marketplace availability still requires its separate submission and review process.
+  zh-CN:
+    summary: Foundation Adoption Review 0.20.0 增加 Cursor 使用的根级 Agent Plugin manifest，继续共用一份只读 Skill，并保留既有宿主清单。
+    changes:
+      added:
+        - 增加标准根级 `plugin.json`，公开镜像可以据此提交 Agent Plugin 审核。
+      changed:
+        - 经验证的公开发布闭包纳入 Cursor manifest，不复制共享 Skill。
+        - 独立 Plugin 版本与 Foundation 0.20.0 数值对齐，不进入三包依赖链。
+    upgradeNotes: GitHub Release 会发布已准备好提交 Cursor 审核的 Agent Plugin 仓库；Cursor Marketplace 是否可用仍取决于单独的提交与审核流程。

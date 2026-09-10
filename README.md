@@ -8,7 +8,7 @@ This Plugin is for skill-family maintainers and other developers who need to dec
 
 This directory is an independent Plugin release unit inside the Foundation monorepo. It is not a fourth Foundation npm package. `package.json` is private only to prevent `npm publish`; the open-source mirror is [ifoohoo/foundation-adoption-review](https://github.com/ifoohoo/foundation-adoption-review), published with the Apache-2.0 license.
 
-The Plugin contains one shared Skill. Claude, Codex, Kimi, and Qoder manifests all point to the same `skills/` directory. CodeBuddy and WorkBuddy use the Hub's declared Claude-manifest compatibility path and remain separate host qualifications. No host receives a copied Skill.
+The Plugin contains one shared Skill. The root Agent Plugin manifest prepares Cursor distribution; the Claude, Codex, Kimi, and Qoder manifests point to the same `skills/` directory. CodeBuddy and WorkBuddy use the Hub's declared Claude-manifest compatibility path and remain separate host qualifications. No host receives a copied Skill.
 
 Starting with 0.17.0, the Plugin's version number aligns with Foundation. This is numerical alignment only: the Plugin remains an independent release unit, and the historical 0.1.0 release remains unchanged.
 
@@ -18,7 +18,7 @@ The Plugin reads supplied results and writes nothing. It does not install or upd
 
 ## Installation
 
-This is an open-source Plugin, not an npm package. Skill Family Hub is its only public Marketplace. The Plugin repository carries four host manifests and one Skill payload, but no Marketplace index. Add the Hub once, then install the Plugin:
+This is an open-source Plugin, not an npm package. Skill Family Hub is its current public Marketplace. The Plugin repository carries a root Agent Plugin manifest, four host manifests, and one Skill payload, but no Marketplace index. Cursor Marketplace submission and review remain separate. Add the Hub once, then install the Plugin on its supported Hub paths:
 
 ```text
 # Codex
@@ -38,7 +38,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact 0.19.3 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
+Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact 0.20.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
 
 These host checks run only after the release is published, verified, and accepted by the Hub. The post-verification step creates a frozen existing-entry update proposal for the Hub's independent process to ingest, validate, and publish. The repository's current source state does not by itself prove Marketplace availability.
 
