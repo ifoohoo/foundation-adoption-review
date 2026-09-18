@@ -131,7 +131,7 @@ test("plugin closure contains one skill, four host manifests, and one Agent Plug
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.20.0");
+  assert.equal(packageJson.version, "0.22.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -175,10 +175,10 @@ test("plugin closure contains one skill, four host manifests, and one Agent Plug
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "d758b63e553370b66733d7f9aadc498a26143b2f482b665a32d41395632a2e92"],
-    [".claude-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
-    [".kimi-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
-    [".qoder-plugin/plugin.json", "1899ab5402379e2902cd194968094d435b17fa7b136d8c58d59bf5482f8bec9d"],
+    [".codex-plugin/plugin.json", "c724adcf274af02884939856895a5791a7ab52b9b4fd298e162d7cf451f01393"],
+    [".claude-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
+    [".kimi-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
+    [".qoder-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
     ["skills/foundation-adoption-review/SKILL.md", "60af0cff92e4ae1fbfdf4805d12ec6bbde23bbf781a2b73fee587e25c792a61f"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);

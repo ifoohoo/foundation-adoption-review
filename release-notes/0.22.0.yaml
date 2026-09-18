@@ -1,0 +1,21 @@
+version: 0.22.0
+date: 2026-09-18
+locales:
+  en:
+    summary: Foundation Adoption Review 0.22.0 adds no new capability. It restores numerical lockstep with Foundation 0.22.0 so that all four release units share one version coordinate again.
+    changes:
+      changed:
+        - Aligns the independent Plugin source, root Agent Plugin manifest, and the four host manifests with Foundation 0.22.0; the single shared read-only Skill and all diagnosis semantics are unchanged.
+        - Moves directly from the published 0.20.0 to 0.22.0 because the previous Foundation release deliberately kept this unit unchanged, so no 0.21.0 Plugin release exists.
+      unchanged:
+        - The public closure remains the same explicit allowlist of manifests, one Skill, the closure test, the localized README and CHANGELOG pair, the historical release notes, the license, and the notice.
+    upgradeNotes: This release contains no functional change and adds no new capability; it exists to keep the four Foundation release units on one lockstep version. Cursor Marketplace submission and review remain outside this release.
+  zh-CN:
+    summary: Foundation Adoption Review 0.22.0 没有新增能力。本版本恢复与 Foundation 0.22.0 的数值锁步，使四个发布单元重新共用一个版本坐标。
+    changes:
+      changed:
+        - 独立 Plugin 源码、根级 Agent Plugin manifest 和四份宿主 manifest 与 Foundation 0.22.0 对齐；唯一共用的只读 Skill 与全部诊断语义保持不变。
+        - 从已发布的 0.20.0 直接前移到 0.22.0，因为上一轮 Foundation 发布有意保持本单元不变，不存在 0.21.0 的 Plugin 发布。
+      unchanged:
+        - 公开闭包仍是同一份显式白名单：各宿主 manifest、一份 Skill、闭包测试、中英文 README 与 CHANGELOG、历史发布说明、许可证和 NOTICE。
+    upgradeNotes: 本版本没有功能改动，也不新增能力，只为让四个 Foundation 发布单元保持同一锁步版本。Cursor Marketplace 的提交与审核仍不在本轮范围。

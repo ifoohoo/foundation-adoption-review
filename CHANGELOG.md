@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0] - 2026-09-18
+
+- Adds no new capability: this release restores numerical lockstep with Foundation 0.22.0 across all four release units.
+- Aligns the independent Plugin source, root Agent Plugin manifest, and the four host manifests with Foundation 0.22.0; the shared read-only Skill and all diagnosis semantics are unchanged.
+- Moves directly from the published 0.20.0 to 0.22.0 because the previous Foundation release deliberately kept this unit unchanged, so no 0.21.0 Plugin release exists.
+- Keeps Cursor Marketplace submission, Marketplace review, and local host upgrades outside this GitHub release.
+
 ## [0.20.0] - 2026-09-10
 
 - Added the standard root `plugin.json` required to submit the public mirror as a Cursor Agent Plugin.

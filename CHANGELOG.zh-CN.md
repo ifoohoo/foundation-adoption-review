@@ -1,5 +1,12 @@
 # 变更日志
 
+## [0.22.0] - 2026-09-18
+
+- 没有新增能力：本版本只为让四个发布单元重新与 Foundation 0.22.0 保持数值锁步。
+- 独立 Plugin 源码、根级 Agent Plugin manifest 和四份宿主 manifest 与 Foundation 0.22.0 对齐；共用的只读 Skill 与全部诊断语义保持不变。
+- 从已发布的 0.20.0 直接前移到 0.22.0，因为上一轮 Foundation 发布有意保持本单元不变，不存在 0.21.0 的 Plugin 发布。
+- Cursor Marketplace 的提交与审核、本机宿主升级仍不属于本次 GitHub 发布。
+
 ## [0.20.0] - 2026-09-10
 
 - 增加标准根级 `plugin.json`，公开镜像可以据此提交 Cursor Agent Plugin 审核。
