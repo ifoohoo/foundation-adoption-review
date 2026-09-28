@@ -1,0 +1,23 @@
+version: 0.23.0
+date: 2026-09-26
+locales:
+  en:
+    summary: Foundation Adoption Review 0.23.0 adds `foundation-engineering-check` for a complete static engineering review and for reading an existing Foundation proof, and corrects two accepted judgment errors. This note records the local lockstep candidate; it does not claim remote publication or real-host acceptance.
+    changes:
+      added:
+        - Adds the `foundation-engineering-check` Skill. It reviews a caller-selected static scope, or reads one existing Foundation-family proof, and does not execute target Skills, business scripts, or hooks. The existing `foundation-adoption-review` Skill still only diagnoses caller-supplied material.
+      changed:
+        - Version comparison now separates the npm package version, the Contracts specification version, and the target release-unit version, and compares only the same object. A specification coordinate such as Contracts 1.20.0 beside package 0.22.0 is not by itself a conflict. When the object cannot be identified, the item stays `insufficient`.
+        - A selected entry check that has not reached entity verification because `engineering.entries` is absent, while `releaseUnits` remains valid under the published schema, is recorded as `insufficient`. The diagnostic array name `findings` or an exit code of 1 does not by itself prove a violation. A separate mandatory breach with evidence remains `findings`.
+        - Aligns the Plugin source, the root Agent Plugin manifest, and the four host manifests with Foundation 0.23.0.
+    upgradeNotes: The four Foundation release units move together to 0.23.0. Remote publication, real-host verification, and Cursor Marketplace submission remain outside this note. The 0.22.0 Plugin release stays the last verified public baseline.
+  zh-CN:
+    summary: Foundation Adoption Review 0.23.0 新增 `foundation-engineering-check`，用于完整静态工程审阅和读取已有 Foundation 证明，并修正两项已经接受的判断错误。本说明只记录本地锁步候选，不表示已经远端发布，也不表示真实宿主已经接受。
+    changes:
+      added:
+        - 新增 `foundation-engineering-check` Skill。它按调用方选定的范围做静态审阅，或读取一份已有的本族证明；不执行目标 Skill、业务脚本或 hook（钩子程序）。既有 `foundation-adoption-review` 仍只诊断调用方已经提供的材料。
+      changed:
+        - 版本比较区分 npm 包版本、Contracts 规格版本和目标发行单元版本，并且只比较同一对象。Contracts 1.20.0 与包版本 0.22.0 并排出现，本身不构成冲突。无法确认对象时，该项保持 `insufficient`。
+        - 入口检查尚未进入实体核对，只是因为缺少 `engineering.entries`，而 `releaseUnits` 仍符合已发布 Schema 时，记为 `insufficient`。底层数组名叫 `findings`，或进程退出 1，都不能单独证明违规。另有强制合同并且已经取得违反证据时，该项仍记 `findings`。
+        - 独立 Plugin 源、根级 Agent Plugin manifest 和四份宿主 manifest 与 Foundation 0.23.0 对齐。
+    upgradeNotes: 四个 Foundation 发布单元一起前移到 0.23.0。远端发布、真实宿主验证和 Cursor Marketplace 提交仍不在本说明范围内。0.22.0 的 Plugin 发布仍是最近一次已验证的公开基线。

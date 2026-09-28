@@ -1,5 +1,26 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.23.0 locale=en baseline=sha256:b3dc2e2319dfde98d67569ed3664aa4badb31c26a89c61735b6ba03fa0146911 -->
+## [0.23.0] - 2026-09-26
+
+Foundation Adoption Review 0.23.0 adds `foundation-engineering-check` for a complete static engineering review and for reading an existing Foundation proof, and corrects two accepted judgment errors. This note records the local lockstep candidate; it does not claim remote publication or real-host acceptance.
+
+### Added
+
+- Adds the `foundation-engineering-check` Skill. It reviews a caller-selected static scope, or reads one existing Foundation-family proof, and does not execute target Skills, business scripts, or hooks. The existing `foundation-adoption-review` Skill still only diagnoses caller-supplied material.
+
+### Changed
+
+- Version comparison now separates the npm package version, the Contracts specification version, and the target release-unit version, and compares only the same object. A specification coordinate such as Contracts 1.20.0 beside package 0.22.0 is not by itself a conflict. When the object cannot be identified, the item stays `insufficient`.
+- A selected entry check that has not reached entity verification because `engineering.entries` is absent, while `releaseUnits` remains valid under the published schema, is recorded as `insufficient`. The diagnostic array name `findings` or an exit code of 1 does not by itself prove a violation. A separate mandatory breach with evidence remains `findings`.
+- Aligns the Plugin source, the root Agent Plugin manifest, and the four host manifests with Foundation 0.23.0.
+
+### Upgrade Notes
+
+The four Foundation release units move together to 0.23.0. Remote publication, real-host verification, and Cursor Marketplace submission remain outside this note. The 0.22.0 Plugin release stays the last verified public baseline.
+<!-- release-skill:changelog:end version=0.23.0 locale=en -->
+
+
 ## [0.22.0] - 2026-09-18
 
 - Adds no new capability: this release restores numerical lockstep with Foundation 0.22.0 across all four release units.

@@ -7,6 +7,8 @@ description: Read caller-provided Foundation capability catalog and adopt-plan r
 
 这项能力只做只读判断。输入由调用方提供，通常包括 Foundation 的 `capability-catalog.json` 查询结果、`adopt-plan` 结果，以及待解决的行为描述或变更计划。先确认输入中的 Foundation 版本和结果生成方式，再以输入里携带的事实作判断。
 
+项目需要对目标根做完整静态工程审阅、读取已有本族证明或投影共同结论时，转交 `foundation-engineering-check`。本入口继续只诊断调用方已经提供的材料，不执行 `check`，也不改成扫描授权。
+
 ## 诊断范围
 
 逐项回答“这个需求是否已有 Foundation 能力可复用”，并区分以下五种结果。能力 ID（稳定标识）用于把结论追溯回目录条目：

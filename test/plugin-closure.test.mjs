@@ -101,14 +101,17 @@ function manifestProblems({ packageJson, manifests, skillDirectories, skillFiles
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath}:skills`);
   }
 
-  if (JSON.stringify(skillDirectories) !== JSON.stringify(["foundation-adoption-review"])) {
+  if (
+    JSON.stringify([...skillDirectories].sort())
+    !== JSON.stringify(["foundation-adoption-review", "foundation-engineering-check"])
+  ) {
     problems.push("skills:directories");
   }
   if (JSON.stringify(skillFiles) !== JSON.stringify(["SKILL.md"])) problems.push("skills:files");
   return problems;
 }
 
-test("plugin closure contains one skill, four host manifests, and one Agent Plugin manifest", async () => {
+test("plugin closure contains two skills, four host manifests, and one Agent Plugin manifest", async () => {
   const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
   const agentPluginManifest = JSON.parse(
     await readFile(path.join(PACKAGE_ROOT, AGENT_PLUGIN_MANIFEST_PATH), "utf8"),
@@ -131,7 +134,7 @@ test("plugin closure contains one skill, four host manifests, and one Agent Plug
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.22.0");
+  assert.equal(packageJson.version, "0.23.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -167,7 +170,9 @@ test("plugin closure contains one skill, four host manifests, and one Agent Plug
   }
   const skillDirectories = await readdir(path.join(PACKAGE_ROOT, "skills"));
   const skillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-adoption-review"));
+  const engineeringSkillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-engineering-check"));
   assert.deepEqual(manifestProblems({ packageJson, manifests, skillDirectories, skillFiles }), []);
+  assert.deepEqual(engineeringSkillFiles, ["SKILL.md"]);
   assert.deepEqual(agentPluginProblems({ packageJson, manifest: agentPluginManifest }), []);
   assert.equal(Object.hasOwn(claude, "interface"), false);
   assert.equal(Object.hasOwn(kimi, "interface"), false);
@@ -175,11 +180,12 @@ test("plugin closure contains one skill, four host manifests, and one Agent Plug
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "c724adcf274af02884939856895a5791a7ab52b9b4fd298e162d7cf451f01393"],
-    [".claude-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
-    [".kimi-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
-    [".qoder-plugin/plugin.json", "5e22d5241248bfbef485d449ba6fe9df634eaa5811d0573b8ec435948cdbede3"],
-    ["skills/foundation-adoption-review/SKILL.md", "60af0cff92e4ae1fbfdf4805d12ec6bbde23bbf781a2b73fee587e25c792a61f"],
+    [".codex-plugin/plugin.json", "4700aeb8875b307754d5907ea7f8613e2b0bf02489f22ba54e4d95114edbabc4"],
+    [".claude-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
+    [".kimi-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
+    [".qoder-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
+    ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
+    ["skills/foundation-engineering-check/SKILL.md", "829d2711ba44427531eb1adb8ac26861d364031d08629110da2e7cc9b6614eeb"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
   for (const [relativePath, expected] of expectedHashes) {
@@ -197,7 +203,7 @@ test("plugin closure rejects missing or drifted Qoder metadata and extra Skill c
   const valid = {
     packageJson,
     manifests,
-    skillDirectories: ["foundation-adoption-review"],
+    skillDirectories: ["foundation-adoption-review", "foundation-engineering-check"],
     skillFiles: ["SKILL.md"],
   };
 

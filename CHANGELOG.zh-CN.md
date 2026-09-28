@@ -1,5 +1,26 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.23.0 locale=zh-CN baseline=sha256:cd0a84b52e8c58f9a9001652626d1747cbe3fa556e0098656014d5a20837f0a0 -->
+## [0.23.0] - 2026-09-26
+
+Foundation Adoption Review 0.23.0 新增 `foundation-engineering-check`，用于完整静态工程审阅和读取已有 Foundation 证明，并修正两项已经接受的判断错误。本说明只记录本地锁步候选，不表示已经远端发布，也不表示真实宿主已经接受。
+
+### 新增
+
+- 新增 `foundation-engineering-check` Skill。它按调用方选定的范围做静态审阅，或读取一份已有的本族证明；不执行目标 Skill、业务脚本或 hook（钩子程序）。既有 `foundation-adoption-review` 仍只诊断调用方已经提供的材料。
+
+### 变更
+
+- 版本比较区分 npm 包版本、Contracts 规格版本和目标发行单元版本，并且只比较同一对象。Contracts 1.20.0 与包版本 0.22.0 并排出现，本身不构成冲突。无法确认对象时，该项保持 `insufficient`。
+- 入口检查尚未进入实体核对，只是因为缺少 `engineering.entries`，而 `releaseUnits` 仍符合已发布 Schema 时，记为 `insufficient`。底层数组名叫 `findings`，或进程退出 1，都不能单独证明违规。另有强制合同并且已经取得违反证据时，该项仍记 `findings`。
+- 独立 Plugin 源、根级 Agent Plugin manifest 和四份宿主 manifest 与 Foundation 0.23.0 对齐。
+
+### 升级说明
+
+四个 Foundation 发布单元一起前移到 0.23.0。远端发布、真实宿主验证和 Cursor Marketplace 提交仍不在本说明范围内。0.22.0 的 Plugin 发布仍是最近一次已验证的公开基线。
+<!-- release-skill:changelog:end version=0.23.0 locale=zh-CN -->
+
+
 ## [0.22.0] - 2026-09-18
 
 - 没有新增能力：本版本只为让四个发布单元重新与 Foundation 0.22.0 保持数值锁步。

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "foundation-adoption-review",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "Read-only diagnosis of Foundation capability adoption and migration plans.",
   "author": {
     "name": "广州市风荷科技有限公司"
