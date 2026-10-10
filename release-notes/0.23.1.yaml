@@ -1,0 +1,17 @@
+version: 0.23.1
+date: 2026-10-05
+locales:
+  en:
+    summary: Foundation Adoption Review 0.23.1 has one behavior increment. When the engineering declaration is missing, it keeps only that related insufficiency and continues the other selected professional checks that can still run. This note records the local lockstep candidate. It does not say that remote publication or real-host acceptance has happened.
+    changes:
+      changed:
+        - When the selected engineering declaration is missing and entity verification has not started, record only that declaration item as `insufficient` and keep the original diagnosis in `reason`. Do not record `insufficient` as a pass, and do not hand-fill `FOUNDATION_STATIC_CLEAR`. If the caller also selected public capability adoption, or public call relationships and parameter boundaries, and those checks can still run on their own, they continue. The normal path with a declaration also continues.
+        - Aligns the Plugin source, the root Agent Plugin manifest, and the four host manifests with Foundation 0.23.1. This round adds no Skill and does not rebuild the public-plugin descriptor.
+    upgradeNotes: The four Foundation release units move together to 0.23.1. 0.23.1 remains a local candidate. Remote publication, real-host verification, and Cursor Marketplace submission are outside this note. On 2026-10-04 the four v0.23.0 remote tags were checked, and the npm latest versions of skill-family-contracts, skill-family-harness-node, and skill-family-engineering-kit were 0.23.0. This window did not check them again. This note does not record a GitHub Release object or overall formal publication as passed.
+  zh-CN:
+    summary: Foundation Adoption Review 0.23.1 的唯一行为增量是，缺工程声明时只保留这项相关不足，并继续其他仍可执行的已选专业检查。本说明只记录本地锁步候选，不表示已经远端发布，也不表示真实宿主已经接受。
+    changes:
+      changed:
+        - 所选工程声明缺失，并且还没有进入实体核对时，只把这一声明项记为 `insufficient`，`reason` 保留原始诊断。不得把 `insufficient` 写成通过，也不得手填 `FOUNDATION_STATIC_CLEAR`。用户同时选择了仍可独立执行的公共能力采用，或公共调用关系与参数边界时，这些检查继续。已有声明的正常路径也继续。
+        - 独立 Plugin 源、根级 Agent Plugin manifest 和四份宿主 manifest 与 Foundation 0.23.1 对齐。这一轮不新增 Skill，也不重建 public-plugin 描述符。
+    upgradeNotes: 四个 Foundation 发布单元一起前移到 0.23.1。0.23.1 仍是本地候选。远端发布、真实宿主验证和 Cursor Marketplace 提交不在本说明范围内。2026-10-04 已核对四个 v0.23.0 远端标签，以及 skill-family-contracts、skill-family-harness-node、skill-family-engineering-kit 三个 npm 包的 latest 都是 0.23.0。本窗口没有重查这些远端。本说明不把 GitHub Release 对象或整体正式发布写成已经通过。

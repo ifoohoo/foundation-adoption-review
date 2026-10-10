@@ -103,7 +103,7 @@ function manifestProblems({ packageJson, manifests, skillDirectories, skillFiles
 
   if (
     JSON.stringify([...skillDirectories].sort())
-    !== JSON.stringify(["foundation-adoption-review", "foundation-engineering-check"])
+    !== JSON.stringify(["foundation-adoption-review", "foundation-engineering-check", "foundation-initialize"])
   ) {
     problems.push("skills:directories");
   }
@@ -111,7 +111,7 @@ function manifestProblems({ packageJson, manifests, skillDirectories, skillFiles
   return problems;
 }
 
-test("plugin closure contains two skills, four host manifests, and one Agent Plugin manifest", async () => {
+test("plugin closure contains three skills, four host manifests, and one Agent Plugin manifest", async () => {
   const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
   const agentPluginManifest = JSON.parse(
     await readFile(path.join(PACKAGE_ROOT, AGENT_PLUGIN_MANIFEST_PATH), "utf8"),
@@ -134,7 +134,7 @@ test("plugin closure contains two skills, four host manifests, and one Agent Plu
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.23.0");
+  assert.equal(packageJson.version, "0.24.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -171,8 +171,12 @@ test("plugin closure contains two skills, four host manifests, and one Agent Plu
   const skillDirectories = await readdir(path.join(PACKAGE_ROOT, "skills"));
   const skillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-adoption-review"));
   const engineeringSkillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-engineering-check"));
+  const initializeSkillFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-initialize"));
+  const initializeReferenceFiles = await readdir(path.join(PACKAGE_ROOT, "skills/foundation-initialize/references"));
   assert.deepEqual(manifestProblems({ packageJson, manifests, skillDirectories, skillFiles }), []);
   assert.deepEqual(engineeringSkillFiles, ["SKILL.md"]);
+  assert.deepEqual([...initializeSkillFiles].sort(), ["SKILL.md", "references"]);
+  assert.deepEqual([...initializeReferenceFiles].sort(), ["execution-design.md", "foundation-wiring.md", "support-wiring.md"]);
   assert.deepEqual(agentPluginProblems({ packageJson, manifest: agentPluginManifest }), []);
   assert.equal(Object.hasOwn(claude, "interface"), false);
   assert.equal(Object.hasOwn(kimi, "interface"), false);
@@ -180,12 +184,16 @@ test("plugin closure contains two skills, four host manifests, and one Agent Plu
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "4700aeb8875b307754d5907ea7f8613e2b0bf02489f22ba54e4d95114edbabc4"],
-    [".claude-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
-    [".kimi-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
-    [".qoder-plugin/plugin.json", "a71ea6b0b8966c3fb685719c52a2ed2bb2b61ac233be8f35a5631cb339c9f85f"],
+    [".codex-plugin/plugin.json", "d096f1fd5634259e4f42a173c40d424bfb6c224b8e5f60a883eec44a948bcf4f"],
+    [".claude-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
+    [".kimi-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
+    [".qoder-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
     ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
-    ["skills/foundation-engineering-check/SKILL.md", "829d2711ba44427531eb1adb8ac26861d364031d08629110da2e7cc9b6614eeb"],
+    ["skills/foundation-engineering-check/SKILL.md", "fd3d3ebe6315ecf3133a91bbe3a39c15d983d2685b56785a9aab74467209c910"],
+    ["skills/foundation-initialize/SKILL.md", "f102a74adf7ebc161b2161ca9eb9405c80c047ca205282535273cc1889c93c50"],
+    ["skills/foundation-initialize/references/execution-design.md", "9f5345f86cf629836b8bc58292e7d3dc21e5e0a6caff828e9bec470bfa4cb64d"],
+    ["skills/foundation-initialize/references/foundation-wiring.md", "12c3e7c9d2505019a690e66e866c552f3c65e187df093ed807419618d8a71694"],
+    ["skills/foundation-initialize/references/support-wiring.md", "c7963f1ccc6e74d0a1c1edfc2f76fe2de11834fde4baea3e6eabde45018d19d0"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
   for (const [relativePath, expected] of expectedHashes) {
@@ -203,7 +211,7 @@ test("plugin closure rejects missing or drifted Qoder metadata and extra Skill c
   const valid = {
     packageJson,
     manifests,
-    skillDirectories: ["foundation-adoption-review", "foundation-engineering-check"],
+    skillDirectories: ["foundation-adoption-review", "foundation-engineering-check", "foundation-initialize"],
     skillFiles: ["SKILL.md"],
   };
 

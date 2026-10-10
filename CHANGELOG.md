@@ -1,5 +1,26 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.24.0 locale=en baseline=sha256:f5db693ba8f8cae96ee81c71134b0da898a8953c97dc9fb153bc5d6e1ac79ee1 -->
+## [0.24.0] - 2026-10-07
+
+Foundation Adoption Review 0.24.0 adds foundation-initialize to turn a minimal Skill or equivalent workflow proven through real business use into a maintainable skill-family project. This note records the local lockstep candidate; it does not prove complete initialization, remote publication, or real-host acceptance.
+
+### Added
+
+- The initializer writes only within the caller's authorization. It separately designs Skill layers, subagent responsibilities, and session boundaries, uses the existing scaffold, host projection, and support entries, and preserves business rules and human judgment. Pure Skills, projects without scripts, and projects without npm distribution remain normal paths.
+
+### Changed
+
+- The existing foundation-adoption-review and foundation-engineering-check entries remain read-only. Initialization adds no Foundation mechanism package, top-level command, public Schema, release state machine, or independent audit conclusion.
+- Includes the accepted 0.23.1 candidate fix: when an engineering declaration is missing before entity verification starts, only that declaration item is insufficient and reason retains the original diagnosis. Other selected professional checks continue when they can run independently. Insufficient material is not a pass, and FOUNDATION_STATIC_CLEAR must not be hand-filled.
+- Initialization explicitly registers newly handwritten sources through the public entry. Tool locks require a version supporting trackedToolLocks; projections, generated files, and logs are not handwritten sources. Check the host-required frontmatter before projection; discovery alone does not prove the business flow passed.
+
+### Upgrade Notes
+
+All four release units move together to 0.24.0; pin the three npm packages to the exact same version. Complete business trials, valid Profile adoption, an over-capacity handoff, real human decisions, Release wiring, and consumption after official installation remain unfinished. This note and partial wiring cannot replace them. The existing 2026-10-06 observation records public version 0.23.0; this window did not query remotes again. 0.24.0 remains a local candidate.
+<!-- release-skill:changelog:end version=0.24.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.23.0 locale=en baseline=sha256:b3dc2e2319dfde98d67569ed3664aa4badb31c26a89c61735b6ba03fa0146911 -->
 ## [0.23.0] - 2026-09-26
 

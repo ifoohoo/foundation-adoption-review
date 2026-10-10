@@ -1,5 +1,26 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.24.0 locale=zh-CN baseline=sha256:0bd2c9bffee371165dac731354230c4d882875ffd95610edaa736166a4779787 -->
+## [0.24.0] - 2026-10-07
+
+Foundation Adoption Review 0.24.0 在现有插件中新增 `foundation-initialize` 入口，承接已通过真实业务验证的最小 Skill 或等价流程材料，将业务方法落成可继续开发的技能族工程。该能力当前为本地锁步候选，不证明完整初始化、远端发布或真实宿主验收已完成。
+
+### 新增
+
+- 新增入口仅在调用方授权范围内写入目标工程，分别设计 Skill 层次、子智能体职责与会话边界，沿用既有工程骨架、宿主投影及支撑入口，保留原业务规则与人工判断；纯 Skill、无脚本、无 npm 发布均可成为正常路径。
+
+### 变更
+
+- 既有 `foundation-adoption-review` 与 `foundation-engineering-check` 保持只读职责不变；本次初始化不新增 Foundation 机制包、顶层命令、公共 Schema、发布状态机或独立审计结论。
+- 吸收原 0.23.1 候选修复：当工程声明缺失且实体核对尚未开始时，仅将该声明项标记为 `insufficient`，`reason` 字段保留原始诊断信息；其他仍可独立运行的已选专业检查继续。材料不足不视为通过，禁止手填 `FOUNDATION_STATIC_CLEAR`。
+- 初始化过程明确登记新增手写源，工具锁使用支持 `trackedToolLocks` 的新版本；投影、生成物或日志不视为手写源。宿主投影前必须核对正式入口的 frontmatter（正文前置元数据），不得以发现成功推断原业务已通过。
+
+### 升级说明
+
+四个发布单元同步前移至 0.24.0 版本，三个 npm 包须精确锁定同版。完整业务试用、有效 Profile 采用、容量超限交接、真实人工判断、Release 接线及正式安装后的消费仍待完成，不可由本说明或局部接线替代。2026-10-06 的 0.23.0 公开版本为既有点时核实记录，本窗口未查询远端；0.24.0 仍为本地候选。
+<!-- release-skill:changelog:end version=0.24.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.23.0 locale=zh-CN baseline=sha256:cd0a84b52e8c58f9a9001652626d1747cbe3fa556e0098656014d5a20837f0a0 -->
 ## [0.23.0] - 2026-09-26
 

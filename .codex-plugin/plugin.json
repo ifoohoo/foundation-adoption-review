@@ -1,7 +1,7 @@
 {
   "name": "foundation-adoption-review",
-  "version": "0.23.0",
-  "description": "Read-only diagnosis of Foundation capability adoption and migration plans.",
+  "version": "0.24.0",
+  "description": "Authorized initialization of a skill family engineering project from a proven minimal business Skill, plus read-only Foundation adoption diagnosis and static engineering checks.",
   "author": {
     "name": "广州市风荷科技有限公司"
   },
@@ -11,21 +11,23 @@
     "foundation",
     "adoption",
     "capability",
-    "engineering-check"
+    "engineering-check",
+    "initialization"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Foundation Adoption Review",
-    "shortDescription": "Review Foundation capability matches and static engineering proofs without changing projects.",
-    "longDescription": "Reads caller-provided Foundation capability catalogs and adopt-plan results to classify matches, and provides foundation-engineering-check for complete static engineering review and professional-proof reading.",
+    "shortDescription": "Initialize skill family engineering from a proven minimal business Skill under explicit authorization; the adoption diagnosis and engineering review entries stay read-only.",
+    "longDescription": "Adds foundation-initialize for authorized engineering initialization — skeleton generation or adoption planning, new-file registration, host projection, and support wiring — alongside read-only Foundation adoption diagnosis and the complete static engineering review with professional-proof reading.",
     "developerName": "广州市风荷科技有限公司",
     "category": "Productivity",
     "capabilities": [
       "Read-only diagnosis",
       "Capability matching",
       "Adoption guidance",
-      "Static engineering review"
+      "Static engineering review",
+      "Authorized engineering initialization"
     ],
-    "defaultPrompt": "Review this Foundation capability adoption plan."
+    "defaultPrompt": "Initialize a skill family engineering project from my minimal business Skill."
   }
 }
