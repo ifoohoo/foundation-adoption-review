@@ -16,7 +16,7 @@ skill-family-kit scaffold --root <target> --project-id <id> --profile generic --
 - 结果中的 `files`、`verifications`、`closure`、`referenceImplementation`、`selectedCapabilities` 只证明生成与结构事实，不证明业务正确。
 - 默认 `generic` 种子保留私有示例包与工程自检；业务源码选择 `skills/<skill-id>/SKILL.md` 及同目录 `references` 等必要文本。纯 Skill 不把示例包当作运行入口，也不把 `packages/**` 加进业务投影或发布白名单。
 
-所选 SDK 确实提供新参数时，可在原 `scaffold` 命令后增加 `--engineering <JSON>`，或调用 `scaffoldTarget({ ...options, engineering })`；`describeSkeletonFiles({ ...inputs, engineering })` 使用同源内容。这里 `<JSON>` 是工程对象的 JSON 字符串，不是文件路径。该参数属于本地 `0.24.0` 候选，正式 `0.23.0` 不支持；省略保持原字节和路径，`null`、`{}`、未知字段和非法引用拒绝。
+所选 SDK 确实提供新参数时，可在原 `scaffold` 命令后增加 `--engineering <JSON>`，或调用 `scaffoldTarget({ ...options, engineering })`；`describeSkeletonFiles({ ...inputs, engineering })` 使用同源内容。这里 `<JSON>` 是工程对象的 JSON 字符串，不是文件路径。该参数自 `0.24.0` 提供，`0.23.0` 不支持；省略保持原字节和路径，`null`、`{}`、未知字段和非法引用拒绝。
 
 声明沿用 Contracts 的项目清单字段，取自真实业务定义：`entries` 每项包含 `name`、`form`、`physicalRef`，`form` 仅限 `skill_md` 或 `file`，前者指向 `SKILL.md`；`releaseUnits` 每项包含 `id`、`versionSource`，可选 `versionMirrors`。文本版本引用需 `path` 与 `format: "text"`；JSON 引用使用 `path`、`format: "json"` 和非空 `jsonPointer`。版本取自真实业务版本源，不取工程示例包、SDK 或 Profile 版本，不因 `package.json` 存在推导 npm 分发。
 
@@ -34,9 +34,9 @@ skill-family-kit adopt-plan --root <target> --project-id <id> --profile <profile
 
 所选 SDK 支持时，`adopt-plan` 可加 `--engineering <JSON>`，或调用 `planAdoption({ ...options, engineering, allowGitSpawn: false })`，提供与 `scaffold` 同源的工程声明内容。CLI 参数的值是工程对象的 JSON 字符串，不是文件路径。该机制不改变严格只读边界：不写任何文件，包括临时文件；`writeSet`、`conflicts`、`complete` 不授权执行，也不证明业务资格。`--engineering` 与 `--engineering-baseline` 独立，后者仍须与 `--compare-skeleton` 成对；能力目录查询不能混入工程声明。
 
-本地 0.24.0 候选中，当目标工程的 `skill-family.project-manifest.json` 中存在 `engineering` 字段时，采用检查将调用已有的 `runCoreCheck` 进行完整工程验证；若该字段不存在，则沿用原有的 `runChecks` 作为 legacy 检查路径。计划阶段提供的 `engineering` 参数仅用于描述拟议生成内容，不能作为目标当前已采纳的事实依据，任何畸形声明均不得回退为通过状态。`migration.check.green` 取自实际检查报告的 `ok`，原冲突、待执行写入、旧实现退出、绑定关系以及 `unit`、`integration`、`consumer`、`independentAudit` 四类证明门槛维持不变，检查通过不等同于迁移完成，也不证明业务资格。
+自 `0.24.0` 起，当目标工程的 `skill-family.project-manifest.json` 中存在 `engineering` 字段时，采用检查将调用已有的 `runCoreCheck` 进行完整工程验证；若该字段不存在，则沿用原有的 `runChecks` 作为 legacy 检查路径。计划阶段提供的 `engineering` 参数仅用于描述拟议生成内容，不能作为目标当前已采纳的事实依据，任何畸形声明均不得回退为通过状态。`migration.check.green` 取自实际检查报告的 `ok`，原冲突、待执行写入、旧实现退出、绑定关系以及 `unit`、`integration`、`consumer`、`independentAudit` 四类证明门槛维持不变，检查通过不等同于迁移完成，也不证明业务资格。
 
-现有受管项目在获准写集内，用 `runProjection({ root: targetRoot, engineering })` 更新声明，CLI 为 `skill-family-kit projection --root <target> --engineering <JSON>`。该操作完整替换整个 `engineering`，不做深合并；传入完整已确认对象，保留仍需使用的旧 `entries` 和 `releaseUnits`。不能与 `manifest`、`candidateRoot` 或 `preparedProjection` 同传。这条新路径属于本地 `0.24.0` 候选，正式 `0.23.0` 不支持；采用前核对实际公共接口与三包精确锁步来源，不从版本号推导能力。
+现有受管项目在获准写集内，用 `runProjection({ root: targetRoot, engineering })` 更新声明，CLI 为 `skill-family-kit projection --root <target> --engineering <JSON>`。该操作完整替换整个 `engineering`，不做深合并；传入完整已确认对象，保留仍需使用的旧 `entries` 和 `releaseUnits`。不能与 `manifest`、`candidateRoot` 或 `preparedProjection` 同传。这条路径自 `0.24.0` 提供，`0.23.0` 不支持；采用前核对实际公共接口与三包精确锁步来源，不从版本号推导能力。
 
 更新前，目标须为现有普通根，具备有效普通 registry、项目清单和受管锁。清单与锁均已由 registry 和 `managedFiles` 声明受管，清单锁条目由 Engineering Kit 拥有；其他受管文件须与原锁匹配，无缺覆盖、重复或未拥有的锁条目。业务入口和版本引用须为根内现存普通文件。缺前提只暂停这条更新路径，不自动接管任意非空项目，也不手写清单或锁候选掩盖漂移。
 
@@ -66,7 +66,7 @@ skill-family-kit check relock --root <target> --registration-class trackedToolLo
 
 `trackedToolLocks` 必须提供非空显式清单，其中每个路径都须指向目标内现存的普通文件；不执行自动发现。沿用原有路径、符号链接、已登记路径、状态文档和受管漂移拒绝规则。登记表缺省 `classes.trackedToolLocks` 时，在同一原事务中初始化其 `entries` 数组，再追加明确路径；类别字段已存在但不是对象，或 `entries` 不是数组时，拒绝处理，不覆盖异常字段。事务仍只更新原 registry 与受管文件锁，不把工具锁内容纳入受管摘要，不读取内容推断工具语义。
 
-默认手写模式及其缺省或空清单时的自动发现行为不变。本新增模式属于待发布实现，不表示基线 `0.23.0` 已支持；正式采用以实际发布版本的公开接口为准，缺少该入口时保留对应接线缺口。
+默认手写模式及其缺省或空清单时的自动发现行为不变。本模式自 `0.24.0` 提供，不表示基线 `0.23.0` 已支持；正式采用以实际发布版本的公开接口为准，缺少该入口时保留对应接线缺口。
 
 ### 宿主投影：`host-build`
 

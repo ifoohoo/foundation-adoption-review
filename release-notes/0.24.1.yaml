@@ -1,0 +1,15 @@
+version: 0.24.1
+date: 2026-10-12
+locales:
+  en:
+    summary: "Foundation Adoption Review 0.24.1 corrects version-status wording in the initialization entry and public wiring reference. It adds no capability or API."
+    changes:
+      changed:
+        - "Replace five stale local-candidate or unpublished statements with availability since 0.24.0 and update the current status page, retaining 0.23.0 compatibility limits, actual-interface checks, and all authorization and failure boundaries."
+    upgradeNotes: "Keep the three Foundation npm packages and Plugin at the same release version under the existing contract. Check the selected version's actual public interfaces and exact lockstep package sources; version numbers alone prove neither capability nor compatibility. The original 0.24.0 notes and frozen payload remain unchanged. This note does not replace post-publish verification of this version."
+  zh-CN:
+    summary: "Foundation Adoption Review 0.24.1 修正初始化入口及公共机制接线中的版本状态说明，没有新增能力或接口。"
+    changes:
+      changed:
+        - "将五处误称本地候选或待发布的能力说明改为自 0.24.0 提供，更新现行状态页，保留 0.23.0 的兼容限制、实际接口核查及全部授权和失败边界。"
+    upgradeNotes: "三个 Foundation npm 包与插件按既有合同保持同版。消费时核对所选版本的实际公共接口与三包精确锁步来源；版本号本身不证明能力或兼容性。0.24.0 的原发布说明和冻结载荷保持原样，本说明不替代本版本的发布后验证。"

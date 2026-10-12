@@ -1,25 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.24.0 -->
+<!-- release-skill:release-version: 0.24.1 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.24.0** (2026-10-07)
+**0.24.1** (2026-10-12)
 
-Foundation Adoption Review 0.24.0 adds foundation-initialize to turn a minimal Skill or equivalent workflow proven through real business use into a maintainable skill-family project. This note records the local lockstep candidate; it does not prove complete initialization, remote publication, or real-host acceptance.
-
-**Added**
-
-- The initializer writes only within the caller's authorization. It separately designs Skill layers, subagent responsibilities, and session boundaries, uses the existing scaffold, host projection, and support entries, and preserves business rules and human judgment. Pure Skills, projects without scripts, and projects without npm distribution remain normal paths.
+Foundation Adoption Review 0.24.1 corrects version-status wording in the initialization entry and public wiring reference. It adds no capability or API.
 
 **Changed**
 
-- The existing foundation-adoption-review and foundation-engineering-check entries remain read-only. Initialization adds no Foundation mechanism package, top-level command, public Schema, release state machine, or independent audit conclusion.
-- Includes the accepted 0.23.1 candidate fix: when an engineering declaration is missing before entity verification starts, only that declaration item is insufficient and reason retains the original diagnosis. Other selected professional checks continue when they can run independently. Insufficient material is not a pass, and FOUNDATION_STATIC_CLEAR must not be hand-filled.
-- Initialization explicitly registers newly handwritten sources through the public entry. Tool locks require a version supporting trackedToolLocks; projections, generated files, and logs are not handwritten sources. Check the host-required frontmatter before projection; discovery alone does not prove the business flow passed.
+- Replace five stale local-candidate or unpublished statements with availability since 0.24.0 and update the current status page, retaining 0.23.0 compatibility limits, actual-interface checks, and all authorization and failure boundaries.
 
 **Upgrade Notes**
 
-All four release units move together to 0.24.0; pin the three npm packages to the exact same version. Complete business trials, valid Profile adoption, an over-capacity handoff, real human decisions, Release wiring, and consumption after official installation remain unfinished. This note and partial wiring cannot replace them. The existing 2026-10-06 observation records public version 0.23.0; this window did not query remotes again. 0.24.0 remains a local candidate.
+Keep the three Foundation npm packages and Plugin at the same release version under the existing contract. Check the selected version's actual public interfaces and exact lockstep package sources; version numbers alone prove neither capability nor compatibility. The original 0.24.0 notes and frozen payload remain unchanged. This note does not replace post-publish verification of this version.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

@@ -1,25 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.24.0 -->
+<!-- release-skill:release-version: 0.24.1 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.24.0** (2026-10-07)
+**0.24.1** (2026-10-12)
 
-Foundation Adoption Review 0.24.0 在现有插件中新增 `foundation-initialize` 入口，承接已通过真实业务验证的最小 Skill 或等价流程材料，将业务方法落成可继续开发的技能族工程。该能力当前为本地锁步候选，不证明完整初始化、远端发布或真实宿主验收已完成。
-
-**新增**
-
-- 新增入口仅在调用方授权范围内写入目标工程，分别设计 Skill 层次、子智能体职责与会话边界，沿用既有工程骨架、宿主投影及支撑入口，保留原业务规则与人工判断；纯 Skill、无脚本、无 npm 发布均可成为正常路径。
+Foundation Adoption Review 0.24.1 修正初始化入口及公共机制接线中的版本状态说明，没有新增能力或接口。
 
 **变更**
 
-- 既有 `foundation-adoption-review` 与 `foundation-engineering-check` 保持只读职责不变；本次初始化不新增 Foundation 机制包、顶层命令、公共 Schema、发布状态机或独立审计结论。
-- 吸收原 0.23.1 候选修复：当工程声明缺失且实体核对尚未开始时，仅将该声明项标记为 `insufficient`，`reason` 字段保留原始诊断信息；其他仍可独立运行的已选专业检查继续。材料不足不视为通过，禁止手填 `FOUNDATION_STATIC_CLEAR`。
-- 初始化过程明确登记新增手写源，工具锁使用支持 `trackedToolLocks` 的新版本；投影、生成物或日志不视为手写源。宿主投影前必须核对正式入口的 frontmatter（正文前置元数据），不得以发现成功推断原业务已通过。
+- 将五处误称本地候选或待发布的能力说明改为自 0.24.0 提供，更新现行状态页，保留 0.23.0 的兼容限制、实际接口核查及全部授权和失败边界。
 
 **升级说明**
 
-四个发布单元同步前移至 0.24.0 版本，三个 npm 包须精确锁定同版。完整业务试用、有效 Profile 采用、容量超限交接、真实人工判断、Release 接线及正式安装后的消费仍待完成，不可由本说明或局部接线替代。2026-10-06 的 0.23.0 公开版本为既有点时核实记录，本窗口未查询远端；0.24.0 仍为本地候选。
+三个 Foundation npm 包与插件按既有合同保持同版。消费时核对所选版本的实际公共接口与三包精确锁步来源；版本号本身不证明能力或兼容性。0.24.0 的原发布说明和冻结载荷保持原样，本说明不替代本版本的发布后验证。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

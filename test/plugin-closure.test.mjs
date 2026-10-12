@@ -134,7 +134,7 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.24.0");
+  assert.equal(packageJson.version, "0.24.1");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -184,15 +184,15 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "d096f1fd5634259e4f42a173c40d424bfb6c224b8e5f60a883eec44a948bcf4f"],
-    [".claude-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
-    [".kimi-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
-    [".qoder-plugin/plugin.json", "42ae15c95183d065a2445caf9729cec7dd8a4e985258e042c73ce61a74fd7edc"],
+    [".codex-plugin/plugin.json", "601be12e1ee3a00d85390bdc8d6eaecbacdd1b346bd3fb88dd1e5888660bb61b"],
+    [".claude-plugin/plugin.json", "2a15849d400aedf9815a2df6ef1aeafe25b78889ca5b9e614cf9ee0ad808686f"],
+    [".kimi-plugin/plugin.json", "2a15849d400aedf9815a2df6ef1aeafe25b78889ca5b9e614cf9ee0ad808686f"],
+    [".qoder-plugin/plugin.json", "2a15849d400aedf9815a2df6ef1aeafe25b78889ca5b9e614cf9ee0ad808686f"],
     ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
     ["skills/foundation-engineering-check/SKILL.md", "fd3d3ebe6315ecf3133a91bbe3a39c15d983d2685b56785a9aab74467209c910"],
-    ["skills/foundation-initialize/SKILL.md", "f102a74adf7ebc161b2161ca9eb9405c80c047ca205282535273cc1889c93c50"],
+    ["skills/foundation-initialize/SKILL.md", "abea0c46328e418e59a3e37fbdb14662f915aeef957a0e8db109ca60e91ce429"],
     ["skills/foundation-initialize/references/execution-design.md", "9f5345f86cf629836b8bc58292e7d3dc21e5e0a6caff828e9bec470bfa4cb64d"],
-    ["skills/foundation-initialize/references/foundation-wiring.md", "12c3e7c9d2505019a690e66e866c552f3c65e187df093ed807419618d8a71694"],
+    ["skills/foundation-initialize/references/foundation-wiring.md", "81f39ccce4f1d99563728b17b7f71977f2c5d98c034ae869b6bbe64c6db035f5"],
     ["skills/foundation-initialize/references/support-wiring.md", "c7963f1ccc6e74d0a1c1edfc2f76fe2de11834fde4baea3e6eabde45018d19d0"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);

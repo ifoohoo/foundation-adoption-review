@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.24.1 locale=en baseline=sha256:934e40adcf1ed3cea28e37cf7eea8725d4432628c0f6fe048f7f3f485a65ee9c -->
+## [0.24.1] - 2026-10-12
+
+Foundation Adoption Review 0.24.1 corrects version-status wording in the initialization entry and public wiring reference. It adds no capability or API.
+
+### Changed
+
+- Replace five stale local-candidate or unpublished statements with availability since 0.24.0 and update the current status page, retaining 0.23.0 compatibility limits, actual-interface checks, and all authorization and failure boundaries.
+
+### Upgrade Notes
+
+Keep the three Foundation npm packages and Plugin at the same release version under the existing contract. Check the selected version's actual public interfaces and exact lockstep package sources; version numbers alone prove neither capability nor compatibility. The original 0.24.0 notes and frozen payload remain unchanged. This note does not replace post-publish verification of this version.
+<!-- release-skill:changelog:end version=0.24.1 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.24.0 locale=en baseline=sha256:f5db693ba8f8cae96ee81c71134b0da898a8953c97dc9fb153bc5d6e1ac79ee1 -->
 ## [0.24.0] - 2026-10-07
 

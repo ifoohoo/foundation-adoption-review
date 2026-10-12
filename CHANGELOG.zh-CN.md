@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.24.1 locale=zh-CN baseline=sha256:b90e58dae9e6c3cdf3af21558361711e1f30a0d483a080a77d91971f31ea4823 -->
+## [0.24.1] - 2026-10-12
+
+Foundation Adoption Review 0.24.1 修正初始化入口及公共机制接线中的版本状态说明，没有新增能力或接口。
+
+### 变更
+
+- 将五处误称本地候选或待发布的能力说明改为自 0.24.0 提供，更新现行状态页，保留 0.23.0 的兼容限制、实际接口核查及全部授权和失败边界。
+
+### 升级说明
+
+三个 Foundation npm 包与插件按既有合同保持同版。消费时核对所选版本的实际公共接口与三包精确锁步来源；版本号本身不证明能力或兼容性。0.24.0 的原发布说明和冻结载荷保持原样，本说明不替代本版本的发布后验证。
+<!-- release-skill:changelog:end version=0.24.1 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.24.0 locale=zh-CN baseline=sha256:0bd2c9bffee371165dac731354230c4d882875ffd95610edaa736166a4779787 -->
 ## [0.24.0] - 2026-10-07
 
