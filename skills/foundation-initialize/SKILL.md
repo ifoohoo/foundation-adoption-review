@@ -31,7 +31,7 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 1. **核对授权与事实**：确认目标目录、写入范围、项目身份、目标宿主与当前授权。事实不足时列出具体缺项；只缺不依赖当前步骤的事实时，其余步骤继续。
 2. **还原业务路径**：从最小 Skill 正文梳理原始业务步骤、关键交接点和人工确认点。业务规则的权威是这份 Skill 与用户的确认，不是本入口的推测。
-3. **设计执行结构**：分别设计 Skill 分层、子智能体职责和会话边界，给出上下文预算依据。方法见 `references/execution-design.md`，到这一步才读取。简单任务保留一个入口、一个会话，不为每个步骤创建 Agent。执行设计写入目标项目制品图登记的 Design 制品；目标没有制品图时，由正式 bootstrap 选择最小类型与路径，不建第二份计划树。
+3. **设计执行结构**：分别设计 Skill 分层、子智能体职责和会话边界，给出上下文预算依据。方法见 `references/execution-design.md`，到这一步才读取。简单任务保留一个入口、一个会话，不为每个步骤创建 Agent。执行设计写入目标项目制品图登记的 Design 制品；目标没有制品图时，把类型、路径和配置选择交给正式 `artifact-chain-bootstrap`，不建第二份计划树。清单推荐与权威路由在第 7 步按 `references/support-wiring.md` 执行；本步不读取清单，不复制共同或技能族类型数组。
 4. **生成或接入工程骨架**：空目标用 `skill-family-kit scaffold` 生成；非空目标先运行只读的 `skill-family-kit adopt-plan`，再按用户已批准的写集做必要增量。
 
    `engineering` 是可选工程声明，内容依据真实业务入口与真实发行单元版本来源构建，不取示例包、SDK 或 Profile 版本，不因 `package.json` 存在推导 npm 分发。所选公共接口确实支持时，空目标可随 `scaffold` 生成已确认的初始声明；非空目标先用 `skill-family-kit adopt-plan` 获取同源、严格只读的计划。事实未齐时保留具体不足，继续不依赖这些事实的步骤。
@@ -41,7 +41,7 @@ description: Initialize a sustainable skill family engineering project from a pr
    业务源码写在 `skills/<skill-id>/SKILL.md` 及同目录必要文本，这是本入口的约定位置，不是 Foundation 强制目录。凡要通过宿主投影作为正式入口的业务 Skill，其入口 `SKILL.md` 必须携带该宿主加载器要求的 YAML frontmatter——Codex 要求以 `---` 包裹的 frontmatter，含 `name`/`description` 等该宿主合同要求的字段（0.154.0 加载器实测拒绝无 frontmatter 的入口：`missing YAML frontmatter delimited by ---`）；具体字段清单以目标宿主的正式合同与 Design 记录的宿主事实为准，不凭记忆虚构。写出后立即静态正面校验 frontmatter 存在且必需字段齐全；该校验只读字节、不依赖运行时试运行；宿主合同未确认时保留此前提为未确认，不把无 frontmatter 的正文交付宿主投影。命令、参数与前提见 `references/foundation-wiring.md`，到这一步才读取。
 5. **登记新增文件**：只登记真正新增且尚未登记的手写源，按显式清单调用 `skill-family-kit check relock --files <清单>`。宿主投影、构建清单、生成锁和运行日志按项目既有受管或可再生分类及原生成入口处理，不纳入手写登记。缺适用公开入口时保留接线缺口，不手改 registry、不新建分类器；不用自动发现纳入无关文件。
 6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。细节同在 `references/foundation-wiring.md`。
-7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。不适用的能力说明理由，不制造虚假待办。
+7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。制品接线先按该参考从已发布 `artifact-graph` 包读取正式清单并解释推荐依据，再把实际采用交给 assistant 的 `artifact-chain-bootstrap`。清单缺失或未发布时只暂停依赖清单的推荐分支；发布、知识站、审计和其余初始化步骤继续。不适用的能力说明理由，不制造虚假待办。
 8. **代表性业务试用**：通过生成的业务入口，用代表性输入完成一次原业务。人工确认点仍由用户判断。试用只提供最小 Skill、原始输入与用户目标，不预先注入正确工程目录或操作配方。
 
 ## 结果报告
@@ -50,6 +50,8 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 “已创建”“某项接线通过”“业务场景通过”分别按事实报告，不合并成单一成功布尔值。目录存在、占位文件、结构检查通过、宿主已发现，各自是不同事实；缺少哪一项必要证据就不宣布初始化全部完成。
 
+清单推荐、bootstrap 采用、项目追加提示分别按事实报告。入口未发布或读取失败时，报告待接线缺口；不得把候选接口、本地建议或结构检查通过写成正式清单消费完成。
+
 必需分支未完成时，说明已完成部分与恢复前提。命令失败或环境异常交原职责方纠正；同一类失败连续两次先定位根本原因，不原样重试，也不放宽既有检查。
 
 ## 版本兼容
@@ -57,6 +59,8 @@ description: Initialize a sustainable skill family engineering project from a pr
 以开发时最新正式发布的提供方版本建立基线并记录实际验证版本。运行时不设版本完全相等门：后续版本只要保留已采用的公共接口、参数与行为就继续可用，新增功能允许暂未适配；必要接口缺失或破坏性变化只暂停依赖它的分支，并如实报告差异。更高版本号本身不构成兼容证明；不混用包，不绕过提供方原有的兼容检查。
 
 可选 `engineering` 参数自 `0.24.0` 提供，`0.23.0` 不支持。消费前必须核对所选 SDK 的实际公共接口与三包精确锁步来源，不得仅凭版本号推导能力，不得导入相邻工作树。候选版本的验证与正式发布后的消费需分别处理：若新接口尚未提供，仅保留对应声明生成或更新缺口，原接口仍按前述兼容承诺继续使用。
+
+候选公共入口 `artifact-graph/project-artifact-profiles` 尚未出现在当前锁定的已发布包导出中。开发基线锁定 `artifact-graph@0.12.0`，其 `exports` 不含该子路径。不得把相邻工作树、未发布候选或本地复制表当作已发布能力。入口缺失、`schema_version` 不是 `1.0`、或运行时无法定位该包时，将清单推荐标为待接线，只暂停依赖该入口的推荐与交接；骨架生成、登记、宿主投影、发布接线和其他支撑接线继续。读到清单不表示项目已采用，也不表示初始化已完成正式消费验收。
 
 ## 失败语义
 

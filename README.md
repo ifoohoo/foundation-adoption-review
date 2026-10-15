@@ -1,19 +1,21 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.24.1 -->
+<!-- release-skill:release-version: 0.25.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.24.1** (2026-10-12)
+**0.25.0** (2026-10-15)
 
-Foundation Adoption Review 0.24.1 corrects version-status wording in the initialization entry and public wiring reference. It adds no capability or API.
+Foundation Adoption Review 0.25.0 keeps the four release units in lockstep and includes the accepted initialization recommendation and authority-routing guidance. It adds no shared runtime API.
 
 **Changed**
 
-- Replace five stale local-candidate or unpublished statements with availability since 0.24.0 and update the current status page, retaining 0.23.0 compatibility limits, actual-interface checks, and all authorization and failure boundaries.
+- Clarify that artifact recommendations consume the published artifact-graph/project-artifact-profiles entry and hand actual adoption to artifact-chain-bootstrap. Preserve existing project extensions and keep recommendations separate from adoption.
+- When the published catalog is unavailable, pause only catalog-dependent recommendations and continue unrelated initialization steps. Do not copy catalog arrays or claim formal consumption from candidate interfaces.
+- Update the package coordinate and managed version projections. The original 0.24.1 release notes and frozen payload remain unchanged.
 
 **Upgrade Notes**
 
-Keep the three Foundation npm packages and Plugin at the same release version under the existing contract. Check the selected version's actual public interfaces and exact lockstep package sources; version numbers alone prove neither capability nor compatibility. The original 0.24.0 notes and frozen payload remain unchanged. This note does not replace post-publish verification of this version.
+Keep the three Foundation npm packages and the Plugin at the same exact release version. Check actual published interfaces and sources. Reading a catalog or following routing guidance does not prove project adoption or completed initialization; this note does not replace formal consumer acceptance or post-publish verification.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

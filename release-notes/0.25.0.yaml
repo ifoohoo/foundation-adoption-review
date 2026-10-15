@@ -1,0 +1,19 @@
+version: 0.25.0
+date: 2026-10-15
+locales:
+  en:
+    summary: "Foundation Adoption Review 0.25.0 keeps the four release units in lockstep and includes the accepted initialization recommendation and authority-routing guidance. It adds no shared runtime API."
+    changes:
+      changed:
+        - "Clarify that artifact recommendations consume the published artifact-graph/project-artifact-profiles entry and hand actual adoption to artifact-chain-bootstrap. Preserve existing project extensions and keep recommendations separate from adoption."
+        - "When the published catalog is unavailable, pause only catalog-dependent recommendations and continue unrelated initialization steps. Do not copy catalog arrays or claim formal consumption from candidate interfaces."
+        - "Update the package coordinate and managed version projections. The original 0.24.1 release notes and frozen payload remain unchanged."
+    upgradeNotes: "Keep the three Foundation npm packages and the Plugin at the same exact release version. Check actual published interfaces and sources. Reading a catalog or following routing guidance does not prove project adoption or completed initialization; this note does not replace formal consumer acceptance or post-publish verification."
+  zh-CN:
+    summary: "Foundation Adoption Review 0.25.0 与四个发布单元锁步前移，并纳入已接受的初始化推荐与权威路由指引；没有新增共享运行时 API。"
+    changes:
+      changed:
+        - "明确制品推荐从已发布 artifact-graph/project-artifact-profiles 入口读取，实际采用交给 artifact-chain-bootstrap；保留项目已有扩展，区分推荐与采用。"
+        - "正式清单不可用时只暂停依赖清单的推荐分支，其余初始化继续；不复制清单数组，不把候选接口写成正式消费完成。"
+        - "更新包版本及受管版本派生，0.24.1 原发布说明与冻结载荷保持原样。"
+    upgradeNotes: "三个 Foundation npm 包与独立插件保持精确同版，核对实际已发布接口与来源。读取清单或完成路由不证明项目已采用或初始化已完成；本说明不替代正式消费者验收和发布后验证。"

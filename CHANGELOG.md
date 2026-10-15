@@ -1,5 +1,22 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.25.0 locale=en baseline=sha256:3d9c786c8339566ef64c9bc357e73e6da12cb936def0e2921b547f8d44a81480 -->
+## [0.25.0] - 2026-10-15
+
+Foundation Adoption Review 0.25.0 keeps the four release units in lockstep and includes the accepted initialization recommendation and authority-routing guidance. It adds no shared runtime API.
+
+### Changed
+
+- Clarify that artifact recommendations consume the published artifact-graph/project-artifact-profiles entry and hand actual adoption to artifact-chain-bootstrap. Preserve existing project extensions and keep recommendations separate from adoption.
+- When the published catalog is unavailable, pause only catalog-dependent recommendations and continue unrelated initialization steps. Do not copy catalog arrays or claim formal consumption from candidate interfaces.
+- Update the package coordinate and managed version projections. The original 0.24.1 release notes and frozen payload remain unchanged.
+
+### Upgrade Notes
+
+Keep the three Foundation npm packages and the Plugin at the same exact release version. Check actual published interfaces and sources. Reading a catalog or following routing guidance does not prove project adoption or completed initialization; this note does not replace formal consumer acceptance or post-publish verification.
+<!-- release-skill:changelog:end version=0.25.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.24.1 locale=en baseline=sha256:934e40adcf1ed3cea28e37cf7eea8725d4432628c0f6fe048f7f3f485a65ee9c -->
 ## [0.24.1] - 2026-10-12
 

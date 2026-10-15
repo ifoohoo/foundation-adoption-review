@@ -1,19 +1,21 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.24.1 -->
+<!-- release-skill:release-version: 0.25.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.24.1** (2026-10-12)
+**0.25.0** (2026-10-15)
 
-Foundation Adoption Review 0.24.1 修正初始化入口及公共机制接线中的版本状态说明，没有新增能力或接口。
+Foundation Adoption Review 0.25.0 与四个发布单元锁步前移，并纳入已接受的初始化推荐与权威路由指引；没有新增共享运行时 API。
 
 **变更**
 
-- 将五处误称本地候选或待发布的能力说明改为自 0.24.0 提供，更新现行状态页，保留 0.23.0 的兼容限制、实际接口核查及全部授权和失败边界。
+- 明确制品推荐从已发布 artifact-graph/project-artifact-profiles 入口读取，实际采用交给 artifact-chain-bootstrap；保留项目已有扩展，区分推荐与采用。
+- 正式清单不可用时只暂停依赖清单的推荐分支，其余初始化继续；不复制清单数组，不把候选接口写成正式消费完成。
+- 更新包版本及受管版本派生，0.24.1 原发布说明与冻结载荷保持原样。
 
 **升级说明**
 
-三个 Foundation npm 包与插件按既有合同保持同版。消费时核对所选版本的实际公共接口与三包精确锁步来源；版本号本身不证明能力或兼容性。0.24.0 的原发布说明和冻结载荷保持原样，本说明不替代本版本的发布后验证。
+三个 Foundation npm 包与独立插件保持精确同版，核对实际已发布接口与来源。读取清单或完成路由不证明项目已采用或初始化已完成；本说明不替代正式消费者验收和发布后验证。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
