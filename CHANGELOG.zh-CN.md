@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.26.0 locale=zh-CN baseline=sha256:b28dbd79d8d4560e9a9764417df1b25761acf88e707db28bb947dc27c2e205f7 -->
+## [0.26.0] - 2026-10-17
+
+Foundation Adoption Review 0.26.0 仅随四发布单元锁步前移，未新增 Skill 行为或共享运行时 API。
+
+### 变更
+
+- 只更新版本号与受管投影，保留 0.25.0 已接受的初始化推荐与权威路由指引。不将读取清单或完成路由等同于正式采用完成。
+
+### 升级说明
+
+三个 Foundation npm 包及独立 Plugin 须精确同版为 0.26.0。消费方应使用实际正式发布的公共接口及来源；本说明不替代发布后验证和正式消费者验收，也不宣称两者已经完成。
+<!-- release-skill:changelog:end version=0.26.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.25.0 locale=zh-CN baseline=sha256:3e48a59b6b89ba6bfee3879af82ce43733ee375833aac426694ecfd7566e55f1 -->
 ## [0.25.0] - 2026-10-15
 

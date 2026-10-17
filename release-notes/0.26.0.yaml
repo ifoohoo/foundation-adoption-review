@@ -1,0 +1,15 @@
+version: 0.26.0
+date: 2026-10-17
+locales:
+  en:
+    summary: "Foundation Adoption Review 0.26.0 advances only in lockstep with the four release units. It adds no Skill behavior or shared runtime API."
+    changes:
+      changed:
+        - "Update only the version and managed projections. Retain the initialization recommendations and authoritative routing guidance accepted in 0.25.0. Reading a manifest or completing routing does not mean formal adoption is complete."
+    upgradeNotes: "Pin the three Foundation npm packages and the independent Plugin to exactly 0.26.0. Consumers should use the actual officially published public interfaces and sources. This note does not replace post-publish verification or formal consumer acceptance, or claim either is complete."
+  zh-CN:
+    summary: "Foundation Adoption Review 0.26.0 仅随四发布单元锁步前移，未新增 Skill 行为或共享运行时 API。"
+    changes:
+      changed:
+        - "只更新版本号与受管投影，保留 0.25.0 已接受的初始化推荐与权威路由指引。不将读取清单或完成路由等同于正式采用完成。"
+    upgradeNotes: "三个 Foundation npm 包及独立 Plugin 须精确同版为 0.26.0。消费方应使用实际正式发布的公共接口及来源；本说明不替代发布后验证和正式消费者验收，也不宣称两者已经完成。"

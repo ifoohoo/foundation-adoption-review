@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.26.0 locale=en baseline=sha256:29637adae9f2e24a07d413daab0ef73bf317b00b970843638869f18d3fae414f -->
+## [0.26.0] - 2026-10-17
+
+Foundation Adoption Review 0.26.0 advances only in lockstep with the four release units. It adds no Skill behavior or shared runtime API.
+
+### Changed
+
+- Update only the version and managed projections. Retain the initialization recommendations and authoritative routing guidance accepted in 0.25.0. Reading a manifest or completing routing does not mean formal adoption is complete.
+
+### Upgrade Notes
+
+Pin the three Foundation npm packages and the independent Plugin to exactly 0.26.0. Consumers should use the actual officially published public interfaces and sources. This note does not replace post-publish verification or formal consumer acceptance, or claim either is complete.
+<!-- release-skill:changelog:end version=0.26.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.25.0 locale=en baseline=sha256:3d9c786c8339566ef64c9bc357e73e6da12cb936def0e2921b547f8d44a81480 -->
 ## [0.25.0] - 2026-10-15
 
