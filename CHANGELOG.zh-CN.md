@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.27.1 locale=zh-CN baseline=sha256:227cd9a4b29497baff4a8dfa3ee54f197c3a5afc1f9025e320c84ff6ed013baa -->
+## [0.27.1] - 2026-10-21
+
+Foundation Adoption Review 0.27.1 与四个发布单元锁步前移，未新增 Skill 行为或共享运行时 API。已发布的 0.27.0 不改写。
+
+### 变更
+
+- 没有新增能力。插件按 0.27.1 重新发布，使四个发布单元保持同一版本坐标。
+
+### 升级说明
+
+本插件须与三个 Foundation npm 包精确锁定 0.27.1。工程包兼容修复在该 npm 版本中，不是新的插件命令。本说明不替代发布后验证。
+<!-- release-skill:changelog:end version=0.27.1 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.27.0 locale=zh-CN baseline=sha256:b11da9d1ed85afde108330a37b1bf19b86ec1b3df6ba850ed8096b7dd763b4d9 -->
 ## [0.27.0] - 2026-10-21
 

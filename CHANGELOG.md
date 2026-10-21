@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.27.1 locale=en baseline=sha256:e5f585b4e557dd574bc2cf609308333e66718d66bae0f28587408477800f5c96 -->
+## [0.27.1] - 2026-10-21
+
+Foundation Adoption Review 0.27.1 moves in lockstep with the four release units and adds no Skill behavior or shared runtime API. Published 0.27.0 is unchanged.
+
+### Changed
+
+- No new capability. The plugin is republished at 0.27.1 so the four release units keep one version coordinate.
+
+### Upgrade Notes
+
+Install this plugin at exactly 0.27.1 with the three Foundation npm packages. The engineering-kit compatibility fix is in that npm release, not a new plugin command. This note does not replace post-publish verification.
+<!-- release-skill:changelog:end version=0.27.1 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.27.0 locale=en baseline=sha256:eba47858c68dcf036633b5de870c59edfccb648896ae073b367c20f480c08469 -->
 ## [0.27.0] - 2026-10-21
 

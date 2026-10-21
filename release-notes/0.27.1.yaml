@@ -1,0 +1,15 @@
+version: 0.27.1
+date: 2026-10-21
+locales:
+  en:
+    summary: "Foundation Adoption Review 0.27.1 moves in lockstep with the four release units and adds no Skill behavior or shared runtime API. Published 0.27.0 is unchanged."
+    changes:
+      changed:
+        - "No new capability. The plugin is republished at 0.27.1 so the four release units keep one version coordinate."
+    upgradeNotes: "Install this plugin at exactly 0.27.1 with the three Foundation npm packages. The engineering-kit compatibility fix is in that npm release, not a new plugin command. This note does not replace post-publish verification."
+  zh-CN:
+    summary: "Foundation Adoption Review 0.27.1 与四个发布单元锁步前移，未新增 Skill 行为或共享运行时 API。已发布的 0.27.0 不改写。"
+    changes:
+      changed:
+        - "没有新增能力。插件按 0.27.1 重新发布，使四个发布单元保持同一版本坐标。"
+    upgradeNotes: "本插件须与三个 Foundation npm 包精确锁定 0.27.1。工程包兼容修复在该 npm 版本中，不是新的插件命令。本说明不替代发布后验证。"
