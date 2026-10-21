@@ -16,6 +16,14 @@
 
 完整报告与会话文件按发布技能的原步骤保留和清理，只把原生紧凑结果交回初始化入口，不另建发布记录。目标已有正式配置时，转只读评估与获准增量修改，既有配置字节保持不变，禁止删除后重建。无远端时保留 `LOCAL_ONLY_DETECTED`，只交付本地结果；`distributions: []` 仍需独立授权 GitHub 发布，不能从配置存在推导远端已存在。
 
+### 公开边界、运行目录与配置路由
+
+公开载荷的权威定义来自目标项目中已存在的 `.release-skill/project.yaml`，其 `publicFiles`、`requiredPublicFiles` 与 `policy.forbiddenPaths` 三项字段共同构成公开范围的依据。工程内部的正式文件不自动等同于公开载荷。骨架中的 `skill-family.release-integration.json` 仅为接线占位文件，不可扩展为第二份公开清单，也不得用来覆盖或补充 `.release-skill/project.yaml` 的声明。
+
+扫描阶段需明确列出三类问题：一是缺失的必需公开文件（路径必须具体）；二是误入载荷的日志草稿或私有设计；三是尚未确认是否公开的项。配置变更走已有 `release-config` 技能：确认是配置-only 差异后，按该技能评估、准备与写入。禁止虚构 Foundation 自带的 config CLI，禁止自动覆盖已有配置，禁止把接线成功写成已发布。
+
+运行记录只放根级 `/.runs/`，证据只放根级 `/.evidence/`。这是新项目默认目录约定，不是强制把旧运行目录迁过去。这两个默认目录会被忽略，不进入跟踪源面，也不进入公开载荷。公开边界核对使用目标已有 `.release-skill/project.yaml` 和 release-skill 的原生结果；本入口只核对接线参数、列出具体漏失项并路由到 `release-config`，不复制载荷算法。
+
 ## 制品接线（artifact-chain-assistant / artifact-graph）
 
 - 由 `artifact-chain-setup` 检查环境，`artifact-chain-bootstrap` 选择最小制品类型、路径和配置；再用需求、场景等专业制作入口编写内容。

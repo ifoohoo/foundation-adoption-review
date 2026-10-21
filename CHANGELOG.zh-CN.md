@@ -1,5 +1,22 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.27.0 locale=zh-CN baseline=sha256:b11da9d1ed85afde108330a37b1bf19b86ec1b3df6ba850ed8096b7dd763b4d9 -->
+## [0.27.0] - 2026-10-21
+
+Foundation Adoption Review 0.27.0 与四个发布单元锁步前移，并更新 `foundation-initialize` 路由与能力目录：非空首次登记走 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。未新增共享运行时 API。
+
+### 变更
+
+- 非空且缺三份官方闭域文件时，路由到 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。空目标仍走 `scaffold`。已有合法登记的非空目标仍先只读执行 `adopt-plan`。
+- 能力目录自 0.27.0 起登记 `foundation.kit.register-existing`。目录 overlay 字段沿用既有目录合同。
+- 更新包版本及受管版本派生，不重做 0.26.0 已发布功能。
+
+### 升级说明
+
+三个 Foundation npm 包及独立 Plugin 须精确同版为 0.27.0。消费以实际正式发布的公共接口及来源为准。完成首次非空登记或目录路由不表示正式采用或初始化已完成。本说明不替代发布后验证和正式消费者验收。
+<!-- release-skill:changelog:end version=0.27.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.26.0 locale=zh-CN baseline=sha256:b28dbd79d8d4560e9a9764417df1b25761acf88e707db28bb947dc27c2e205f7 -->
 ## [0.26.0] - 2026-10-17
 

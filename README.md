@@ -1,19 +1,21 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.26.0 -->
+<!-- release-skill:release-version: 0.27.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.26.0** (2026-10-17)
+**0.27.0** (2026-10-21)
 
-Foundation Adoption Review 0.26.0 advances only in lockstep with the four release units. It adds no Skill behavior or shared runtime API.
+Foundation Adoption Review 0.27.0 advances in lockstep with the four release units and updates `foundation-initialize` routing plus the capability catalog so nonempty first registration uses `skill-family-kit check register-existing`. Relock still never seeds. It adds no shared runtime API.
 
 **Changed**
 
-- Update only the version and managed projections. Retain the initialization recommendations and authoritative routing guidance accepted in 0.25.0. Reading a manifest or completing routing does not mean formal adoption is complete.
+- Route nonempty targets that lack the three official closed-world documents to `skill-family-kit check register-existing`. Relock still never seeds. Empty targets still use `scaffold`. Nonempty targets that already have a legal registry still start with read-only `adopt-plan`.
+- Record `foundation.kit.register-existing` in the capability catalog from 0.27.0. Catalog overlay fields stay with the existing catalog contract.
+- Update the package coordinate and managed version projections. Published 0.26.0 functionality is not reimplemented.
 
 **Upgrade Notes**
 
-Pin the three Foundation npm packages and the independent Plugin to exactly 0.26.0. Consumers should use the actual officially published public interfaces and sources. This note does not replace post-publish verification or formal consumer acceptance, or claim either is complete.
+Pin the three Foundation npm packages and the independent Plugin to exactly 0.27.0. Consume the actual officially published public interfaces and sources. Completing first nonempty registration or catalog routing does not mean formal adoption or initialization is complete. This note does not replace post-publish verification or formal consumer acceptance.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

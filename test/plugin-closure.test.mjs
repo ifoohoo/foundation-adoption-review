@@ -134,7 +134,7 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.26.0");
+  assert.equal(packageJson.version, "0.27.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -184,16 +184,16 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   assert.ok(Object.hasOwn(codex, "interface"));
 
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "23b74024b6333dee3e797cf02b76fb7d347ccbd5b8d51afd313c4c9a20a0b097"],
-    [".claude-plugin/plugin.json", "e0db03e1c47f1b0a73ff52088e47c69fd3470dd289de6448b862904592ff0b8d"],
-    [".kimi-plugin/plugin.json", "e0db03e1c47f1b0a73ff52088e47c69fd3470dd289de6448b862904592ff0b8d"],
-    [".qoder-plugin/plugin.json", "e0db03e1c47f1b0a73ff52088e47c69fd3470dd289de6448b862904592ff0b8d"],
+    [".codex-plugin/plugin.json", "99c4d1546f9b2a273eedf8426b83be787163383b3747c531a43e443bdbf30d8c"],
+    [".claude-plugin/plugin.json", "38a67d58a0892fca894b6cf748fdbe2c8957c90c5fd00371cb8e2946b246ff60"],
+    [".kimi-plugin/plugin.json", "38a67d58a0892fca894b6cf748fdbe2c8957c90c5fd00371cb8e2946b246ff60"],
+    [".qoder-plugin/plugin.json", "38a67d58a0892fca894b6cf748fdbe2c8957c90c5fd00371cb8e2946b246ff60"],
     ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
-    ["skills/foundation-engineering-check/SKILL.md", "fd3d3ebe6315ecf3133a91bbe3a39c15d983d2685b56785a9aab74467209c910"],
-    ["skills/foundation-initialize/SKILL.md", "aea7bb34f8c73be362c248a92141ed9daf45be1f38780cae484c7d78037f143b"],
+    ["skills/foundation-engineering-check/SKILL.md", "6474e502d68f84237ce2124f0ce2339cdfef49f7b65fa2542b9799ed7a7fbb95"],
+    ["skills/foundation-initialize/SKILL.md", "4c782d9a9b7c86e029111ab71ee6e2e68fcb201134e905ea24e8c31112bb1d13"],
     ["skills/foundation-initialize/references/execution-design.md", "9f5345f86cf629836b8bc58292e7d3dc21e5e0a6caff828e9bec470bfa4cb64d"],
-    ["skills/foundation-initialize/references/foundation-wiring.md", "81f39ccce4f1d99563728b17b7f71977f2c5d98c034ae869b6bbe64c6db035f5"],
-    ["skills/foundation-initialize/references/support-wiring.md", "980da92df10af13d2198184d29801ec39b86fed97427367174cec812c90d69a1"],
+    ["skills/foundation-initialize/references/foundation-wiring.md", "4d47ea2c345f9b3cad5844b4ee7c086b9551c7f08b818c45a5a35e0558af16ea"],
+    ["skills/foundation-initialize/references/support-wiring.md", "b361e09c5473e1f40e519d2a0a8284754c290e7b55dd5ff10ba5cdb03ef161a2"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
   for (const [relativePath, expected] of expectedHashes) {

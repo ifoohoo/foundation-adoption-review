@@ -1,5 +1,22 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.27.0 locale=en baseline=sha256:eba47858c68dcf036633b5de870c59edfccb648896ae073b367c20f480c08469 -->
+## [0.27.0] - 2026-10-21
+
+Foundation Adoption Review 0.27.0 advances in lockstep with the four release units and updates `foundation-initialize` routing plus the capability catalog so nonempty first registration uses `skill-family-kit check register-existing`. Relock still never seeds. It adds no shared runtime API.
+
+### Changed
+
+- Route nonempty targets that lack the three official closed-world documents to `skill-family-kit check register-existing`. Relock still never seeds. Empty targets still use `scaffold`. Nonempty targets that already have a legal registry still start with read-only `adopt-plan`.
+- Record `foundation.kit.register-existing` in the capability catalog from 0.27.0. Catalog overlay fields stay with the existing catalog contract.
+- Update the package coordinate and managed version projections. Published 0.26.0 functionality is not reimplemented.
+
+### Upgrade Notes
+
+Pin the three Foundation npm packages and the independent Plugin to exactly 0.27.0. Consume the actual officially published public interfaces and sources. Completing first nonempty registration or catalog routing does not mean formal adoption or initialization is complete. This note does not replace post-publish verification or formal consumer acceptance.
+<!-- release-skill:changelog:end version=0.27.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.26.0 locale=en baseline=sha256:29637adae9f2e24a07d413daab0ef73bf317b00b970843638869f18d3fae414f -->
 ## [0.26.0] - 2026-10-17
 

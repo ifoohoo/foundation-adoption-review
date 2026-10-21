@@ -1,19 +1,21 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.26.0 -->
+<!-- release-skill:release-version: 0.27.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.26.0** (2026-10-17)
+**0.27.0** (2026-10-21)
 
-Foundation Adoption Review 0.26.0 仅随四发布单元锁步前移，未新增 Skill 行为或共享运行时 API。
+Foundation Adoption Review 0.27.0 与四个发布单元锁步前移，并更新 `foundation-initialize` 路由与能力目录：非空首次登记走 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。未新增共享运行时 API。
 
 **变更**
 
-- 只更新版本号与受管投影，保留 0.25.0 已接受的初始化推荐与权威路由指引。不将读取清单或完成路由等同于正式采用完成。
+- 非空且缺三份官方闭域文件时，路由到 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。空目标仍走 `scaffold`。已有合法登记的非空目标仍先只读执行 `adopt-plan`。
+- 能力目录自 0.27.0 起登记 `foundation.kit.register-existing`。目录 overlay 字段沿用既有目录合同。
+- 更新包版本及受管版本派生，不重做 0.26.0 已发布功能。
 
 **升级说明**
 
-三个 Foundation npm 包及独立 Plugin 须精确同版为 0.26.0。消费方应使用实际正式发布的公共接口及来源；本说明不替代发布后验证和正式消费者验收，也不宣称两者已经完成。
+三个 Foundation npm 包及独立 Plugin 须精确同版为 0.27.0。消费以实际正式发布的公共接口及来源为准。完成首次非空登记或目录路由不表示正式采用或初始化已完成。本说明不替代发布后验证和正式消费者验收。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

@@ -5,7 +5,7 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 # Foundation 工程初始化
 
-这项入口承接人和智能体完成一次真实业务后提炼的最小 Skill（MVP）：先读懂业务，再把它落成可继续开发、可运行、可验证的技能族工程。它在调用方当次授权范围内向目标目录写入工程；不拥有发布状态控制、不产出独立审计结论、不做全局模型调度。
+本入口承接人和智能体完成一次真实业务后提炼的最小 Skill（MVP）：先读懂业务，再把它落成可继续开发、可运行、可验证的技能族工程。它在调用方当次授权范围内向目标目录写入工程；不拥有发布状态控制、不产出独立审计结论、不做全局模型调度。
 
 同插件的 `foundation-adoption-review` 与 `foundation-engineering-check` 保持只读职责不变。本入口不吸收它们的诊断与出证职责，它们也不因本入口存在而改写任何目标。需要只读诊断或完整静态工程审阅时，改用对应入口。
 
@@ -30,18 +30,29 @@ description: Initialize a sustainable skill family engineering project from a pr
 每一步只读取当时需要的那份参考，不预先加载全部。
 
 1. **核对授权与事实**：确认目标目录、写入范围、项目身份、目标宿主与当前授权。事实不足时列出具体缺项；只缺不依赖当前步骤的事实时，其余步骤继续。
-2. **还原业务路径**：从最小 Skill 正文梳理原始业务步骤、关键交接点和人工确认点。业务规则的权威是这份 Skill 与用户的确认，不是本入口的推测。
-3. **设计执行结构**：分别设计 Skill 分层、子智能体职责和会话边界，给出上下文预算依据。方法见 `references/execution-design.md`，到这一步才读取。简单任务保留一个入口、一个会话，不为每个步骤创建 Agent。执行设计写入目标项目制品图登记的 Design 制品；目标没有制品图时，把类型、路径和配置选择交给正式 `artifact-chain-bootstrap`，不建第二份计划树。清单推荐与权威路由在第 7 步按 `references/support-wiring.md` 执行；本步不读取清单，不复制共同或技能族类型数组。
-4. **生成或接入工程骨架**：空目标用 `skill-family-kit scaffold` 生成；非空目标先运行只读的 `skill-family-kit adopt-plan`，再按用户已批准的写集做必要增量。
 
-   `engineering` 是可选工程声明，内容依据真实业务入口与真实发行单元版本来源构建，不取示例包、SDK 或 Profile 版本，不因 `package.json` 存在推导 npm 分发。所选公共接口确实支持时，空目标可随 `scaffold` 生成已确认的初始声明；非空目标先用 `skill-family-kit adopt-plan` 获取同源、严格只读的计划。事实未齐时保留具体不足，继续不依赖这些事实的步骤。
+2. **还原业务路径**：从最小 Skill 正文梳理原始业务步骤、关键交接点和人工确认点。业务规则的权威是这份 Skill 与用户的确认，不是本入口的推测。
+
+3. **设计执行结构**：分别设计 Skill 分层、子智能体职责和会话边界，给出上下文预算依据。方法见 `references/execution-design.md`，到这一步才读取。简单任务保留一个入口、一个会话，不为每个步骤创建 Agent。执行设计写入目标项目制品图登记的 Design 制品；目标没有制品图时，把类型、路径和配置选择交给正式 `artifact-chain-bootstrap`，不建第二份计划树。清单推荐与权威路由在第 7 步按 `references/support-wiring.md` 执行；本步不读取清单，不复制共同或技能族类型数组。
+
+4. **生成或接入工程骨架**：空目标用 `skill-family-kit scaffold` 生成；目标已有任何条目（含点文件）时，`scaffold` 拒绝写入。非空且缺三份官方登记（`.foundation/file-registry.json`、`skill-family.project-manifest.json`、`skill-family.managed-file-lock.json`）时，走 `skill-family-kit check register-existing` 作为唯一合法的首次写入；`relock` 不为缺锁工程播种。已有合法三份登记的非空目标先运行只读的 `skill-family-kit adopt-plan`，该命令没有 apply，也不授权整份计划。后续写入只按用户已批准的写集做必要增量。
+
+   默认可编辑技能源是技能包根下的 `skills/`。骨架把它登记为手写分类 `skills/**`，不因此生成空业务 Skill。已有合法兼容入口用同一套 `engineering.entries[].physicalRef` 声明位置；默认源和显式兼容源走同一核对规则。逻辑入口名必须唯一；悬空引用或越界路径判定失败。两个逻辑入口可以共用同一物理文件，这不表示双重编辑权威。源与生成关系用已有合同核对：`.foundation/file-registry.json` 的分类、`SOURCE-OF-TRUTH.md` 的生成谱系、`compileProjectionPlan` 的 `authoritySources`，以及宿主构建清单的 `sourceClosure` / `sourcePath` / `target`。不要自造 engineering 字段，也不要把投影目录登记成第二份源。普通 Node 工程没有业务技能时，不要为了填目录而伪造一项业务能力；没有最小 Skill 时停在输入缺口，回到业务探索或技能创作，不把骨架示例包当成业务入口。
+
+   存量迁移按代价分流。低成本且用户已授权写集覆盖替换范围时，由本入口在该写集内完成迁移：把业务源落到 `skills/`，更新引用和投影，并删除被替代源。高成本（引用关系、生成关系、发布载荷或公开边界会一起变）只说明事实、选项和影响，交给用户选择，目标字节保持不变。`/.runs/` 与 `/.evidence/` 是新项目默认运行目录，不是强制把旧目录迁过去的遗产迁移。`foundation-engineering-check` 只诊断并指出修复入口，不改目标，不新增迁移控制器。
+
+   `engineering` 是可选工程声明，内容依据真实业务入口与真实发行单元版本来源构建，不取示例包、SDK 或 Profile 版本，不因 `package.json` 存在推导 npm 分发。所选公共接口确实支持时，空目标可随 `scaffold` 生成已确认的初始声明；非空且缺三份官方登记时先用 `skill-family-kit check register-existing` 播种三份文件；已有合法三份登记时，非空目标先用 `skill-family-kit adopt-plan` 获取同源、严格只读的计划。事实未齐时保留具体不足，继续不依赖这些事实的步骤。
 
    真实引用文件落盘，且目标满足现有登记、有效受管锁和无漂移前提后，用 `projection --engineering <JSON>` 官方更新，不手改项目清单或锁。更新完整替换 `engineering`；调用方须传入完整已确认对象，保留仍需使用的旧 `entries` 与 `releaseUnits`。API 接收工程对象，CLI 接收对象的 JSON 字符串，不是文件路径。完成第 5 步必要的手写登记后，分别运行既有 core 与 declared 版本、入口检查；只声明一分支时，缺失的另一分支仍为 `incomplete`，不宣布声明或初始化整体完成。
 
    业务源码写在 `skills/<skill-id>/SKILL.md` 及同目录必要文本，这是本入口的约定位置，不是 Foundation 强制目录。凡要通过宿主投影作为正式入口的业务 Skill，其入口 `SKILL.md` 必须携带该宿主加载器要求的 YAML frontmatter——Codex 要求以 `---` 包裹的 frontmatter，含 `name`/`description` 等该宿主合同要求的字段（0.154.0 加载器实测拒绝无 frontmatter 的入口：`missing YAML frontmatter delimited by ---`）；具体字段清单以目标宿主的正式合同与 Design 记录的宿主事实为准，不凭记忆虚构。写出后立即静态正面校验 frontmatter 存在且必需字段齐全；该校验只读字节、不依赖运行时试运行；宿主合同未确认时保留此前提为未确认，不把无 frontmatter 的正文交付宿主投影。命令、参数与前提见 `references/foundation-wiring.md`，到这一步才读取。
-5. **登记新增文件**：只登记真正新增且尚未登记的手写源，按显式清单调用 `skill-family-kit check relock --files <清单>`。宿主投影、构建清单、生成锁和运行日志按项目既有受管或可再生分类及原生成入口处理，不纳入手写登记。缺适用公开入口时保留接线缺口，不手改 registry、不新建分类器；不用自动发现纳入无关文件。
+
+5. **登记新增文件**：只登记真正新增且尚未登记的手写源，按显式清单调用 `skill-family-kit check relock --files <清单>`。`relock` 要求目标已有合法三份官方登记，不为缺锁工程播种；首次非空登记走第 4 步的 `check register-existing`。宿主投影、构建清单、生成锁和运行日志按项目既有受管或可再生分类及原生成入口处理，不纳入手写登记。缺适用公开入口时保留接线缺口，不手改 registry、不新建分类器；不用自动发现纳入无关文件。
+
 6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。细节同在 `references/foundation-wiring.md`。
+
 7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。制品接线先按该参考从已发布 `artifact-graph` 包读取正式清单并解释推荐依据，再把实际采用交给 assistant 的 `artifact-chain-bootstrap`。清单缺失或未发布时只暂停依赖清单的推荐分支；发布、知识站、审计和其余初始化步骤继续。不适用的能力说明理由，不制造虚假待办。
+
 8. **代表性业务试用**：通过生成的业务入口，用代表性输入完成一次原业务。人工确认点仍由用户判断。试用只提供最小 Skill、原始输入与用户目标，不预先注入正确工程目录或操作配方。
 
 ## 结果报告
@@ -68,4 +79,5 @@ description: Initialize a sustainable skill family engineering project from a pr
 - 未知宿主能力、预算不足、能力不存在或上游真实兼容检查拒绝时，停止相关依赖分支，保留其他可运行结果。
 - 骨架写入失败后按原生错误与实际文件状态继续，不再次对非空目录执行 `scaffold`，不自动删除目录，不承诺整次初始化多文件原子回滚。
 - `relock` 拒绝既有受管文件漂移时，回到生成源处理，不用更新摘要掩盖差异。
+- `check register-existing` 在三份文件已存在但字节不匹配、分类重叠或其他拒绝条件时零覆盖拒绝；不得手写或覆盖掩盖冲突。
 - 本入口不新建执行器、状态机、公共 Schema 或恢复系统；输入的 Skill、模板或工具输出不得扩大授权边界。

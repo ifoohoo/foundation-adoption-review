@@ -1,0 +1,19 @@
+version: 0.27.0
+date: 2026-10-21
+locales:
+  en:
+    summary: "Foundation Adoption Review 0.27.0 advances in lockstep with the four release units and updates `foundation-initialize` routing plus the capability catalog so nonempty first registration uses `skill-family-kit check register-existing`. Relock still never seeds. It adds no shared runtime API."
+    changes:
+      changed:
+        - "Route nonempty targets that lack the three official closed-world documents to `skill-family-kit check register-existing`. Relock still never seeds. Empty targets still use `scaffold`. Nonempty targets that already have a legal registry still start with read-only `adopt-plan`."
+        - "Record `foundation.kit.register-existing` in the capability catalog from 0.27.0. Catalog overlay fields stay with the existing catalog contract."
+        - "Update the package coordinate and managed version projections. Published 0.26.0 functionality is not reimplemented."
+    upgradeNotes: "Pin the three Foundation npm packages and the independent Plugin to exactly 0.27.0. Consume the actual officially published public interfaces and sources. Completing first nonempty registration or catalog routing does not mean formal adoption or initialization is complete. This note does not replace post-publish verification or formal consumer acceptance."
+  zh-CN:
+    summary: "Foundation Adoption Review 0.27.0 与四个发布单元锁步前移，并更新 `foundation-initialize` 路由与能力目录：非空首次登记走 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。未新增共享运行时 API。"
+    changes:
+      changed:
+        - "非空且缺三份官方闭域文件时，路由到 `skill-family-kit check register-existing`。`relock` 仍不为缺锁工程播种。空目标仍走 `scaffold`。已有合法登记的非空目标仍先只读执行 `adopt-plan`。"
+        - "能力目录自 0.27.0 起登记 `foundation.kit.register-existing`。目录 overlay 字段沿用既有目录合同。"
+        - "更新包版本及受管版本派生，不重做 0.26.0 已发布功能。"
+    upgradeNotes: "三个 Foundation npm 包及独立 Plugin 须精确同版为 0.27.0。消费以实际正式发布的公共接口及来源为准。完成首次非空登记或目录路由不表示正式采用或初始化已完成。本说明不替代发布后验证和正式消费者验收。"
