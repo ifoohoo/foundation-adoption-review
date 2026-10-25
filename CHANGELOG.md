@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.28.0 locale=en baseline=sha256:195d37dfb12de08a7a402198ea41f1a3afa16166777676aa8d1a195e96e521dd -->
+## [0.28.0] - 2026-10-24
+
+Foundation Adoption Review 0.28.0 maintains three Skill entrypoints and advances in lockstep with the Windows-capable Foundation packages.
+
+### Changed
+
+- The existing initialization wiring reference now includes explicit Windows projection arguments and v3 documentation. The Skill business instructions and fixed responsibilities remain unchanged.
+
+### Upgrade Notes
+
+Install the Plugin at exactly 0.28.0 alongside the three npm packages. Selected manual WorkBuddy evidence does not imply automatic host building, nor does it cover every model or supported host. Installation, actual loading, setup, and business completion are distinct phases; this note does not substitute for post-publish verification.
+<!-- release-skill:changelog:end version=0.28.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.27.1 locale=en baseline=sha256:e5f585b4e557dd574bc2cf609308333e66718d66bae0f28587408477800f5c96 -->
 ## [0.27.1] - 2026-10-21
 

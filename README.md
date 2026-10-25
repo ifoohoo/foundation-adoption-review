@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.27.1 -->
+<!-- release-skill:release-version: 0.28.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.27.1** (2026-10-21)
+**0.28.0** (2026-10-24)
 
-Foundation Adoption Review 0.27.1 moves in lockstep with the four release units and adds no Skill behavior or shared runtime API. Published 0.27.0 is unchanged.
+Foundation Adoption Review 0.28.0 maintains three Skill entrypoints and advances in lockstep with the Windows-capable Foundation packages.
 
 **Changed**
 
-- No new capability. The plugin is republished at 0.27.1 so the four release units keep one version coordinate.
+- The existing initialization wiring reference now includes explicit Windows projection arguments and v3 documentation. The Skill business instructions and fixed responsibilities remain unchanged.
 
 **Upgrade Notes**
 
-Install this plugin at exactly 0.27.1 with the three Foundation npm packages. The engineering-kit compatibility fix is in that npm release, not a new plugin command. This note does not replace post-publish verification.
+Install the Plugin at exactly 0.28.0 alongside the three npm packages. Selected manual WorkBuddy evidence does not imply automatic host building, nor does it cover every model or supported host. Installation, actual loading, setup, and business completion are distinct phases; this note does not substitute for post-publish verification.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.
@@ -118,3 +118,9 @@ pnpm test
 ```
 
 This test verifies the Plugin's closure, manifests, README release wording, and frozen Skill bytes. It does not execute the target project, judge the diagnosis answer, qualify a host, or prove Foundation adoption. Those conclusions require their respective consumer checks and reviews.
+
+## Windows support and boundaries
+
+The Windows scope of Foundation Adoption Review 0.28.0 is Windows 11 x64, local NTFS, and ordinary users.
+
+The Plugin’s engineering-check entrypoint performs read-only scans; it does not install or execute target resources. A static exit code 0, successful install, or host load scan does not constitute Windows host qualification. This version does not change the capabilities of older releases; exact remote availability requires formal release evidence. Real qualification requires evidence from the corresponding host business run. See [compatibility matrix](https://ifoohoo.github.io/skill-family-engineering-kit/reference/compatibility/) and [API reference](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/harness/).

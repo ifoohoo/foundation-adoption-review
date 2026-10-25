@@ -91,30 +91,50 @@ skill-family-kit adopt-plan --root <target> --project-id <id> --profile <profile
   - 原冲突、待执行写入、旧实现退出、绑定关系以及 `unit`、`integration`、`consumer`、`independentAudit` 四类证明门槛维持不变；
   - **检查通过不等同于迁移完成，也不证明业务资格**。
 - **声明更新路径（自 `0.24.0` 起）**：
-  - 现有受管项目在获准写集内，使用 `runProjection({ root: targetRoot, engineering })` 更新声明；
-  - CLI 命令为 `skill-family-kit projection --root <target> --engineering <JSON>`；
+  - 现有受管项目在获准写集内更新声明；POSIX 沿用 `runProjection({ root: targetRoot, engineering })`，Windows 候选须补齐下文三个显式运行参数；
+  - POSIX CLI 命令为 `skill-family-kit projection --root <target> --engineering <JSON>`；
   - 该操作完整替换整个 `engineering`，不执行深合并；
   - 传入完整已确认对象，保留仍需使用的旧 `entries` 和 `releaseUnits`；
   - 不可与 `manifest`、`candidateRoot` 或 `preparedProjection` 同传；
   - 此路径自 `0.24.0` 提供，`0.23.0` 不支持；采用前须核对实际公共接口与三包精确锁步来源，不从版本号推导能力。
+
 - **更新前提**：
   - 目标必须为现有普通根，具备有效普通 registry、项目清单和受管锁；
   - 清单与锁均已由 registry 和 `managedFiles` 声明受管，清单锁条目由 Engineering Kit 拥有；
   - 其他受管文件须与原锁匹配，无缺覆盖、重复或未拥有的锁条目；
   - 业务入口和版本引用须为根内现存普通文件；
   - 缺前提时仅暂停该更新路径，**不自动接管任意非空项目，也不手写清单或锁候选掩盖漂移**。
+
 - **更新范围**：
-  - 合法更新仅修改 `skill-family.project-manifest.json` 和 `skill-family.managed-file-lock.json`；
-  - 其他清单字段、registry 与其他文件字节、其他锁条目、生成器、版本、`lockVersion` 和 mode 保持不变；
+  - 合法更新的业务文件仅为 `skill-family.project-manifest.json` 和 `skill-family.managed-file-lock.json`；
+  - 其他清单字段、registry 与其他文件字节、其他锁条目、生成器、版本、`lockVersion` 和原权限保持不变；POSIX 数值 `mode` 规则不变；
   - 清单摘要由原生成器派生，同内容幂等；
-  - 结果沿用 `schemaVersion: 2` 的 `skill-family.projection-receipt`；
-  - 内存候选的 `candidate.root` 和 `manifest.location` 为 `null`，不新增状态文件。
+  - 结果沿用 `schemaVersion: 2` 的 `skill-family.projection-receipt`（POSIX）或 `schemaVersion: 3` 的 `skill-family.projection-receipt`（Windows）；
+  - 内存候选的 `candidate.root` 和 `manifest.location` 为 `null`，不新增领域状态文件。
+
 - **事务与恢复**：
   - 保留原始已核引用快照，重复读取不能替换基线；
   - 每次实际修改前及完成后重验；
-  - 首写前拒绝不执行恢复写，未尝试输出的外来字节保留；
-  - 实际尝试写入失败沿既有错误、验证和尽力回滚，仅恢复本模式实际尝试的路径；
-  - **不承诺整次初始化、恶意并发或 ABA 事务安全**，原 v1/v2 与 prepared 保护保留。
+  - POSIX 首写前拒绝不执行恢复写，未尝试输出的外来字节保留；
+  - POSIX 实际尝试写入失败沿既有错误、验证和尽力回滚，仅恢复本模式实际尝试的路径；
+  - **不承诺整次初始化、恶意并发或 ABA 事务安全**，原 v1/v2 与 prepared 保护保留；
+  - **Windows 工作树候选行为（未发布）**：
+    - 调用必须显式传入 `operationId`（小写 UUIDv4，如 `11111111-1111-4111-8111-111111111111`）、`validationTimeoutMs`（安全整数 `1` 至 `2147483647`，如 `30000`）和 `cooperativeWriters: true`；
+    - API 调用为 `runProjection({ root: targetRoot, engineering, operationId: "11111111-1111-4111-8111-111111111111", validationTimeoutMs: 30000, cooperativeWriters: true })`；
+    - CLI 等价命令为：
+      ```text
+      skill-family-kit projection --root <target> --engineering <JSON> --operation-id 11111111-1111-4111-8111-111111111111 --validation-timeout-ms 30000 --cooperative-writers
+      ```
+    - Windows 缺任一运行参数即在修改前拒绝，包括 no-op；CLI 三个参数均拒绝重复，`--cooperative-writers` 是无值开关，不接受附加值；
+    - 报告子动作不接受这三个运行参数；
+    - 调用方须保证准备、应用、验证与同次清理全过程的合作式独占；确认参数不自动建立或证明独占；
+    - 一次 `applyFileSet v2`，原 `options.validate` 在 `commit` 前检查完整承诺目标含 `unchanged` 以及权威/锁定输入，沿原超时和自动恢复；
+    - 仅恢复实际尝试路径，不覆盖外来漂移；
+    - 已提交事实不得反向回滚；
+    - 提交未知、`commit-unconfirmed` 或 `recovery-required` 不得称成功或盲重试；
+    - 机制可能创建或保留根级 `.foundation-file-apply`、日志、before/after 材料及邻接暂存文件；目录准备后拒绝也可能已留材料，写后恢复不等于零写入；
+    - 收据为 `schemaVersion: 3`、`platform: win32`，其中实际文件观测使用 `mode: null` 与真实 `permissionObservation`；`fileSet` 保留原机制结果，no-op 时为 `null`，不冒充已提交；
+    - 完整参数、字段与失败恢复细则见 [Engineering Kit API 的 Windows 投影说明](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/engineering-kit/)。
 - **真实源落盘后验证**：
   - 真实源尚未落盘时，如实报告不足；
   - 一旦落盘并完成合法更新，需使用所选 SDK 的公共 API `runCoreCheck({ root: targetRoot, allowGitSpawn: false })` 执行完整工程检查，并分别运行 `skill-family-kit check --root <target> --policy declared --only version --no-git-spawn` 与 `skill-family-kit check entries --root <target> --policy declared`；

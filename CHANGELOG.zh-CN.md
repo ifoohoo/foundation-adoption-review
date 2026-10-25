@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.28.0 locale=zh-CN baseline=sha256:156f724fe79ea483310fe6710f36954c1ce22cd4c7ff94f80c64b407d6e3fdd2 -->
+## [0.28.0] - 2026-10-24
+
+Foundation Adoption Review 0.28.0 保持三个 Skill 入口，与新增 Windows 能力的 Foundation 三包锁步前移。
+
+### 变更
+
+- 既有初始化接线参考新增 Windows 显式投影参数及 v3 文档说明。Skill 业务指令与原职责保持不变。
+
+### 升级说明
+
+Plugin 须与三个 npm 包精确锁定 0.28.0 安装。所选 WorkBuddy 手动路径的业务证据不证明自动宿主构建，也不覆盖全部模型或宿主。安装、实际加载、setup 与业务完成为独立阶段，本说明不替代发布后核验。
+<!-- release-skill:changelog:end version=0.28.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.27.1 locale=zh-CN baseline=sha256:227cd9a4b29497baff4a8dfa3ee54f197c3a5afc1f9025e320c84ff6ed013baa -->
 ## [0.27.1] - 2026-10-21
 

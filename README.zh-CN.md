@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.27.1 -->
+<!-- release-skill:release-version: 0.28.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.27.1** (2026-10-21)
+**0.28.0** (2026-10-24)
 
-Foundation Adoption Review 0.27.1 与四个发布单元锁步前移，未新增 Skill 行为或共享运行时 API。已发布的 0.27.0 不改写。
+Foundation Adoption Review 0.28.0 保持三个 Skill 入口，与新增 Windows 能力的 Foundation 三包锁步前移。
 
 **变更**
 
-- 没有新增能力。插件按 0.27.1 重新发布，使四个发布单元保持同一版本坐标。
+- 既有初始化接线参考新增 Windows 显式投影参数及 v3 文档说明。Skill 业务指令与原职责保持不变。
 
 **升级说明**
 
-本插件须与三个 Foundation npm 包精确锁定 0.27.1。工程包兼容修复在该 npm 版本中，不是新的插件命令。本说明不替代发布后验证。
+Plugin 须与三个 npm 包精确锁定 0.28.0 安装。所选 WorkBuddy 手动路径的业务证据不证明自动宿主构建，也不覆盖全部模型或宿主。安装、实际加载、setup 与业务完成为独立阶段，本说明不替代发布后核验。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
@@ -118,3 +118,9 @@ pnpm test
 ```
 
 该测试核对 Plugin 闭包、manifest、README 发布措辞和冻结 Skill 字节。它不运行目标项目，也不判断诊断回答是否正确。宿主资格与 Foundation 采用状态分别由消费者检查和对应评审给出。
+
+## Windows 支持与使用边界
+
+Foundation Adoption Review 0.28.0 的 Windows 范围为 Windows 11 x64、本地 NTFS 和普通用户。
+
+Plugin 的工程检查入口只做只读扫描，不安装或执行目标资源。静态退出码 0、安装成功或宿主装载扫描均不构成 Windows 宿主业务通过。本版本不改变旧发布物的能力；精确版本的远端可用性须由正式发布凭据核实，真实资格需由对应宿主的业务证据核实。详见 [兼容性矩阵](https://ifoohoo.github.io/skill-family-engineering-kit/reference/compatibility/) 与 [API 文档](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/harness/)。
