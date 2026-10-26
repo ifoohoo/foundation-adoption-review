@@ -1,6 +1,6 @@
 {
   "name": "foundation-adoption-review",
-  "version": "0.28.0",
+  "version": "0.29.0",
   "private": true,
   "description": "Authorized initialization of a skill family engineering project from a proven minimal business Skill, plus read-only Foundation adoption diagnosis and static engineering checks.",
   "author": {
@@ -22,6 +22,9 @@
   "scripts": {
     "check": "node --test",
     "test": "node --test"
+  },
+  "dependencies": {
+    "agent-method-registry": "0.2.0"
   },
   "//": "同仓开发的独立 Plugin 发布单元；private 仅用于禁止 npm publish。"
 }

@@ -51,7 +51,7 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。细节同在 `references/foundation-wiring.md`。
 
-7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。制品接线先按该参考从已发布 `artifact-graph` 包读取正式清单并解释推荐依据，再把实际采用交给 assistant 的 `artifact-chain-bootstrap`。清单缺失或未发布时只暂停依赖清单的推荐分支；发布、知识站、审计和其余初始化步骤继续。不适用的能力说明理由，不制造虚假待办。
+7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。制品接线先按该参考从已发布 `artifact-graph` 包读取正式清单并解释推荐依据，再把实际采用交给 assistant 的 `artifact-chain-bootstrap`。清单缺失或未发布时只暂停依赖清单的推荐分支；发布、知识站、审计和其余初始化步骤继续。两流 P0 已验收后，按同一参考采用 Registry 0.2.0 v1 接通默认 TEST 与项目方法覆盖，保留合法既有选择，禁用、坏覆盖、缺入口或歧义不回落。配置生成、入口验证和两消费者业务结果分别报告，不以配置完成代替业务通过。不适用的能力说明理由，不制造虚假待办。
 
 8. **代表性业务试用**：通过生成的业务入口，用代表性输入完成一次原业务。人工确认点仍由用户判断。试用只提供最小 Skill、原始输入与用户目标，不预先注入正确工程目录或操作配方。
 

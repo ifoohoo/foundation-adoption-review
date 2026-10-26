@@ -1,19 +1,22 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.28.0 -->
+<!-- release-skill:release-version: 0.29.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.28.0** (2026-10-24)
+**0.29.0** (2026-10-26)
 
-Foundation Adoption Review 0.28.0 保持三个 Skill 入口，与新增 Windows 能力的 Foundation 三包锁步前移。
+0.29.0新增foundation-initialize第7步默认TEST与Registry方法覆盖接线，精确依赖agent-method-registry@0.2.0 v1 API，支持显式覆盖与原选择保留，不隐式回退，设计开发与发布两流消费同一选择并各自验证业务结果。
 
-**变更**
+**新增**
 
-- 既有初始化接线参考新增 Windows 显式投影参数及 v3 文档说明。Skill 业务指令与原职责保持不变。
+- 新增foundation-initialize第7步默认TEST接线，依赖agent-method-registry@0.2.0 v1公共API
+- 新增项目entries/overrides或外部插件覆盖默认TEST的能力，支持显式选择
+- 非空项目重入时保留合法原选择，禁用/坏覆盖/缺入口/缺验证根/歧义仅停止调用不回退
+- 初始化入口不代签，设计开发与发布两流独立验证业务结果
 
 **升级说明**
 
-Plugin 须与三个 npm 包精确锁定 0.28.0 安装。所选 WorkBuddy 手动路径的业务证据不证明自动宿主构建，也不覆盖全部模型或宿主。安装、实际加载、setup 与业务完成为独立阶段，本说明不替代发布后核验。
+0.29.0版本四个发布单元精确锁步，新增初始化第7步默认TEST与agent-method-registry@0.2.0 v1方法覆盖接线。P1支持宿主仅限codex和claude-code。项目选择必须有效，外部插件需显式指定；禁用、坏覆盖、缺入口、缺验证根、歧义等五类失败仅停止对应依赖调用，不触发默认行为回退。本轮验收仅覆盖第7步存量工程重入、五类失败情形及12个plan/run入口组合的解析验证，该12个组合为解析验证数，非业务运行次数，不构成完整初始化、宿主安装加载或全宿主支持的证明。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
@@ -42,7 +45,7 @@ Plugin 维护三份共享 Skill。根级 Agent Plugin manifest 用于准备 Curs
 
 ## 安装
 
-这是一个开源 Plugin，不是 npm 包。Skill Family Hub 是当前公开市场。插件仓携带一份根级 Agent Plugin manifest、四份宿主清单和两份 Skill 载荷，不携带市场索引。Cursor Marketplace 的提交与审核另行处理。先添加 Hub，再从已支持的 Hub 路径安装插件：
+本插件为开源Plugin，不通过npm发布。Skill Family Hub为当前公开市场入口。仓库包含根级Agent Plugin manifest、四份宿主manifest及三个Skill载荷，不含市场索引。Cursor Marketplace提交审核需另行处理。安装流程为：先添加Hub，再按已支持Hub路径安装。
 
 ```text
 # Codex
@@ -62,7 +65,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code 由 release-skill 的受控交互流程从冻结的 Plugin 公开仓和精确 0.22.0 tag 安装。它在 Hub 中的登记与 gate 单独验证，Hub 更新完成后才执行宿主路径。WorkBuddy 使用桌面端插件市场，并与 CodeBuddy 共用 Hub 的 `codebuddy` 分发面，但它的安装、发现和调用结果必须独立检查。Qoder 使用 Hub 的 `qoder` 分发面；安装、发现、来源绑定、Skill 加载和一次只读调用须在 Qoder CLI 1.1.30 上分别验收。
+Kimi Code 通过 release-skill 的受控交互流程，从冻结的 Plugin 公开仓以 0.29.0 版本的精确 tag 安装。其在 Skill Family Hub 中的登记与门禁验证独立进行，仅在 Hub 更新完成并确认接受后，才执行对应宿主路径的安装与检查。WorkBuddy 依赖桌面端插件市场，与 CodeBuddy 共用 Hub 的 codebuddy 分发面，但其安装流程、发现机制、调用结果需独立验证。Qoder 使用 Hub 的 qoder 分发面，其安装、发现、来源绑定、Skill 加载及一次只读调用，均依据 Qoder CLI 1.1.30 的原验收范围分别进行检查。
 
 只有发布完成、验证通过且 Hub 接受登记后，才执行这些宿主检查。发布后验证步骤会为既有条目生成冻结的更新提案，再由 Hub 的独立流程摄入、校验并发布。仓库当前的源码状态不能单独证明市场已经可用。
 

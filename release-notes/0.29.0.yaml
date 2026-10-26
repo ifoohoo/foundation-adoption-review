@@ -1,0 +1,19 @@
+version: 0.29.0
+date: 2026-10-26
+locales:
+  en:
+    summary: Foundation Adoption Review 0.29.0 adds default TEST and project method selection wiring to step 7 of foundation-initialize using the exact agent-method-registry 0.2.0 v1 public API.
+    changes:
+      added:
+        - Default TEST selection can be explicitly replaced by project entries/overrides or a user-selected external Plugin. Reentry preserves a valid existing choice.
+        - Disabled defaults, invalid overrides, missing entries or roots, and ambiguity stop the dependent call without fallback. Design/development and release consume the same original selection and verify their own business results.
+    upgradeNotes: Pin all four release units to exactly 0.29.0. P1 wiring covers codex and claude-code only. Evidence covers step-7 existing-project reentry and five failure classes; 12 verified plan/run entry combinations do not imply 12 business runs, complete engineering initialization, or host installation/loading.
+  zh-CN:
+    summary: 0.29.0新增foundation-initialize第7步默认TEST与Registry方法覆盖接线，精确依赖agent-method-registry@0.2.0 v1 API，支持显式覆盖与原选择保留，不隐式回退，设计开发与发布两流消费同一选择并各自验证业务结果。
+    changes:
+      added:
+        - 新增foundation-initialize第7步默认TEST接线，依赖agent-method-registry@0.2.0 v1公共API
+        - 新增项目entries/overrides或外部插件覆盖默认TEST的能力，支持显式选择
+        - 非空项目重入时保留合法原选择，禁用/坏覆盖/缺入口/缺验证根/歧义仅停止调用不回退
+        - 初始化入口不代签，设计开发与发布两流独立验证业务结果
+    upgradeNotes: 0.29.0版本四个发布单元精确锁步，新增初始化第7步默认TEST与agent-method-registry@0.2.0 v1方法覆盖接线。P1支持宿主仅限codex和claude-code。项目选择必须有效，外部插件需显式指定；禁用、坏覆盖、缺入口、缺验证根、歧义等五类失败仅停止对应依赖调用，不触发默认行为回退。本轮验收仅覆盖第7步存量工程重入、五类失败情形及12个plan/run入口组合的解析验证，该12个组合为解析验证数，非业务运行次数，不构成完整初始化、宿主安装加载或全宿主支持的证明。

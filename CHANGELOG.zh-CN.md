@@ -1,5 +1,23 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.29.0 locale=zh-CN baseline=sha256:cd55773d895c56fc448c0bb68c2e53640abe8cc73e9e5472dde1b1d97df9fd88 -->
+## [0.29.0] - 2026-10-26
+
+0.29.0新增foundation-initialize第7步默认TEST与Registry方法覆盖接线，精确依赖agent-method-registry@0.2.0 v1 API，支持显式覆盖与原选择保留，不隐式回退，设计开发与发布两流消费同一选择并各自验证业务结果。
+
+### 新增
+
+- 新增foundation-initialize第7步默认TEST接线，依赖agent-method-registry@0.2.0 v1公共API
+- 新增项目entries/overrides或外部插件覆盖默认TEST的能力，支持显式选择
+- 非空项目重入时保留合法原选择，禁用/坏覆盖/缺入口/缺验证根/歧义仅停止调用不回退
+- 初始化入口不代签，设计开发与发布两流独立验证业务结果
+
+### 升级说明
+
+0.29.0版本四个发布单元精确锁步，新增初始化第7步默认TEST与agent-method-registry@0.2.0 v1方法覆盖接线。P1支持宿主仅限codex和claude-code。项目选择必须有效，外部插件需显式指定；禁用、坏覆盖、缺入口、缺验证根、歧义等五类失败仅停止对应依赖调用，不触发默认行为回退。本轮验收仅覆盖第7步存量工程重入、五类失败情形及12个plan/run入口组合的解析验证，该12个组合为解析验证数，非业务运行次数，不构成完整初始化、宿主安装加载或全宿主支持的证明。
+<!-- release-skill:changelog:end version=0.29.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.28.0 locale=zh-CN baseline=sha256:156f724fe79ea483310fe6710f36954c1ce22cd4c7ff94f80c64b407d6e3fdd2 -->
 ## [0.28.0] - 2026-10-24
 

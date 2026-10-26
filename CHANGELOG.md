@@ -1,5 +1,21 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.29.0 locale=en baseline=sha256:ed9a157e9f8ab6dd8534874b17b551285df49ba29422eab5c49555466faaaf08 -->
+## [0.29.0] - 2026-10-26
+
+Foundation Adoption Review 0.29.0 adds default TEST and project method selection wiring to step 7 of foundation-initialize using the exact agent-method-registry 0.2.0 v1 public API.
+
+### Added
+
+- Default TEST selection can be explicitly replaced by project entries/overrides or a user-selected external Plugin. Reentry preserves a valid existing choice.
+- Disabled defaults, invalid overrides, missing entries or roots, and ambiguity stop the dependent call without fallback. Design/development and release consume the same original selection and verify their own business results.
+
+### Upgrade Notes
+
+Pin all four release units to exactly 0.29.0. P1 wiring covers codex and claude-code only. Evidence covers step-7 existing-project reentry and five failure classes; 12 verified plan/run entry combinations do not imply 12 business runs, complete engineering initialization, or host installation/loading.
+<!-- release-skill:changelog:end version=0.29.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.28.0 locale=en baseline=sha256:195d37dfb12de08a7a402198ea41f1a3afa16166777676aa8d1a195e96e521dd -->
 ## [0.28.0] - 2026-10-24
 

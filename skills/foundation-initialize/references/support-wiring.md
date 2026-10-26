@@ -60,6 +60,20 @@ Graph 拥有共同最小清单、项目类型标准、阶段项和条件项；As
 - 提供方缺失：暂停清单推荐，其余流程继续，不得宣称正式消费完成。
 
 
+## 默认测试与项目方法选择（TEST / Registry v1）
+
+两流 P0 默认 TEST 调用已分别验收后，才进行本 P1 接线。初始化不重新证明 P0，不把配置生成当作业务通过。
+
+- **同一原选择**：读取项目现有采用记录和 `agent-methods/project.yaml` 的 `entries`、`overrides`、`disabled`。没有覆盖时，明确采用用户所选 TEST 公开包内 `agent-methods/catalog.yaml`，不自动纳入其他已安装目录。项目原选择及公开目录位置来自现有采用记录或同一权威执行计划；effective-index 只是派生物，不用于反推用户意图。
+- **写入与重入**：首次创建或修改 overlay 前展示精确差异，仅写获准配置。重入读取并保留合法覆盖、非空工程内容与既有发布配置；未经用户明确选择，不写入外部目录或 ref，不覆盖已有选择。
+- **公开 API**：使用插件精确依赖 `agent-method-registry@0.2.0` 的 `buildEffectiveIndex`、`queryEffectiveIndex`、`resolveEntry` 与 `verifyProvider`。把明确采用的 catalogs 和项目 overlay 交给 Registry，以 `domains:[testing]`、`artifactTypes:[skill-family]` 及所需 `plan` 或 `run` 查询唯一候选，再带真实 host 和 `strictProvider:true` 解析；只有 verified 入口才能交给消费者。不得复制合并、优先级、去重或路径查找算法，不手写 effective-index。
+- **提供方根**：plugin provider 的 `pluginRoots[provider.plugin]` 是实际宿主中该插件的技能目录根列表，例如包含 `<skill-id>/SKILL.md` 的 `.agents/skills`，不是笼统包根或 ACA 子目录。project provider 使用项目 `entries/overrides`，`projectRoots` 必须指向获准项目的真实 Skill 目录根。正常项目自有覆盖必须能实际解析；专项缺根、入口缺失、realpath 歧义或未验证均拒绝。
+- **替换**：项目自有 Skill 用项目 entries/overrides；外部插件使用用户明确选择的不同 ref 目录，并在 overlay 禁用原默认 ref，保证共同能力查询唯一。相同 ref 跨目录冲突、多候选、坏覆盖和显式禁用均按 Registry 原错误处理，不按目录顺序选择，也不静默回落 TEST。
+- **宿主范围**：P1 仅迁移 `codex` 与 `claude-code` 执行面，不省略 host 绕过验证，不宣称其他宿主获得 P1 支持。v2 绑定不用于没有相应图事实的项目。
+- **两流分别验证**：ACA 与 release 读取同一原选择及 overlay，各自完成独立业务调用。初始化只负责接线和分别报告“配置已创建/保留”“入口已解析/拒绝”“业务已验证/未覆盖”；联合业务结果由两消费者验收，不由本入口代签。
+
+默认方法被禁用、坏覆盖、缺目录/入口/验证根或出现歧义时，只暂停依赖该方法的调用，需求收集、发布配置及其他不依赖片段继续，已有用户内容和权限保持不变。
+
 ## 知识站接线（可选）
 
 仅在用户明确需要时启用，使用 `skill-family-docs-setup` 或 `skill-family-docs-render-site` 完成配置与渲染；渲染器与插件是独立版本坐标。配置完成后分别报告“配置完成”“正文待生成”“站点就绪”。不默认发布站点；发布行为需要显式授权。无知识站需求时说明不适用，不留空栏目。
