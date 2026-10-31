@@ -1,20 +1,23 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.29.0 -->
+<!-- release-skill:release-version: 0.30.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.29.0** (2026-10-26)
+**0.30.0** (2026-10-31)
 
-Foundation Adoption Review 0.29.0 adds default TEST and project method selection wiring to step 7 of foundation-initialize using the exact agent-method-registry 0.2.0 v1 public API.
+foundation-engineering-check integrates runStaticReferenceCheck within selected public call relationships or native runtime closures.
 
 **Added**
 
-- Default TEST selection can be explicitly replaced by project entries/overrides or a user-selected external Plugin. Reentry preserves a valid existing choice.
-- Disabled defaults, invalid overrides, missing entries or roots, and ambiguity stop the dependent call without fallback. Design/development and release consume the same original selection and verify their own business results.
+- Read the source to confirm actual calls, resolution bases, and selection coverage before checking source and adapter references separately.
+
+**Changed**
+
+- Mechanical results remain separate from semantic judgment. Incomplete applicable checks retain insufficient; a local CLEAR cannot substitute for full semantic and coverage review.
 
 **Upgrade Notes**
 
-Pin all four release units to exactly 0.29.0. P1 wiring covers codex and claude-code only. Evidence covers step-7 existing-project reentry and five failure classes; 12 verified plan/run entry combinations do not imply 12 business runs, complete engineering initialization, or host installation/loading.
+Pin all four release units to exactly 0.30.0. Interfaces that have not adopted a machine Schema are not required to add one. Existing initialization, other Skills, and host boundaries remain unchanged.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.
@@ -63,7 +66,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.29.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
+Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.30.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
 
 These host checks run only after the release is published, verified, and accepted by the Hub. The post-verification step creates a frozen existing-entry update proposal for the Hub's independent process to ingest, validate, and publish. The repository's current source state does not by itself prove Marketplace availability.
 

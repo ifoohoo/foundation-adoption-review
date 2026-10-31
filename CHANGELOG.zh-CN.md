@@ -1,5 +1,24 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.30.0 locale=zh-CN baseline=sha256:6f237414104d97b225f63cce5c122126928bbb53fbde547a2a020851c05f665c -->
+## [0.30.0] - 2026-10-31
+
+foundation-engineering-check 在已选公共调用关系或原生运行闭包内接通 runStaticReferenceCheck API。
+
+### 新增
+
+- 先读原文确认实际调用、解析基准与选集完整性，再分别检查源码及各适配器，不用一处替代其他平台。
+
+### 变更
+
+- 机械结果与语义职责分开，不足项保留 insufficient，不能仅凭局部 CLEAR 跳过语义和覆盖核收。
+
+### 升级说明
+
+四个发布单元须精确锁步采用 0.30.0。未采用机器 Schema 的接口不因此强制补 Schema；原初始化、其他 Skill 与宿主边界不扩展。
+<!-- release-skill:changelog:end version=0.30.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.29.0 locale=zh-CN baseline=sha256:cd55773d895c56fc448c0bb68c2e53640abe8cc73e9e5472dde1b1d97df9fd88 -->
 ## [0.29.0] - 2026-10-26
 

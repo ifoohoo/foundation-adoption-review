@@ -1,22 +1,23 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.29.0 -->
+<!-- release-skill:release-version: 0.30.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.29.0** (2026-10-26)
+**0.30.0** (2026-10-31)
 
-0.29.0新增foundation-initialize第7步默认TEST与Registry方法覆盖接线，精确依赖agent-method-registry@0.2.0 v1 API，支持显式覆盖与原选择保留，不隐式回退，设计开发与发布两流消费同一选择并各自验证业务结果。
+foundation-engineering-check 在已选公共调用关系或原生运行闭包内接通 runStaticReferenceCheck API。
 
 **新增**
 
-- 新增foundation-initialize第7步默认TEST接线，依赖agent-method-registry@0.2.0 v1公共API
-- 新增项目entries/overrides或外部插件覆盖默认TEST的能力，支持显式选择
-- 非空项目重入时保留合法原选择，禁用/坏覆盖/缺入口/缺验证根/歧义仅停止调用不回退
-- 初始化入口不代签，设计开发与发布两流独立验证业务结果
+- 先读原文确认实际调用、解析基准与选集完整性，再分别检查源码及各适配器，不用一处替代其他平台。
+
+**变更**
+
+- 机械结果与语义职责分开，不足项保留 insufficient，不能仅凭局部 CLEAR 跳过语义和覆盖核收。
 
 **升级说明**
 
-0.29.0版本四个发布单元精确锁步，新增初始化第7步默认TEST与agent-method-registry@0.2.0 v1方法覆盖接线。P1支持宿主仅限codex和claude-code。项目选择必须有效，外部插件需显式指定；禁用、坏覆盖、缺入口、缺验证根、歧义等五类失败仅停止对应依赖调用，不触发默认行为回退。本轮验收仅覆盖第7步存量工程重入、五类失败情形及12个plan/run入口组合的解析验证，该12个组合为解析验证数，非业务运行次数，不构成完整初始化、宿主安装加载或全宿主支持的证明。
+四个发布单元须精确锁步采用 0.30.0。未采用机器 Schema 的接口不因此强制补 Schema；原初始化、其他 Skill 与宿主边界不扩展。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
@@ -65,7 +66,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code 通过 release-skill 的受控交互流程，从冻结的 Plugin 公开仓以 0.29.0 版本的精确 tag 安装。其在 Skill Family Hub 中的登记与门禁验证独立进行，仅在 Hub 更新完成并确认接受后，才执行对应宿主路径的安装与检查。WorkBuddy 依赖桌面端插件市场，与 CodeBuddy 共用 Hub 的 codebuddy 分发面，但其安装流程、发现机制、调用结果需独立验证。Qoder 使用 Hub 的 qoder 分发面，其安装、发现、来源绑定、Skill 加载及一次只读调用，均依据 Qoder CLI 1.1.30 的原验收范围分别进行检查。
+Kimi Code 通过 release-skill 的受控交互流程，从冻结的 Plugin 公开仓以 0.30.0 版本的精确 tag 安装。其在 Skill Family Hub 中的登记与门禁验证独立进行，仅在 Hub 更新完成并确认接受后，才执行对应宿主路径的安装与检查。WorkBuddy 依赖桌面端插件市场，与 CodeBuddy 共用 Hub 的 codebuddy 分发面，但其安装流程、发现机制、调用结果需独立验证。Qoder 使用 Hub 的 qoder 分发面，其安装、发现、来源绑定、Skill 加载及一次只读调用，均依据 Qoder CLI 1.1.30 的原验收范围分别进行检查。
 
 只有发布完成、验证通过且 Hub 接受登记后，才执行这些宿主检查。发布后验证步骤会为既有条目生成冻结的更新提案，再由 Hub 的独立流程摄入、校验并发布。仓库当前的源码状态不能单独证明市场已经可用。
 

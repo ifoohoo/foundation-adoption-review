@@ -1,5 +1,24 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.30.0 locale=en baseline=sha256:9a29e51320bfa6acd5e8cf73172f7565e829eb21bb69b94a7e82aab813221a26 -->
+## [0.30.0] - 2026-10-31
+
+foundation-engineering-check integrates runStaticReferenceCheck within selected public call relationships or native runtime closures.
+
+### Added
+
+- Read the source to confirm actual calls, resolution bases, and selection coverage before checking source and adapter references separately.
+
+### Changed
+
+- Mechanical results remain separate from semantic judgment. Incomplete applicable checks retain insufficient; a local CLEAR cannot substitute for full semantic and coverage review.
+
+### Upgrade Notes
+
+Pin all four release units to exactly 0.30.0. Interfaces that have not adopted a machine Schema are not required to add one. Existing initialization, other Skills, and host boundaries remain unchanged.
+<!-- release-skill:changelog:end version=0.30.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.29.0 locale=en baseline=sha256:ed9a157e9f8ab6dd8534874b17b551285df49ba29422eab5c49555466faaaf08 -->
 ## [0.29.0] - 2026-10-26
 

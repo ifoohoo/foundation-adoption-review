@@ -1,0 +1,27 @@
+version: 0.30.0
+date: 2026-10-31
+locales:
+  en:
+    summary: foundation-engineering-check integrates runStaticReferenceCheck within
+      selected public call relationships or native runtime closures.
+    changes:
+      added:
+        - Read the source to confirm actual calls, resolution bases, and
+          selection coverage before checking source and adapter references
+          separately.
+      changed:
+        - Mechanical results remain separate from semantic judgment. Incomplete
+          applicable checks retain insufficient; a local CLEAR cannot substitute
+          for full semantic and coverage review.
+    upgradeNotes: Pin all four release units to exactly 0.30.0. Interfaces that have
+      not adopted a machine Schema are not required to add one. Existing
+      initialization, other Skills, and host boundaries remain unchanged.
+  zh-CN:
+    summary: foundation-engineering-check 在已选公共调用关系或原生运行闭包内接通
+      runStaticReferenceCheck API。
+    changes:
+      added:
+        - 先读原文确认实际调用、解析基准与选集完整性，再分别检查源码及各适配器，不用一处替代其他平台。
+      changed:
+        - 机械结果与语义职责分开，不足项保留 insufficient，不能仅凭局部 CLEAR 跳过语义和覆盖核收。
+    upgradeNotes: 四个发布单元须精确锁步采用 0.30.0。未采用机器 Schema 的接口不因此强制补 Schema；原初始化、其他 Skill 与宿主边界不扩展。
