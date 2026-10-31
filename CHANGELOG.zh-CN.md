@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.31.0 locale=zh-CN baseline=sha256:002ad5f00afafc3678c54efbc0fb9ba6dbc3c503cfb38384117d677fcf9364a9 -->
+## [0.31.0] - 2026-11-01
+
+foundation-engineering-check 在调用公共API/CLI前，先核验Schema采用、基准信任及选集完整性。真实子检查与来源保留，proof-create 不能冒充实际检查。单独选择此范围时保留真实专业结论，合选语义审阅沿用原流程。旧证明仅可读解释，不重跑、不鉴伪。不强制未采用机器Schema的对象补全Schema。
+
+### 变更
+
+- foundation-engineering-check 在调用公共API/CLI前，真实校验Schema采用、基准信任及选集完整性。保留真实子检查与来源。
+
+### 升级说明
+
+四单元必须精确升级至0.31.0。初始化、其他Skill及既有宿主边界不扩张。局部CLEAR不表示完整Foundation审阅、宿主安装/更新/启用或业务运行成功。
+<!-- release-skill:changelog:end version=0.31.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.30.0 locale=zh-CN baseline=sha256:6f237414104d97b225f63cce5c122126928bbb53fbde547a2a020851c05f665c -->
 ## [0.30.0] - 2026-10-31
 

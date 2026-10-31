@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.31.0 locale=en baseline=sha256:c68927f46d6b6ffc67b809fa4fa9e34535d96c912104c5b413eb22e92b089432 -->
+## [0.31.0] - 2026-11-01
+
+foundation-engineering-check now verifies schema adoption, baseline trust, and artifact set integrity before invoking public API/CLI. Real sub-checks and origins are preserved; proof-create cannot substitute for actual checks. When selected alone, real professional conclusion is retained. Combined semantic review follows original flow. Existing proofs are read-only; no re-running or forgery detection. No requirement to adopt machine schema for unadopted objects.
+
+### Changed
+
+- foundation-engineering-check performs pre-validation of schema adoption, baseline trust, and artifact set before public API/CLI invocation. Real sub-checks and origins are preserved.
+
+### Upgrade Notes
+
+All four units must upgrade to exactly 0.31.0. No expansion of initialization, other Skills, or existing host boundaries. Local CLEAR does not imply complete Foundation review, host installation/update/enable, or business operation success.
+<!-- release-skill:changelog:end version=0.31.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.30.0 locale=en baseline=sha256:9a29e51320bfa6acd5e8cf73172f7565e829eb21bb69b94a7e82aab813221a26 -->
 ## [0.30.0] - 2026-10-31
 

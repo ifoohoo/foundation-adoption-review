@@ -1,23 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.30.0 -->
+<!-- release-skill:release-version: 0.31.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.30.0** (2026-10-31)
+**0.31.0** (2026-11-01)
 
-foundation-engineering-check integrates runStaticReferenceCheck within selected public call relationships or native runtime closures.
-
-**Added**
-
-- Read the source to confirm actual calls, resolution bases, and selection coverage before checking source and adapter references separately.
+foundation-engineering-check now verifies schema adoption, baseline trust, and artifact set integrity before invoking public API/CLI. Real sub-checks and origins are preserved; proof-create cannot substitute for actual checks. When selected alone, real professional conclusion is retained. Combined semantic review follows original flow. Existing proofs are read-only; no re-running or forgery detection. No requirement to adopt machine schema for unadopted objects.
 
 **Changed**
 
-- Mechanical results remain separate from semantic judgment. Incomplete applicable checks retain insufficient; a local CLEAR cannot substitute for full semantic and coverage review.
+- foundation-engineering-check performs pre-validation of schema adoption, baseline trust, and artifact set before public API/CLI invocation. Real sub-checks and origins are preserved.
 
 **Upgrade Notes**
 
-Pin all four release units to exactly 0.30.0. Interfaces that have not adopted a machine Schema are not required to add one. Existing initialization, other Skills, and host boundaries remain unchanged.
+All four units must upgrade to exactly 0.31.0. No expansion of initialization, other Skills, or existing host boundaries. Local CLEAR does not imply complete Foundation review, host installation/update/enable, or business operation success.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.
@@ -66,7 +62,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.30.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
+Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.31.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
 
 These host checks run only after the release is published, verified, and accepted by the Hub. The post-verification step creates a frozen existing-entry update proposal for the Hub's independent process to ingest, validate, and publish. The repository's current source state does not by itself prove Marketplace availability.
 

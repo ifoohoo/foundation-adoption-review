@@ -1,0 +1,26 @@
+version: 0.31.0
+date: 2026-11-01
+locales:
+  en:
+    summary: foundation-engineering-check now verifies schema adoption, baseline trust, and
+      artifact set integrity before invoking public API/CLI. Real sub-checks and origins are
+      preserved; proof-create cannot substitute for actual checks. When selected alone, real
+      professional conclusion is retained. Combined semantic review follows original flow.
+      Existing proofs are read-only; no re-running or forgery detection. No requirement to
+      adopt machine schema for unadopted objects.
+    changes:
+      changed:
+        - foundation-engineering-check performs pre-validation of schema adoption, baseline
+          trust, and artifact set before public API/CLI invocation. Real sub-checks and
+          origins are preserved.
+    upgradeNotes: All four units must upgrade to exactly 0.31.0. No expansion of initialization,
+      other Skills, or existing host boundaries. Local CLEAR does not imply complete
+      Foundation review, host installation/update/enable, or business operation success.
+  zh-CN:
+    summary: foundation-engineering-check
+      在调用公共API/CLI前，先核验Schema采用、基准信任及选集完整性。真实子检查与来源保留，proof-create
+      不能冒充实际检查。单独选择此范围时保留真实专业结论，合选语义审阅沿用原流程。旧证明仅可读解释，不重跑、不鉴伪。不强制未采用机器Schema的对象补全Schema。
+    changes:
+      changed:
+        - foundation-engineering-check 在调用公共API/CLI前，真实校验Schema采用、基准信任及选集完整性。保留真实子检查与来源。
+    upgradeNotes: 四单元必须精确升级至0.31.0。初始化、其他Skill及既有宿主边界不扩张。局部CLEAR不表示完整Foundation审阅、宿主安装/更新/启用或业务运行成功。

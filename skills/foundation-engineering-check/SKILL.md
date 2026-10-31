@@ -14,7 +14,7 @@ description: Run Foundation's complete static engineering review for a caller-se
 业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，可分别选择或合选。后三项的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -117,6 +117,49 @@ skill-family-kit adopt-plan --root <target> --no-git-spawn
 - 闭包摘要不符或计算失败时，受影响项降级为 `insufficient`，但其他项仍可完成；仅闭包整体失败时，所有参与项转为不足，`closure` 为 `null`。
 - 不改变 `root` 与 `baseDir` 的语义，不将闭包相等视为原子快照。
 
+
+### 已选文档结构与字节基准
+
+当调用方在本次工程范围中明确选择本节作为独立检查项，且未提供任何只读历史证明时，适用本节。该检查不依赖目标是否采用 Foundation Profile、managed-lock 或 Registry 机制；仅选择本节时，不执行工程声明（engineering declaration）、adopt-plan 或其他未选范围的命令，未声明工程清单不影响本节独立运行。
+
+本节的核心任务是确认调用方实际采用的 Schema 与其对应文档、可信 SHA256 摘要来源、给定版本与文件之间的事实关系，并验证当前选集的完整性。所有判断必须基于真实存在的配置与输出，不得：
+
+- 凭源码自造未采用的 Schema；
+- 从当前文件摘要反推 expected 基准；
+- 将版本标签等同于已证明的文档版本。
+
+实际内容版本约束由已采用 Schema 中的 `const` 或 `enum` 字段明确表达，入口点不提取版本信息，也不推导平台政策。
+
+调用入口为 `runSelectedArtifactCheck({root, artifacts})`，需从精确安装版本的 `skill-family-engineering-kit` 包根目录发起。其中：
+
+- `path` 为根目录内的普通文件路径；
+- `schema: {path, dialect}` 指向独立 Schema 文件，支持 `draft-07` 与 `2020-12` 同步对象 Schema（含 `{}`），允许本地 `#` 片段引用；
+- `baseline: {sha256, version?}` 必须提供可信摘要，可选附带版本标签；每项至少选择 schema 或 baseline。
+
+CLI 等价入口为：
+`skill-family-kit check selected-artifacts --root <dir> --selection <relative-json> --json`
+选集文件恰含 artifacts 字段，其值是本次请求数组。
+
+路径安全性由公共 API 实际核验，不可由宿主声称“已安全”代替。当前仅支持 `draft-07/2020-12` 同步对象 Schema，对以下特性不支持：
+
+- `boolean` 类型作为 Schema；
+- 外部引用（`$ref` 指向外部 URL）；
+- `$async: true`；
+- 其他非同步对象 Schema。
+
+上述未支持项将被保留为“检查不足”状态，不执行目标补证或联网验证。
+
+`schema` 与 `baseline` 均为可选对象，二者不强制同时选择。未选择时，整个 checks.schema 或 checks.bytes 为 `null`，不视为“不足”。支持边界明确，不强制补全缺失前提目标的 Schema。
+
+#### 核收真实结果
+
+对 `details.artifacts` 中的 `selection` 原请求与 `document/schemaSource` 回执进行逐项核对，核对原请求各自对应的文档、Schema 来源和可信摘要；CLI 侧通过 `details.selectionSource` 验证选集输入来源，将选集文件的实际来源与摘要核对到本次冻结输入。所有回执信息均基于真实运行时输出，不依赖历史证明或宿主声明。
+
+`checks.schema` 与 `checks.bytes` 的 `status`、`reason` 及原始错误信息必须与实际检查结果一致，`scope.checked` 仅列已完成子项，`details.closure` 提供本次已读取资源的闭包摘要，不是原子快照。`bytes` 字段仅表示实际回传的字节数，不包含文件全文内容，且同 `$id` 缓存不一致或资源摘要冲突时仅报告“不足”，不修改 `$id` 也不清空缓存。
+
+`complete/ENGINEERING_CLEAR` 仅在本节所有选定子检查均实际完成且无发现时生效，其覆盖范围限于当前选集；存在真实发现时状态为 `ENGINEERING_FINDINGS`，同时有不足时保留 `partial` 完成状态，已核发现不得丢弃。无发现但存在不足时为 `ENGINEERING_CHECK_INCOMPLETE`，全部选定检查均不足时为 `not-performed`。未选择的检查项为 `null`，不视为不足。CLI 完整 CLEAR 退出 0，有发现或不足退出 1，用法或未处理机制错误退出 2；退出码 1 本身不能作为领域违规判据。
+
+仅选择本节时，直接保留公共入口返回的真实专业结论，宿主仅在当前获准输出目录保存该结果，随后结束本次检查，并可沿 `check proof` 或 `readProfessionalProof` 解释其记载；读取不重跑、不鉴伪。不通过 `proof-create` 手动填充 `ENGINEERING_*` 状态，也不将局部 `CLEAR` 视为整体通过。若与其他语义合选，该机械输出作为实际检查依据，保留 `sourceRefs/reason` 后继续原有语义审阅与出证流程，调用方仍负责 Schema 采用、基准可信性、平台语义、版本政策与选集完整性。
 
 ### 静态语义审阅
 
