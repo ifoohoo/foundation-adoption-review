@@ -1,19 +1,23 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.32.0 -->
+<!-- release-skill:release-version: 0.34.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.32.0** (2026-11-01)
+**0.34.0** (2026-11-02)
 
-`foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。结果保留原有专业结论，包括请求、定位、冲突、不足与实际字节来源。结果为局部解释，不以语义审阅或投影收据替代机械比较，不支持手填通过。不证明整个 Foundation 审阅、全部 SFA-ARTIFACT-030@2 合规性、任意反向依赖、生成效果或发布资格。声明权威、实际采用及完整范围仍由调用方负责解释。
+Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。严禁手填通过码或以人工判断替代机械调用。调用范围选择后，各子项原件均须保留，局部 `CLEAR` 不代表完整 `METHOD003`、完整审阅、安装成功或业务执行通过。
+
+所有关于公开性、同业务条件、Schema权威性、选集完整性及运行时语义的判断，仍由调用方负责。Kit与Plugin的职责边界清晰：Kit仅提供静态比对能力，不介入运行、不写入目标、不联网、不改用错误URI下的Schema。
 
 **变更**
 
-- `foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。
+- Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。
 
 **升级说明**
 
-该选择需要 Engineering Kit 0.32.0 和 foundation-adoption-review 0.32.0，结果边界与现有 reader 一致。既有能力仍按原兼容合同使用。不对外部消费者设置强制升级门。
+Contracts与Harness在本版无新增机制行为，仅进行锁步版本同步与必要派生，既有协议与算法保持不变。升级需同时满足Kit与Plugin均升级至0.34.0版本。旧有入口保持兼容，不强制旧消费者迁移。
+
+0.33.0版本仅为未发布源码候选，不具备正式发布效力；0.34.0为首次合并交付，统一包含两项公共能力。本地候选状态不构成远端发布或授权证明，四单元正式验证通过后，方可认定整体发布。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

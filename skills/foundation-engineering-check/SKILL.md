@@ -14,7 +14,7 @@ description: Run Foundation's complete static engineering review for a caller-se
 业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准、来源与生成根方向，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -222,6 +222,123 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 仅选择本节时，保留 `runSourceGeneratedCheck` 实际返回的专业结论，随后沿 `check proof` 或 `readProfessionalProof` 解释；不通过 `proof-create` 手填 `ENGINEERING_*` 结果，不运行目标生成器或强制工程登记。与其他范围合选时，保留真实 `sourceRefs/reason`、原始发现和不足，再继续原有语义审阅。调用方仍负责声明权威、实际采用和选集完整性。
 
+### 指定分支字段与 Schema 对应
+
+#### runBranchFieldCheck
+
+#### API 定义  
+`runBranchFieldCheck({ root, branches })`  
+- `root`：显式非空本地目录路径；  
+- `branches`：非空数组，每项包含以下六字段：  
+  - `sourceRef`：根内相对文件路径，读取沿原路径合同；  
+  - `line`、`column`：从 1 开始的安全正整数，精确指向 `IfStatement` 的起始位置，非 `test` 子表达式；  
+  - `resultIdentifier`：ASCII JavaScript 标识符，表示左侧属性链的根标识符；  
+  - `schemaRef`：根内相对文件路径，指向 Schema 文件；  
+  - `schemaPointer`：RFC6901 指针，空串表示 Schema 根，非空指针表示对象定义路径。
+
+输入不接受未知字段或重复条目；请求在首次 `await` 前复制。
+
+#### CLI 命令  
+`skill-family-kit check branch-fields --root <dir> --selection <relative-json> --json`  
+- `selection` 文件仅允许 `branches` 字段，与 API 一致；  
+- 复用既有严格选择文件读取方式；  
+- 缺参数、缺 `--json`、未知或重复选项、坏请求时退出码 2；  
+- 产生真实发现或检查不足时退出码 1；  
+- 仅当结果为 `complete / ENGINEERING_CLEAR` 时退出码 0。
+
+#### 输出结构
+
+结果采用 `professional-conclusion` 格式：
+
+- `provider.entry`：`runBranchFieldCheck`；
+- `subject.ref`：实际根路径；
+- `details.branches`：每条分支记录保留六个输入字段（`sourceRef`、`line`、`column`、`resultIdentifier`、`schemaRef`、`schemaPointer`），另含 `index`、实际 source/schema 读取摘要、`status`、`reason`、`comparisons`；
+- `details.closure`：既有闭包信息或 `null`。
+
+每条 `comparison` 包含：
+
+- **源码字段链**：属性链的数组形式，表示从 `resultIdentifier` 开始的字段访问路径；
+- **运算符**：`===` 或 `!==`；
+- **字符串字面值**：运算符右侧的字符串字面量；
+- **字段 Schema 指针**（`schemaPointer`）：字段对应的 Schema 指针；
+- **`status`**：取值为 `checked`、`findings` 或 `insufficient`；
+- **`reason`**：具体原因说明；
+- **实际存在的 `enum`/`const` 成员**：列出 Schema 中实际声明的枚举或常量值。
+
+`scope.checked` 仅列出已完成比较的 `branch-<序号>-comparison-<序号>`，其中第一个序号对应 `details.branches` 中的 `index`（从 1 开始），第二个序号对应该分支内 `comparisons` 数组中的位置（从 1 开始），两个序号共同标识一次比较，组合保持唯一。
+
+当字段没有 `enum` 或 `const` 定义时，仅完成字段定位，不认定字面值有效。
+
+## 算法与错误处理
+
+#### AST 选取规则  
+- 仅支持 `IfStatement`，其 `test` 为 `===` 或 `!==`；  
+- 左侧为同一行的非计算 ASCII 标识符属性链，根须等于 `resultIdentifier`；  
+- 右侧为无转义的字符串字面值；  
+- 允许 `&&`、`||` 连接的有限表达式，支持的叶子节点须满足上述条件；未支持叶子保留不足，独立已完成的比较仍可贡献局部事实；  
+- 不推断逻辑可达性或真假；  
+- 注释、字符串中的伪 `if` 不构成 AST 节点；  
+- 函数调用、可选链、计算属性、模板字符串、别名、其他运算符、TypeScript、其他语言、位置不匹配均视为 `insufficient`，不猜测。
+
+#### Schema 核对规则  
+- 仅从所选对象沿直接 `properties` 链定位；  
+- 仅核对直接 `enum` 或 `const` 的成员关系；  
+- 选中路径上的 `$ref`、组合、条件、`patternProperties` 或未知约束原则上保留不足；本批唯一的排除形状如下，不增加通用求解器；  
+- 即使是本地片段 `$ref` 也不解析；  
+- 无关兄弟属性的约束不影响已选字段；  
+- 缺字段仅在以下条件成立时可产生 `findings`：  
+  - 该层 `type` 为 `object`；  
+  - `properties` 为对象；  
+  - `additionalProperties` 为 `false`；  
+  - 无其他不支持约束；  
+- 缺字段时，开放对象或不确定封闭性为 `insufficient`；已声明字段不因对象开放而失去直接定位依据；  
+- `enum` 必须为非空数组，`const` 使用真实 JSON 值，逐一比较实际字符串成员；  
+- `enum` 与 `const` 同时出现时分别核对，不把它们合并成另一套值域；没有两者时只贡献字段定位；
+- 不判断其他 Schema 条件、完整对象有效性、业务状态或分支穷尽。
+
+#### 其他同级字段的条件必填边界
+
+当仅检查所选对象的直接属性时，可排除一类不涉及目标属性的条件必填结构：该对象的 `allOf` 必须为非空数组，且每项恰好包含 `if` 与 `then`；其中 `if` 仅含 `properties` 与 `required`，`then` 仅含 `required`。`if.properties` 的键以及两处 `required` 数组中的成员必须均为该对象已声明的其他同级属性，且不得包含目标属性。此排除仅基于结构与名称匹配，不涉及条件求值、不解析子 Schema 内容，亦不推导整对象是否可满足。
+
+其他组合形状、`else` 分支、选中路径的引用，或这三处名称位置涉及目标属性时，均视为不足。该边界不扩展至多层属性链的嵌套组合推导。必须保留限制说明：未检查其他字段的条件必填状态，不证明比较值在任意整对象中有效，亦不保证完整状态全集或 Schema 合规。沿用原有 `scope.checked` 与 `limitations` 表达，不新增请求参数或协议字段。
+
+原 `release-run` Schema 的两项根条件仅依据 `command` 与 `stateSequence` 要求其他字段存在，未涉及 `status`。因此，可核对原源码中对 `status` 的引用、Schema 直接声明该字段，以及 `PARTIAL` 属于其直接枚举。不得删除原件 `allOf` 或替换为简化 Schema。
+
+#### 闭包与漂移处理  
+- 读取、解析失败或不支持语法均视为 `insufficient`，不将缺资源转化为产品字段发现；  
+- 结果保留读入字节摘要；  
+- 闭包再读与原摘要不一致时，将依赖这些资源的比较（包括 `findings`）降为 `insufficient`；  
+- 同一路径多次读取有冲突也降级；  
+- 闭包失败使对应观察全部不足。
+
+#### 状态判定逻辑  
+- 有发现加未知 → `partial / ENGINEERING_FINDINGS`；  
+- 没有有效贡献 → `not-performed / ENGINEERING_CHECK_INCOMPLETE`；  
+- 全部支持且无发现 → `complete / ENGINEERING_CLEAR`；  
+- 独立未知不抹除另一项有稳定前提的 `findings`：  
+  - 有发现 + 未知 → `partial`；  
+  - 无有效贡献 → `not-performed`；  
+  - 全部支持且无发现 → `complete`。
+
+既有 reader 仅解释局部结论，不重跑、不认证作者，不将局部 `CLEAR` 提升为完整工程审阅或发布批准。
+
+
+仅选择本节时，保留 `runBranchFieldCheck` 实际返回的原始专业结论，再由 `check proof` 或 `readProfessionalProof` 解释。与其他范围合选时，本节的局部事实不代替其他范围的审阅，也不将结果改写成完整工程通过。
+
+### 指定双入口与共同协议声明对应
+
+本小节仅在调用方明确选择该范围时执行，且依赖 Engineering Kit 与 foundation-adoption-review 0.34.0 版本。源码候选状态不等同于正式发布，调用前需明确本地读取根目录。
+
+调用方须明确提供输入：既有 Skill 身份字段、Python 路由文件中根级纯字典的完整语句行范围、常量名与选定键名、共同 Method 的四 RFC6901 指针（分别指向方法身份、profile、参数 URI、输出 URI）、以及权威 task/result/parameters/domainResult 四 Schema。四指针用于定位实际 JSON 值，不要求固定字段名。公开性、同一业务上下文、条件一致性、Schema 权威性及选集完整性由调用方或审计方负责，系统不主动验证或强制修改原始声明。
+
+实际执行通过 `runPublicSurfaceBindingCheck({root, bindings})` 或 CLI 命令 `skill-family-kit check public-surface-bindings --root <dir> --selection <relative-json> --json` 完成。选集 JSON 仅包含 `bindings` 字段，结构与公开 API 一致，不包含额外元数据或逻辑。输入完整嵌套结构由 Engineering Kit 的 `runPublicSurfaceBindingCheck` 公开 API 说明定义，本节不重新实现或维护算法逻辑。禁止使用人工语义判断或手填通过码替代机械调用。
+
+机械比较六组直接值：Skill 身份对 Method 身份；Python 路由中选定字典值对同一 Method 身份；Method 的 taskContract 与 resultContract 分别对 task 和 result Schema 的根 `$id`；参数与输出 URI 分别对 parameters 和 domainResult Schema 的根 `$id`。不解析 URI 为文件路径，不因错误 URI 切换至另一份 Schema。所有比对基于原始声明值，不进行路径推导或语义归一化。
+
+执行后保留原始返回的 `professional-conclusion`，并使用 `readProfessionalProof` 或 `check proof` 解释其内容。完成状态（`complete`、`partial`、`not-performed`）与 ENGINEERING 状态码（如 `ENGINEERING_CLEAR`、`ENGINEERING_FINDINGS`、`ENGINEERING_CHECK_INCOMPLETE`）为独立字段，需分别保留，并保留 `scope.checked`、`scope.limitations` 与实际读取来源。若结果为 `partial` 或 `insufficient`，不得标记为完整通过。漂移导致的绑定失效按原入口整组失效处理，不手动恢复 findings 或修改 checked 状态。
+
+当仅选择本范围时，直接交付原始专业结论与读取器返回结果，不进入手写 review 或 proof-create 投影流程。若与其他机械或语义范围合并选择，各范围结果分别保留原件，局部 `CLEAR` 不代表整体 METHOD003 合规，亦不覆盖运行时分派、安装加载、发布授权或业务同一性等更高阶保证。
+
 ### 静态语义审阅
 
 声明式版本检查或入口检查已经说明当前所选声明分支没有数组，并且未进入实体核对时，只把这一声明项记为 `insufficient`，`reason` 保留这次命令已经返回的原始诊断。不得把 `insufficient` 写成通过，也不得手填 `FOUNDATION_STATIC_CLEAR`。缺声明只限制这一项。用户同时选了仍可独立执行的公共能力采用或公共调用关系与参数边界时，这些项继续按下面的原文阅读目标实际采用的公共目录、导出和合同，不因声明分支没有数组而跳过，也不要写完这一条就直接出证。有声明且数组仍在时，下面的原文同样继续执行。
@@ -266,6 +383,8 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 完成所选范围后，仍使用下节既有审阅 JSON 与 `proof-create` 出证，不增加报告格式、字段、状态或检查器。结论仅覆盖本次选中且经实际证实的静态范围，不证明业务运行效果、宿主安全隔离、发布资格或外部动作已获授权。
 
 ## 出证
+
+仅选择“指定分支字段与 Schema 对应”或“指定双入口与共同协议声明对应”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
 
 审阅结束后，把领域结果写成 JSON。结构为 `{subject:{ref,revision?}, checks:[{id,status,sourceRefs,reason}], limitations:[]}`。`checks` 不能为空。`status` 只能是 `pass`、`findings`、`insufficient`、`not_applicable`。`sourceRefs` 和 `reason` 必须是这次实际读到的依据，不能手填通过结果。
 

@@ -1,5 +1,35 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.34.0 locale=en baseline=sha256:1f996a81832b75581b6b6fbbd1a8f8703ca004a00cab2f6e14b0a013553c75ca -->
+## [0.34.0] - 2026-11-02
+
+foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope. It must invoke the actual Kit public API or CLI, retain the original professional-conclusion and interpret it with readProfessionalProof or check proof. Hand-filled codes or semantic judgments cannot replace the mechanical invocation. Each selected scope retains its own original result; local CLEAR does not establish full METHOD003, installation or business execution.
+
+### Changed
+
+- foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope.
+
+### Upgrade Notes
+
+Use Engineering Kit and foundation-adoption-review 0.34.0 for the new scopes. Existing entrypoints remain compatible, with no mandatory migration for old consumers. Contracts and Harness have no new mechanism behavior and move only in lockstep version and necessary derivations. Version 0.33.0 remains an unpublished source candidate; 0.34.0 combines both capabilities. Local candidates do not establish remote publication or authorization; the four units require formal verification before overall publication is claimed.
+<!-- release-skill:changelog:end version=0.34.0 locale=en -->
+
+
+<!-- release-skill:changelog:start version=0.33.0 locale=en baseline=sha256:68ca4337e2e4577702c3ac7d687c0141a48dc96475b5440d188d163501549e29 -->
+## [0.33.0] - 2026-11-01
+
+foundation-engineering-check adds an optional selected-branch field/Schema scope. It must invoke the public API or CLI with actual inputs, retain the original professional conclusion and use the existing proof reader; semantic review and hand-filled results cannot replace the mechanical check. Engineering Kit 0.33.0 adds runBranchFieldCheck and check branch-fields to compare explicitly selected if-condition fields and string literals with direct properties and enum/const declarations. It reads complete ESM and Schema files without importing or executing target code. Unsupported syntax, references or constraints remain insufficient; a field without enum/const contributes field location only. Only the documented closed sibling conditional-required shape can be excluded; those conditions, whole-object validity and business success remain unchecked. Strict reads and the resource closure bind observed bytes and invalidate affected observations on drift.
+
+### Changed
+
+- foundation-engineering-check adds an optional selected-branch field/Schema scope.
+
+### Upgrade Notes
+
+The new API requires Engineering Kit 0.33.0; the corresponding optional Skill scope requires foundation-adoption-review 0.33.0. Existing entrypoints and compatible contracts remain available. Local candidate versions do not establish remote publication or authorize external actions.
+<!-- release-skill:changelog:end version=0.33.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.32.0 locale=en baseline=sha256:3734926beb3a9f0f8a9024f802daebca1722d91ac1ae27878539d757584d14c3 -->
 ## [0.32.0] - 2026-11-01
 

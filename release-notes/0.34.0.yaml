@@ -1,0 +1,15 @@
+version: 0.34.0
+date: 2026-11-02
+locales:
+  en:
+    summary: "foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope. It must invoke the actual Kit public API or CLI, retain the original professional-conclusion and interpret it with readProfessionalProof or check proof. Hand-filled codes or semantic judgments cannot replace the mechanical invocation. Each selected scope retains its own original result; local CLEAR does not establish full METHOD003, installation or business execution."
+    changes:
+      changed:
+        - "foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope."
+    upgradeNotes: "Use Engineering Kit and foundation-adoption-review 0.34.0 for the new scopes. Existing entrypoints remain compatible, with no mandatory migration for old consumers. Contracts and Harness have no new mechanism behavior and move only in lockstep version and necessary derivations. Version 0.33.0 remains an unpublished source candidate; 0.34.0 combines both capabilities. Local candidates do not establish remote publication or authorization; the four units require formal verification before overall publication is claimed."
+  zh-CN:
+    summary: "Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。严禁手填通过码或以人工判断替代机械调用。调用范围选择后，各子项原件均须保留，局部 `CLEAR` 不代表完整 `METHOD003`、完整审阅、安装成功或业务执行通过。\n\n所有关于公开性、同业务条件、Schema权威性、选集完整性及运行时语义的判断，仍由调用方负责。Kit与Plugin的职责边界清晰：Kit仅提供静态比对能力，不介入运行、不写入目标、不联网、不改用错误URI下的Schema。"
+    changes:
+      changed:
+        - "Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。"
+    upgradeNotes: "Contracts与Harness在本版无新增机制行为，仅进行锁步版本同步与必要派生，既有协议与算法保持不变。升级需同时满足Kit与Plugin均升级至0.34.0版本。旧有入口保持兼容，不强制旧消费者迁移。\n\n0.33.0版本仅为未发布源码候选，不具备正式发布效力；0.34.0为首次合并交付，统一包含两项公共能力。本地候选状态不构成远端发布或授权证明，四单元正式验证通过后，方可认定整体发布。"

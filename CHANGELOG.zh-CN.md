@@ -1,5 +1,39 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.34.0 locale=zh-CN baseline=sha256:db851b360a632153c355a3368e70fb36f08117ebf96d43d0774d08878c642be6 -->
+## [0.34.0] - 2026-11-02
+
+Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。严禁手填通过码或以人工判断替代机械调用。调用范围选择后，各子项原件均须保留，局部 `CLEAR` 不代表完整 `METHOD003`、完整审阅、安装成功或业务执行通过。
+
+所有关于公开性、同业务条件、Schema权威性、选集完整性及运行时语义的判断，仍由调用方负责。Kit与Plugin的职责边界清晰：Kit仅提供静态比对能力，不介入运行、不写入目标、不联网、不改用错误URI下的Schema。
+
+### 变更
+
+- Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。
+
+### 升级说明
+
+Contracts与Harness在本版无新增机制行为，仅进行锁步版本同步与必要派生，既有协议与算法保持不变。升级需同时满足Kit与Plugin均升级至0.34.0版本。旧有入口保持兼容，不强制旧消费者迁移。
+
+0.33.0版本仅为未发布源码候选，不具备正式发布效力；0.34.0为首次合并交付，统一包含两项公共能力。本地候选状态不构成远端发布或授权证明，四单元正式验证通过后，方可认定整体发布。
+<!-- release-skill:changelog:end version=0.34.0 locale=zh-CN -->
+
+
+<!-- release-skill:changelog:start version=0.33.0 locale=zh-CN baseline=sha256:01c7daaae703ca0deed83fd347dd1a6a0e483c8cc3cd94e20850b625ae6c2c1e -->
+## [0.33.0] - 2026-11-01
+
+`foundation-engineering-check` 新增指定分支字段与 Schema 对应的可选范围，使用 `runBranchFieldCheck` 或 `check branch-fields` 的实际输入与原始专业结论，再交原证明读取器解释。调用者需提供完整 ESM 源码、Schema 及精确行列位置，输入根与选集显式给定，返回原 `professional-conclusion`。直接封闭对象缺字段、字面值缺成员将被发现，不支持的语法、引用或约束保留不足；无 `enum`/`const` 时仅完成字段定位。其他同级字段的条件必填仅按已声明的封闭形状排除，不解释条件逻辑、不判断完整 Schema 有效性或业务成功。源码仅读取，不导入或执行。回执与闭包绑定实际读入字节，漂移导致依赖观察降级，独立事实仍保留。
+
+### 变更
+
+- `foundation-engineering-check` 新增指定分支字段与 Schema 对应的可选范围，使用 `runBranchFieldCheck` 或 `check branch-fields` 的实际输入与原始专业结论，再交原证明读取器解释。
+
+### 升级说明
+
+使用新入口需 Engineering Kit 0.33.0，新 Skill 范围需 `foundation-adoption-review` 0.33.0；旧消费者不强制迁移，原入口与兼容合同保留。Contracts 与 Harness 本版本无新增行为，仅同步锁步版本与必要派生。本地候选不证明远端发布完成，最终四单元载荷与外部动作仍按原流程核准。
+<!-- release-skill:changelog:end version=0.33.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.32.0 locale=zh-CN baseline=sha256:0ea7b4f7fe301e7f5f4b28d69c69f999e599a664998d3803e77a3ac4a3cc44c0 -->
 ## [0.32.0] - 2026-11-01
 
