@@ -14,7 +14,7 @@ description: Run Foundation's complete static engineering review for a caller-se
 业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准、来源与生成根方向，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -160,6 +160,67 @@ CLI 等价入口为：
 `complete/ENGINEERING_CLEAR` 仅在本节所有选定子检查均实际完成且无发现时生效，其覆盖范围限于当前选集；存在真实发现时状态为 `ENGINEERING_FINDINGS`，同时有不足时保留 `partial` 完成状态，已核发现不得丢弃。无发现但存在不足时为 `ENGINEERING_CHECK_INCOMPLETE`，全部选定检查均不足时为 `not-performed`。未选择的检查项为 `null`，不视为不足。CLI 完整 CLEAR 退出 0，有发现或不足退出 1，用法或未处理机制错误退出 2；退出码 1 本身不能作为领域违规判据。
 
 仅选择本节时，直接保留公共入口返回的真实专业结论，宿主仅在当前获准输出目录保存该结果，随后结束本次检查，并可沿 `check proof` 或 `readProfessionalProof` 解释其记载；读取不重跑、不鉴伪。不通过 `proof-create` 手动填充 `ENGINEERING_*` 状态，也不将局部 `CLEAR` 视为整体通过。若与其他语义合选，该机械输出作为实际检查依据，保留 `sourceRefs/reason` 后继续原有语义审阅与出证流程，调用方仍负责 Schema 采用、基准可信性、平台语义、版本政策与选集完整性。
+
+### 来源与生成根方向
+
+公共入口为 `runSourceGeneratedCheck({root, declaration})`，其中：
+- `root`：显式非空的本地目录路径，表示声明文件所在根目录。
+- `declaration`：相对于 `root` 的 JSON 文件路径，如 `config/source-generated.json`。
+
+CLI 调用形式为：
+```bash
+skill-family-kit check source-generated --root <dir> --declaration <relative-json> --json
+```
+- `--json` 为必选项，仅向 `stdout` 输出结构化 JSON 结果。
+
+共享读取合同路径为：
+```
+skill-family-engineering-kit/source-generated-declaration.schema.json
+```
+合同 ID 常量为：
+```js
+SOURCE_GENERATED_DECLARATION_SCHEMA_ID
+```
+检查使用该共享读取合同核对声明结构；匹配结构不证明项目此前已采用它，不匹配时记为 `insufficient`。
+
+检查机制读取一份真实存在的JSON文件，不接收临时构造的数组或内存对象。可选的共享读取合同位于 `source-generated-declaration.schema.json`，其定义了当前支持的配置结构，但**不证明**项目此前已采用该Schema。其他项目可继续保留旧格式，未匹配的声明将被标记为“不足”而非强制迁移。
+
+未知字段、缺字段、空根数组或版本不匹配时，保留结构错误位置并记为不足，不进入方向判断。合同要求根对象满足以下条件：
+- `schemaVersion` 为 `1`
+- `kind` 为 `skill-family.source-authority-declaration`
+- `mappings` 为非空数组
+
+每条 `mapping` 必须包含：
+- 非空字符串 `capabilityId`
+- 非空字符串数组 `sourceRoots` 与 `generatedRoots`
+- `generator.path` 为非空字符串，表示生成器路径坐标
+
+`generator.checkArgument` 为可选字段，仅用于记录检查参数，**不解析、不传递、不执行**，也不验证生成器是否存在或是否工作正常。
+
+路径坐标遵循以下规范：
+- 使用正斜杠 `/` 分隔
+- 每段仅允许字母、数字、下划线 `_`、点 `.` 和连字符 `-`
+- 不接受空段、`.` 段、`..` 段
+- 可省略开头的 `./`，但不支持变量、通配符、排除表达式、反斜杠或绝对路径
+
+检查仅比较路径的**词法规范化形式**，不探测实际文件存在性、符号链接、磁盘大小写归一化或目录层级结构。但会识别路径之间的词法祖先/后代关系，若存在此类关系，当前版本不推断其是否合规，一律记为“不足”。
+
+在同一条 `mapping` 内，若任一 `sourceRoot` 与任一 `generatedRoot` 在规范化后完全相等，则判定为方向冲突。结果将记录该冲突的两个字段的 JSON 指针及共同路径坐标。
+
+跨 `mapping` 之间允许前级生成物作为后级来源，例如 `mapping[0].generatedRoots` 中的某个路径作为 `mapping[1].sourceRoots` 中的某个路径，此为允许的多阶段串联。
+
+无关路径不因文件名相似而被误判为同一根。所有判断均基于显式声明的固定路径坐标，不依赖上下文或隐含规则。
+
+#### 如何判断检查结果
+
+检查结果的完成状态分为三种：
+- **complete**：所有选中的 `mapping` 均已完成比较，无论是否发现冲突；
+- **partial**：存在已完成的比较，但同条或其他映射仍有未支持的根坐标；
+- **not-performed**：没有有效的映射方向比较贡献。
+
+结果中若存在冲突，必须明确列出冲突路径的JSON指针与共同坐标；若存在未覆盖的 `mapping`，也需说明其不足原因（如动态路径或祖先关系的语义未支持）。**结果不证明生成成功、文件存在或运行合规**，也不替代发布资格或运行时验证。所有判断仅限于当前配置中声明的路径坐标，不扩展至祖先关系、执行效果或跨阶段业务合法性。
+
+仅选择本节时，保留 `runSourceGeneratedCheck` 实际返回的专业结论，随后沿 `check proof` 或 `readProfessionalProof` 解释；不通过 `proof-create` 手填 `ENGINEERING_*` 结果，不运行目标生成器或强制工程登记。与其他范围合选时，保留真实 `sourceRefs/reason`、原始发现和不足，再继续原有语义审阅。调用方仍负责声明权威、实际采用和选集完整性。
 
 ### 静态语义审阅
 

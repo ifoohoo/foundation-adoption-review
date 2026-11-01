@@ -1,0 +1,15 @@
+version: 0.32.0
+date: 2026-11-01
+locales:
+  en:
+    summary: "The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs. It preserves the original professional conclusion, including request, location, conflicts, deficiencies, and actual byte-level source. The result remains local: semantic review, projection receipts, and hand-filled proofs cannot replace the mechanical comparison. The check does not prove full Foundation review, SFA-ARTIFACT-030@2 compliance, reverse dependencies, generation outcomes, or release eligibility. The calling party retains responsibility for declaration authority, actual adoption, and full scope interpretation."
+    changes:
+      changed:
+        - "The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs"
+    upgradeNotes: "It operates within the same local result boundaries as the existing reader. The new selection requires Engineering Kit 0.32.0 and foundation-adoption-review 0.32.0; existing capabilities remain subject to their compatible contracts. No external upgrade gate is enforced."
+  zh-CN:
+    summary: "`foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。结果保留原有专业结论，包括请求、定位、冲突、不足与实际字节来源。结果为局部解释，不以语义审阅或投影收据替代机械比较，不支持手填通过。不证明整个 Foundation 审阅、全部 SFA-ARTIFACT-030@2 合规性、任意反向依赖、生成效果或发布资格。声明权威、实际采用及完整范围仍由调用方负责解释。"
+    changes:
+      changed:
+        - "`foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。"
+    upgradeNotes: "该选择需要 Engineering Kit 0.32.0 和 foundation-adoption-review 0.32.0，结果边界与现有 reader 一致。既有能力仍按原兼容合同使用。不对外部消费者设置强制升级门。"

@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.32.0 locale=en baseline=sha256:3734926beb3a9f0f8a9024f802daebca1722d91ac1ae27878539d757584d14c3 -->
+## [0.32.0] - 2026-11-01
+
+The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs. It preserves the original professional conclusion, including request, location, conflicts, deficiencies, and actual byte-level source. The result remains local: semantic review, projection receipts, and hand-filled proofs cannot replace the mechanical comparison. The check does not prove full Foundation review, SFA-ARTIFACT-030@2 compliance, reverse dependencies, generation outcomes, or release eligibility. The calling party retains responsibility for declaration authority, actual adoption, and full scope interpretation.
+
+### Changed
+
+- The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs
+
+### Upgrade Notes
+
+It operates within the same local result boundaries as the existing reader. The new selection requires Engineering Kit 0.32.0 and foundation-adoption-review 0.32.0; existing capabilities remain subject to their compatible contracts. No external upgrade gate is enforced.
+<!-- release-skill:changelog:end version=0.32.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.31.0 locale=en baseline=sha256:c68927f46d6b6ffc67b809fa4fa9e34535d96c912104c5b413eb22e92b089432 -->
 ## [0.31.0] - 2026-11-01
 

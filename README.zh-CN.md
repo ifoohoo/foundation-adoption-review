@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.31.0 -->
+<!-- release-skill:release-version: 0.32.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.31.0** (2026-11-01)
+**0.32.0** (2026-11-01)
 
-foundation-engineering-check 在调用公共API/CLI前，先核验Schema采用、基准信任及选集完整性。真实子检查与来源保留，proof-create 不能冒充实际检查。单独选择此范围时保留真实专业结论，合选语义审阅沿用原流程。旧证明仅可读解释，不重跑、不鉴伪。不强制未采用机器Schema的对象补全Schema。
+`foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。结果保留原有专业结论，包括请求、定位、冲突、不足与实际字节来源。结果为局部解释，不以语义审阅或投影收据替代机械比较，不支持手填通过。不证明整个 Foundation 审阅、全部 SFA-ARTIFACT-030@2 合规性、任意反向依赖、生成效果或发布资格。声明权威、实际采用及完整范围仍由调用方负责解释。
 
 **变更**
 
-- foundation-engineering-check 在调用公共API/CLI前，真实校验Schema采用、基准信任及选集完整性。保留真实子检查与来源。
+- `foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。
 
 **升级说明**
 
-四单元必须精确升级至0.31.0。初始化、其他Skill及既有宿主边界不扩张。局部CLEAR不表示完整Foundation审阅、宿主安装/更新/启用或业务运行成功。
+该选择需要 Engineering Kit 0.32.0 和 foundation-adoption-review 0.32.0，结果边界与现有 reader 一致。既有能力仍按原兼容合同使用。不对外部消费者设置强制升级门。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
@@ -62,7 +62,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code 通过 release-skill 的受控交互流程，从冻结的 Plugin 公开仓以 0.31.0 版本的精确 tag 安装。其在 Skill Family Hub 中的登记与门禁验证独立进行，仅在 Hub 更新完成并确认接受后，才执行对应宿主路径的安装与检查。WorkBuddy 依赖桌面端插件市场，与 CodeBuddy 共用 Hub 的 codebuddy 分发面，但其安装流程、发现机制、调用结果需独立验证。Qoder 使用 Hub 的 qoder 分发面，其安装、发现、来源绑定、Skill 加载及一次只读调用，均依据 Qoder CLI 1.1.30 的原验收范围分别进行检查。
+Kimi Code 通过 release-skill 的受控交互流程，从冻结的 Plugin 公开仓以 0.32.0 版本的精确 tag 安装。其在 Skill Family Hub 中的登记与门禁验证独立进行，仅在 Hub 更新完成并确认接受后，才执行对应宿主路径的安装与检查。WorkBuddy 依赖桌面端插件市场，与 CodeBuddy 共用 Hub 的 codebuddy 分发面，但其安装流程、发现机制、调用结果需独立验证。Qoder 使用 Hub 的 qoder 分发面，其安装、发现、来源绑定、Skill 加载及一次只读调用，均依据 Qoder CLI 1.1.30 的原验收范围分别进行检查。
 
 只有发布完成、验证通过且 Hub 接受登记后，才执行这些宿主检查。发布后验证步骤会为既有条目生成冻结的更新提案，再由 Hub 的独立流程摄入、校验并发布。仓库当前的源码状态不能单独证明市场已经可用。
 

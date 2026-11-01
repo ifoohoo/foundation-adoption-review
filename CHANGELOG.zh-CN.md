@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.32.0 locale=zh-CN baseline=sha256:0ea7b4f7fe301e7f5f4b28d69c69f999e599a664998d3803e77a3ac4a3cc44c0 -->
+## [0.32.0] - 2026-11-01
+
+`foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。结果保留原有专业结论，包括请求、定位、冲突、不足与实际字节来源。结果为局部解释，不以语义审阅或投影收据替代机械比较，不支持手填通过。不证明整个 Foundation 审阅、全部 SFA-ARTIFACT-030@2 合规性、任意反向依赖、生成效果或发布资格。声明权威、实际采用及完整范围仍由调用方负责解释。
+
+### 变更
+
+- `foundation-adoption-review` 中的 `foundation-engineering-check` 新增独立选择范围，按真实输入调用公共 API 或 CLI。
+
+### 升级说明
+
+该选择需要 Engineering Kit 0.32.0 和 foundation-adoption-review 0.32.0，结果边界与现有 reader 一致。既有能力仍按原兼容合同使用。不对外部消费者设置强制升级门。
+<!-- release-skill:changelog:end version=0.32.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.31.0 locale=zh-CN baseline=sha256:002ad5f00afafc3678c54efbc0fb9ba6dbc3c503cfb38384117d677fcf9364a9 -->
 ## [0.31.0] - 2026-11-01
 

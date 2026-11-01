@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.31.0 -->
+<!-- release-skill:release-version: 0.32.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.31.0** (2026-11-01)
+**0.32.0** (2026-11-01)
 
-foundation-engineering-check now verifies schema adoption, baseline trust, and artifact set integrity before invoking public API/CLI. Real sub-checks and origins are preserved; proof-create cannot substitute for actual checks. When selected alone, real professional conclusion is retained. Combined semantic review follows original flow. Existing proofs are read-only; no re-running or forgery detection. No requirement to adopt machine schema for unadopted objects.
+The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs. It preserves the original professional conclusion, including request, location, conflicts, deficiencies, and actual byte-level source. The result remains local: semantic review, projection receipts, and hand-filled proofs cannot replace the mechanical comparison. The check does not prove full Foundation review, SFA-ARTIFACT-030@2 compliance, reverse dependencies, generation outcomes, or release eligibility. The calling party retains responsibility for declaration authority, actual adoption, and full scope interpretation.
 
 **Changed**
 
-- foundation-engineering-check performs pre-validation of schema adoption, baseline trust, and artifact set before public API/CLI invocation. Real sub-checks and origins are preserved.
+- The `foundation-engineering-check` in `foundation-adoption-review` now supports an independent selection scope that invokes public APIs or CLI with real inputs
 
 **Upgrade Notes**
 
-All four units must upgrade to exactly 0.31.0. No expansion of initialization, other Skills, or existing host boundaries. Local CLEAR does not imply complete Foundation review, host installation/update/enable, or business operation success.
+It operates within the same local result boundaries as the existing reader. The new selection requires Engineering Kit 0.32.0 and foundation-adoption-review 0.32.0; existing capabilities remain subject to their compatible contracts. No external upgrade gate is enforced.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.
@@ -62,7 +62,7 @@ qoder plugins marketplace add ifoohoo/skill-family-hub
 qoder plugins install foundation-adoption-review@skill-family-hub
 ```
 
-Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.31.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
+Kimi Code is installed through release-skill's controlled interactive flow from the frozen public Plugin repository and exact target version 0.32.0 tag. Its Hub registration and gate are verified separately, and the host path runs only after that Hub update completes. WorkBuddy uses its desktop plugin marketplace and the same Hub `codebuddy` distribution surface, but its installation, discovery, and invocation results must be checked separately from CodeBuddy. Qoder uses the Hub's `qoder` distribution surface; installation, discovery, source binding, Skill loading, and one read-only invocation require their own checks on Qoder CLI 1.1.30.
 
 These host checks run only after the release is published, verified, and accepted by the Hub. The post-verification step creates a frozen existing-entry update proposal for the Hub's independent process to ingest, validate, and publish. The repository's current source state does not by itself prove Marketplace availability.
 
