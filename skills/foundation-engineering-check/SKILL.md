@@ -226,17 +226,13 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 #### runBranchFieldCheck
 
-#### API 定义  
-`runBranchFieldCheck({ root, branches })`  
-- `root`：显式非空本地目录路径；  
-- `branches`：非空数组，每项包含以下六字段：  
-  - `sourceRef`：根内相对文件路径，读取沿原路径合同；  
-  - `line`、`column`：从 1 开始的安全正整数，精确指向 `IfStatement` 的起始位置，非 `test` 子表达式；  
-  - `resultIdentifier`：ASCII JavaScript 标识符，表示左侧属性链的根标识符；  
-  - `schemaRef`：根内相对文件路径，指向 Schema 文件；  
-  - `schemaPointer`：RFC6901 指针，空串表示 Schema 根，非空指针表示对象定义路径。
+#### API 定义
 
-输入不接受未知字段或重复条目；请求在首次 `await` 前复制。
+`runBranchFieldCheck({ root, branches })` 接受显式非空本地目录路径 `root` 和非空数组 `branches`。每项 `branches` 必须包含以下六个必填字段：`sourceRef`、`line`、`column`、`resultIdentifier`、`schemaRef`、`schemaPointer`。其中，`sourceRef` 与 `schemaRef` 为根内相对路径，分别指向源文件与 Schema 定义文件；`line` 与 `column` 为从 1 开始的安全正整数，精确指向有效 AST 节点的起点；`resultIdentifier` 为符合 ASCII JavaScript 根标识符命名规则的字符串；`schemaPointer` 为空串时表示选中 Schema 根节点，非空时为 RFC6901 指针，指向对象定义。
+
+可选字段 `nodeType` 仅接受 `IfStatement` 或 `BinaryExpression`，省略时默认为 `IfStatement`。节点起点必须精确匹配 AST 中该节点的起始位置：`IfStatement` 指整个 `if` 语句的起始位置（即 `if` 关键字所在行列），而非其 `test` 子表达式的起点；`BinaryExpression` 指该表达式自身在源码中的起始位置，不能以根标识符或运算符位置替代。在无括号的直接比较中，节点起点与最左端根标识符重合；若左侧成员访问带括号，节点起点可能从左括号开始。例如 `export const ok = (packet.status) === 'READY';` 中，`BinaryExpression` 节点起点为 `1:19`，根标识符 `packet` 起始于 `1:20`，若选择 `1:20` 则无法匹配有效节点，返回 `insufficient` 且不执行任何比较。
+
+若存在未知字段、未知 `nodeType`、必填字段缺失或重复选择（以六字段身份与有效 `nodeType` 为依据去重，省略 `nodeType` 与显式指定 `IfStatement` 视为同一项），均按参数错误拒绝。整个请求（含显式 `nodeType`）在首次 `await` 前完成复制。
 
 #### CLI 命令  
 `skill-family-kit check branch-fields --root <dir> --selection <relative-json> --json`  
@@ -252,7 +248,7 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 - `provider.entry`：`runBranchFieldCheck`；
 - `subject.ref`：实际根路径；
-- `details.branches`：每条分支记录保留六个输入字段（`sourceRef`、`line`、`column`、`resultIdentifier`、`schemaRef`、`schemaPointer`），另含 `index`、实际 source/schema 读取摘要、`status`、`reason`、`comparisons`；
+- `details.branches`：保留原六个选择字段及 `index`、`source`/`schema` 摘要、`status`、`reason` 和 `comparisons`。仅当调用方显式传入 `nodeType` 时才回显该字段，旧请求不额外补写；
 - `details.closure`：既有闭包信息或 `null`。
 
 每条 `comparison` 包含：
@@ -271,14 +267,9 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 ## 算法与错误处理
 
-#### AST 选取规则  
-- 仅支持 `IfStatement`，其 `test` 为 `===` 或 `!==`；  
-- 左侧为同一行的非计算 ASCII 标识符属性链，根须等于 `resultIdentifier`；  
-- 右侧为无转义的字符串字面值；  
-- 允许 `&&`、`||` 连接的有限表达式，支持的叶子节点须满足上述条件；未支持叶子保留不足，独立已完成的比较仍可贡献局部事实；  
-- 不推断逻辑可达性或真假；  
-- 注释、字符串中的伪 `if` 不构成 AST 节点；  
-- 函数调用、可选链、计算属性、模板字符串、别名、其他运算符、TypeScript、其他语言、位置不匹配均视为 `insufficient`，不猜测。
+#### AST 选取规则
+
+仅匹配指定类型且起点唯一、精确的 AST 节点；无匹配或不唯一时返回 `insufficient`，且 `comparisons` 为空。`IfStatement` 仍对其 `test` 按原有限 `&&`/`||` 叶子算法进行检查。`BinaryExpression` 仅承接同一行、以 `resultIdentifier` 为根的非计算、非可选 ASCII 直接属性链、`===` 或 `!==` 运算，且右侧无转义字符串字面量。在 `BinaryExpression` 模式下，若选中节点但语法不支持，或位置不匹配、不唯一，均返回 `insufficient` 且 `comparisons` 为空。新模式不选择整个 `LogicalExpression`，需多个比较时调用方应分别选择叶子节点。注释、字符串、函数调用、可选链、计算属性、模板字面量、其他语言或位置不符的节点均不猜测。保持原 Schema 的 `properties`、`enum`、`const` 支持边界，所有实际读取资源摘要闭包与漂移撤销机制不变；闭包非原子快照，不执行源码，不推断运行真假或完整覆盖。
 
 #### Schema 核对规则  
 - 仅从所选对象沿直接 `properties` 链定位；  

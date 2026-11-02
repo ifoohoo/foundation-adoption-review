@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.34.0 -->
+<!-- release-skill:release-version: 0.35.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.34.0** (2026-11-02)
+**0.35.0** (2026-11-02)
 
-foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope. It must invoke the actual Kit public API or CLI, retain the original professional-conclusion and interpret it with readProfessionalProof or check proof. Hand-filled codes or semantic judgments cannot replace the mechanical invocation. Each selected scope retains its own original result; local CLEAR does not establish full METHOD003, installation or business execution.
+Version 0.35.0 adds optional nodeType to runBranchFieldCheck / check branch-fields, allowing explicit selection of direct comparisons in callbacks or object properties. Existing six-field If requests remain compatible. Exact unique positions and the existing direct-field and string-comparison grammar remain bounded. Results distinguish findings from insufficient checks without executing targets or establishing domain success or exhaustive branch coverage. Public-surface binding behavior is unchanged.
 
 **Changed**
 
-- foundation-engineering-check adds the selected public-surface binding scope alongside the selected branch-field scope.
+- Version 0.35.0 adds optional nodeType to runBranchFieldCheck / check branch-fields, allowing explicit selection of direct comparisons in callbacks or object properties. Existing six-field If requests remain compatible. Exact unique positions and the existing direct-field and string-comparison grammar remain bounded. Results distinguish findings from insufficient checks without executing targets or establishing domain success or exhaustive branch coverage. Public-surface binding behavior is unchanged.
 
 **Upgrade Notes**
 
-Use Engineering Kit and foundation-adoption-review 0.34.0 for the new scopes. Existing entrypoints remain compatible, with no mandatory migration for old consumers. Contracts and Harness have no new mechanism behavior and move only in lockstep version and necessary derivations. Version 0.33.0 remains an unpublished source candidate; 0.34.0 combines both capabilities. Local candidates do not establish remote publication or authorization; the four units require formal verification before overall publication is claimed.
+Adopt all four units at 0.35.0. Set nodeType explicitly for the new comparison selection; existing callers need no forced migration. A candidate, local tests or a static exit code of zero do not establish publication, installation, loading or business success. The existing four-unit release contract still applies.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

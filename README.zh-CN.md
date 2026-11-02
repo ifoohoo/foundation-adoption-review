@@ -1,23 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.34.0 -->
+<!-- release-skill:release-version: 0.35.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.34.0** (2026-11-02)
+**0.35.0** (2026-11-02)
 
-Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。严禁手填通过码或以人工判断替代机械调用。调用范围选择后，各子项原件均须保留，局部 `CLEAR` 不代表完整 `METHOD003`、完整审阅、安装成功或业务执行通过。
-
-所有关于公开性、同业务条件、Schema权威性、选集完整性及运行时语义的判断，仍由调用方负责。Kit与Plugin的职责边界清晰：Kit仅提供静态比对能力，不介入运行、不写入目标、不联网、不改用错误URI下的Schema。
+0.35.0 在既有 `runBranchFieldCheck` / `check branch-fields` 中增加可选 `nodeType`，可明确选择回调或对象字段中的直接比较。旧六字段 `If` 请求兼容；精确唯一位置、直接字段和字符串语法边界不扩大。按每项实际结果区分发现与不足，不执行目标，不保证领域成功或全部分支覆盖。既有双公开入口绑定能力不变。
 
 **变更**
 
-- Plugin中新增 `foundation-engineering-check` 可选范围，明确选择后将实际调用Kit的公共API或CLI接口，保留原始 `professional-conclusion`，并通过 `readProfessionalProof` 或 `check proof` 进行解释。
+- 0.35.0 在既有 `runBranchFieldCheck` / `check branch-fields` 中增加可选 `nodeType`，可明确选择回调或对象字段中的直接比较。旧六字段 `If` 请求兼容；精确唯一位置、直接字段和字符串语法边界不扩大。按每项实际结果区分发现与不足，不执行目标，不保证领域成功或全部分支覆盖。既有双公开入口绑定能力不变。
 
 **升级说明**
 
-Contracts与Harness在本版无新增机制行为，仅进行锁步版本同步与必要派生，既有协议与算法保持不变。升级需同时满足Kit与Plugin均升级至0.34.0版本。旧有入口保持兼容，不强制旧消费者迁移。
-
-0.33.0版本仅为未发布源码候选，不具备正式发布效力；0.34.0为首次合并交付，统一包含两项公共能力。本地候选状态不构成远端发布或授权证明，四单元正式验证通过后，方可认定整体发布。
+四单元同时采用 0.35.0；需要新比较选择时显式提供 `nodeType`，旧调用不强制改写。候选、本地测试与静态退出 0 均不等于正式发布、安装、加载或业务通过；正式发布仍按四单元原发布合同核收。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
