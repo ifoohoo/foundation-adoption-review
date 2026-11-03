@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.36.0 locale=zh-CN baseline=sha256:ac390211637382f8cbe1e34ba2cf410445048ba8714e8c6c02a6a7ee003dbf46 -->
+## [0.36.0] - 2026-11-03
+
+`foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
+
+### 变更
+
+- `foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
+
+### 升级说明
+
+四单元需锁步采用0.36.0，旧调用不强制迁移。源候选、本地测试、静态退出均不能证明正式渠道、安装加载或业务可用性。正式0.35.0不包含新入口。
+<!-- release-skill:changelog:end version=0.36.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.35.0 locale=zh-CN baseline=sha256:d6f7d26388a7a5fb9bff0bdd299c8527f6e5e4b14fe3a4f7ad0146ab6e9457ed -->
 ## [0.35.0] - 2026-11-02
 

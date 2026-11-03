@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.35.0 -->
+<!-- release-skill:release-version: 0.36.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.35.0** (2026-11-02)
+**0.36.0** (2026-11-03)
 
-Version 0.35.0 adds optional nodeType to runBranchFieldCheck / check branch-fields, allowing explicit selection of direct comparisons in callbacks or object properties. Existing six-field If requests remain compatible. Exact unique positions and the existing direct-field and string-comparison grammar remain bounded. Results distinguish findings from insufficient checks without executing targets or establishing domain success or exhaustive branch coverage. Public-surface binding behavior is unchanged.
+`foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
 
 **Changed**
 
-- Version 0.35.0 adds optional nodeType to runBranchFieldCheck / check branch-fields, allowing explicit selection of direct comparisons in callbacks or object properties. Existing six-field If requests remain compatible. Exact unique positions and the existing direct-field and string-comparison grammar remain bounded. Results distinguish findings from insufficient checks without executing targets or establishing domain success or exhaustive branch coverage. Public-surface binding behavior is unchanged.
+- `foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
 
 **Upgrade Notes**
 
-Adopt all four units at 0.35.0. Set nodeType explicitly for the new comparison selection; existing callers need no forced migration. A candidate, local tests or a static exit code of zero do not establish publication, installation, loading or business success. The existing four-unit release contract still applies.
+Adopt all four units at 0.36.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. The formal 0.35.0 package does not contain the new API.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

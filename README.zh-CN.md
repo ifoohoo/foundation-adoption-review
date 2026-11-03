@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.35.0 -->
+<!-- release-skill:release-version: 0.36.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.35.0** (2026-11-02)
+**0.36.0** (2026-11-03)
 
-0.35.0 在既有 `runBranchFieldCheck` / `check branch-fields` 中增加可选 `nodeType`，可明确选择回调或对象字段中的直接比较。旧六字段 `If` 请求兼容；精确唯一位置、直接字段和字符串语法边界不扩大。按每项实际结果区分发现与不足，不执行目标，不保证领域成功或全部分支覆盖。既有双公开入口绑定能力不变。
+`foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
 
 **变更**
 
-- 0.35.0 在既有 `runBranchFieldCheck` / `check branch-fields` 中增加可选 `nodeType`，可明确选择回调或对象字段中的直接比较。旧六字段 `If` 请求兼容；精确唯一位置、直接字段和字符串语法边界不扩大。按每项实际结果区分发现与不足，不执行目标，不保证领域成功或全部分支覆盖。既有双公开入口绑定能力不变。
+- `foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
 
 **升级说明**
 
-四单元同时采用 0.35.0；需要新比较选择时显式提供 `nodeType`，旧调用不强制改写。候选、本地测试与静态退出 0 均不等于正式发布、安装、加载或业务通过；正式发布仍按四单元原发布合同核收。
+四单元需锁步采用0.36.0，旧调用不强制迁移。源候选、本地测试、静态退出均不能证明正式渠道、安装加载或业务可用性。正式0.35.0不包含新入口。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

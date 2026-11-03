@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.36.0 locale=en baseline=sha256:95143334e4d3cd4b6dcaf337bfb2113c81c908ffb8b90be659d4e5d5177e6b02 -->
+## [0.36.0] - 2026-11-03
+
+`foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
+
+### Changed
+
+- `foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
+
+### Upgrade Notes
+
+Adopt all four units at 0.36.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. The formal 0.35.0 package does not contain the new API.
+<!-- release-skill:changelog:end version=0.36.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.35.0 locale=en baseline=sha256:bd365febdc619d1c15d6efc9767e4db3ed34bff5414a221abc998a527bd252ee -->
 ## [0.35.0] - 2026-11-02
 

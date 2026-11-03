@@ -14,7 +14,7 @@ description: Run Foundation's complete static engineering review for a caller-se
 业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选同级适配器共同闭包、已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -88,6 +88,79 @@ skill-family-kit adopt-plan --root <target> --no-git-spawn
 `adopt-plan` 仅输出结构采用差异，不执行授权，也不将旧政策结果升格为通用工程结论。
 
 若仅选中公共调用关系与参数边界，且无需上述命令提供证据，不得运行这三条命令。静态语义审阅应直接读取目标实际采用的公共目录、导出与合同。
+
+### 已选同级适配器共同闭包
+
+该入口在0.36.0版本引入，正式发布版本0.35.0中不包含该功能。未发布源码候选仅用于已授权的开发验证，不得据此宣称功能已正式发布；正式消费必须基于实际安装的精确已发布版本及其公开导出的API。
+
+#### 1. 确认调用者选集与实际对象
+
+- 验证 `request` 中显式列出的 `peerId` 集合与 `peerRoots` 映射键集完全一致，且每个 `peerId` 对应的路径为规范绝对真实根路径。
+- 确保 `root` 为目录字符串，经既有 `resolveTargetRoot` 解析后生成 `subject.ref`，不作为 peer 根处理，不对 `root` 进行树扫描。
+- 调用方负责保证 peer 间适配关系、源权威、完整选集及授权，不传入自报 `finding` 或预计算闭包。
+
+#### 2. 调用真实包根 API
+
+- 调用入口为 `skill-family-engineering-kit` 包根的 `runPeerAdapterCheck({root, request, peerRoots})`。
+- 所有输入在首次 `await` 前完整复制，包括 `request`、嵌套 mapping 与 `peerRoots` 映射表。
+- **API 内部完成全部三阶段机制**：
+  - 第一阶段：对每个显式 `peerRoot` 执行一次前观察，调用 `createFilesystemRootBinding` 与 `observeFilesystemTree`，记录绑定与成员路径、类型、SHA256、字节数、权限字段。
+  - 第二阶段：按 `peerId` 字典序排序，固定首个 `peerId` 为锚点，对剩余每个 `peerId` 调用一次原 `verifyPeerAdapterDirectories` 接口，共 N−1 次（四 peer 为三次）。
+  - 第三阶段：对具备前观察的 `peerRoot` 执行一次后观察，调用 `createFilesystemRootBinding` 与 `observeFilesystemTree`。
+- 这些阶段由 API 完成，宿主核对 `details`，不额外重复调用观察或 peer 机制。前观察不足时，相应 pair 不调用并保留不足原因；N−1 是完整选集的必需 pair 数。
+
+#### 3. 核查实际 pair、观察与异常
+
+- 仅保留路径、类型、摘要、字节数、权限等字段，不复制 `contentBase64` 或文件全文，不创建永久 manifest、历史基准、锁、控制账或原子隔离承诺。
+- 实际成功 manifest 与对应前观察的完整成员/原字节衔接；前后观察不一致、不可用或 manifest 不相符时，撤销关联 pair 的 `checked` 状态及其发现归因。
+- 真实原调用结果仍保留供定位，不因漂移或不一致而丢失。
+- **闭包相等与 logicalMappings 语义相等为等价关系**，因此仅需 N−1 次锚对调用即可判断全 peer 联合一致性，**不执行全部两两比较**，原机制来源冲突后可能短路，不宣称内部 mapping 子比较已运行。
+
+`scope.checked` 仅列有效的 `pair:<anchor>:<peer>:equivalence`；未调用、未完成或漂移失效的项不列入。
+
+#### 4. 保存真实返回并交 reader
+
+- 宿主在获准证据位置独占保存 `runPeerAdapterCheck` 的完整返回结果，包括 `details` 中的复制 `selection`、前后观察数据、实际 pair 原返回或异常的 `code`、`message`、`details` 及不足原因。
+- 不承诺保存 Error 堆栈等全部进程内部对象。
+- 将真实返回交由 `readProfessionalProof` 解释，**禁止以 `proof-create` 手填机械结果**。
+
+#### 5. 合选场景下的原件保留原则
+
+- 与语义范围、其他机械范围合选时，**分别保留各范围的原件**，不汇总伪完整。
+- 本入口不生成、不合并、不替代任何其他范围的结论，仅输出自身真实调用结果。
+- 不因合选而修改 `scope.checked`、`outcome.code` 或 `completion` 的判定逻辑。
+
+#### 6. 完整互斥 completion 与 outcome.code 条件
+
+| completion | outcome.code | 条件说明 |
+|------------|--------------|----------|
+| `complete` | `ENGINEERING_CLEAR` | 全部必需 pair 有效完成，且无 finding |
+| `complete` | `ENGINEERING_FINDINGS` | 全部必需 pair 有效完成，且存在 finding |
+| `partial` | `ENGINEERING_FINDINGS` | 有有效 finding，且其他必需 pair 不足 |
+| `partial` | `ENGINEERING_CHECK_INCOMPLETE` | 无 finding 但未全部完成，有至少一个有效已完成 pair |
+| `not-performed` | `ENGINEERING_CHECK_INCOMPLETE` | 无任何有效已完成 pair（可能已有失败尝试，不等于未调用） |
+
+> **关键边界与失败语义**
+> - **真实 `finding`** 仅当满足：
+>   - `SFC2004` 且 `details.kind=closure-conflict`
+>   - `details.peerId` 属于本次调用 pair
+>   - 输入/根/前后观察可对应
+>   - 且未被漂移撤销
+> - **`insufficient`** 保留于：
+>   - 请求结构合法但对实际 SKILL 集合缺漏/悬空的 mapping
+>   - 缺失 peer 目录
+>   - 不可读/不安全/不支持的 peer 读取
+>   - 未完成的 pair
+> - **非法全局请求结构**（如未知字段、重复 `peerId`、根键集或坐标格式错误）在检查前抛出参数错误，抛出 `SFC2003`，不返回 `not-performed` 或其他专业结论。
+> - **未知运行异常** 继续抛出，不捕获，不改记为 `insufficient` 或 `not-performed`。
+> - **外部进程终止** 时不保证结论存在，不承诺完整性。
+
+#### 7. 仅选本机械范围时的执行终止条件
+
+- 仅选本项时，完成保存真实返回并交 `readProfessionalProof` 后即结束，**不进入 `proof-create`**。
+- 合选场景下仍遵循原件分存原则，不合并、不伪造、不升格。
+
+> 本入口不判 Audit/SOURCE 规则，不验任意生成器，不承担独立共同资源或平台元数据检查，不证明宿主安装/加载/业务运行/发布。完整源权威静态审阅等仍独立核收，不可由 peer 结论替代。
 
 ### 已选固定文件引用
 
@@ -375,7 +448,7 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 ## 出证
 
-仅选择“指定分支字段与 Schema 对应”或“指定双入口与共同协议声明对应”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
+仅选择“已选同级适配器共同闭包”、“指定分支字段与 Schema 对应”或“指定双入口与共同协议声明对应”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
 
 审阅结束后，把领域结果写成 JSON。结构为 `{subject:{ref,revision?}, checks:[{id,status,sourceRefs,reason}], limitations:[]}`。`checks` 不能为空。`status` 只能是 `pass`、`findings`、`insufficient`、`not_applicable`。`sourceRefs` 和 `reason` 必须是这次实际读到的依据，不能手填通过结果。
 
