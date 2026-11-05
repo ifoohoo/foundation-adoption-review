@@ -14,7 +14,7 @@ description: Run Foundation's complete static engineering review for a caller-se
 业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选同级适配器共同闭包、已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选同级适配器共同闭包、已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应、指定原生入口身份关系，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -403,6 +403,39 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 当仅选择本范围时，直接交付原始专业结论与读取器返回结果，不进入手写 review 或 proof-create 投影流程。若与其他机械或语义范围合并选择，各范围结果分别保留原件，局部 `CLEAR` 不代表整体 METHOD003 合规，亦不覆盖运行时分派、安装加载、发布授权或业务同一性等更高阶保证。
 
+### 指定原生入口身份关系检查
+
+仅在调用方明确选择该范围时执行。该范围由 Engineering Kit 与 foundation-adoption-review 在 0.37.0 版本中引入。正式消费前，必须核对实际安装的精确已发布版本及其公开入口，源码验证仅在获准范围内允许，且不能替代正式消费。调用前须确保本地读取根目录为调用方明确提供的非空本地目录，`sourceRoot` 严格等于 `.` 时，仅作为已解析 root 的目录基准标记，不交由 `classifyPathInput` 或 `resolveContained` 处理。
+
+调用方需明确提供以下输入参数：
+
+- 共同清单路径：`commonManifestRef`
+- 共同 `skills` 下标：`commonSkillIndex`
+- 平台清单路径：`platformManifestRef`
+- 平台 `logicalMappings` 下标：`mappingIndex`
+
+检查过程仅比较以下四组受收容身份：
+
+1. 平台 `source` 实际清单 与 所选共同清单
+2. 平台 `physicalName` 与 平台 Skill 文首 `name`
+3. 平台 `logicalName` 与 所选共同 `logicalName`
+4. 该共同 `logicalName` 与 共同源 Skill 文首 `name`
+
+共同清单的权威性、同业务关系及选集完整性由调用方负责，本检查不验证或介入。
+
+实际执行通过以下任一方式完成：
+
+- 公开 API 调用：`runNativeEntryBindingCheck({root, bindings})`
+- CLI 命令：`skill-family-kit check native-entry-bindings --root <dir> --selection <relative-json> --json`
+
+选集 JSON 仅包含 `bindings` 字段，结构与公开 API 一致。输入的完整嵌套结构由 Engineering Kit 的 `runNativeEntryBindingCheck` 公开 API 说明定义，本节不重新实现算法。禁止使用人工语义判断或手填通过码替代机械调用。
+
+输入不支持或不可读时记为“不足”；受支持但直接不等时记为“发现”。资源漂移撤销依赖绑定的全部比较，独立稳定发现保留。旧双入口六比较与 peer 联合一致性范围维持不变。
+
+执行后保留原始返回的 `professional-conclusion`，并使用 `readProfessionalProof` 或 `check proof` 解释其内容。完成状态（`completion`）与 ENGINEERING 状态码（`code`）为独立字段，需分别保留。若结果为 `partial` 或 `insufficient`，不得标记为完整通过。
+
+当仅选择本范围时，直接交付原始专业结论与读取器返回结果，不进入手写 review 或 proof-create 投影流程。若与其他机械或语义范围合并选择，各范围结果分别保留原件，局部 `CLEAR` 不代表 Markdown 正文、方法契约版本、安装加载或发布批准。
+
 ### 静态语义审阅
 
 声明式版本检查或入口检查已经说明当前所选声明分支没有数组，并且未进入实体核对时，只把这一声明项记为 `insufficient`，`reason` 保留这次命令已经返回的原始诊断。不得把 `insufficient` 写成通过，也不得手填 `FOUNDATION_STATIC_CLEAR`。缺声明只限制这一项。用户同时选了仍可独立执行的公共能力采用或公共调用关系与参数边界时，这些项继续按下面的原文阅读目标实际采用的公共目录、导出和合同，不因声明分支没有数组而跳过，也不要写完这一条就直接出证。有声明且数组仍在时，下面的原文同样继续执行。
@@ -448,7 +481,7 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 ## 出证
 
-仅选择“已选同级适配器共同闭包”、“指定分支字段与 Schema 对应”或“指定双入口与共同协议声明对应”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
+仅选择“已选同级适配器共同闭包”、“指定分支字段与 Schema 对应”、“指定双入口与共同协议声明对应”或“指定原生入口身份关系”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
 
 审阅结束后，把领域结果写成 JSON。结构为 `{subject:{ref,revision?}, checks:[{id,status,sourceRefs,reason}], limitations:[]}`。`checks` 不能为空。`status` 只能是 `pass`、`findings`、`insufficient`、`not_applicable`。`sourceRefs` 和 `reason` 必须是这次实际读到的依据，不能手填通过结果。
 

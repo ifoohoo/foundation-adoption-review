@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.36.0 -->
+<!-- release-skill:release-version: 0.37.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.36.0** (2026-11-03)
+**0.37.0** (2026-11-05)
 
-`foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
+在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
 
 **变更**
 
-- `foundation-adoption-review`在原有`foundation-engineering-check`基础上新增“已选同级适配器共同闭包”机械范围，真实调用新包根API，保存完整原件交由原读取器处理。不以`proof-create`手填机械结果，各范围原件独立存储，不合成完整审计PASS。不判断Audit/SOURCE终态、源权威、独立资源或平台元数据，不执行目标或生成器，不证明发布/宿主安装加载业务。
+- 在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
 
 **升级说明**
 
-四单元需锁步采用0.36.0，旧调用不强制迁移。源候选、本地测试、静态退出均不能证明正式渠道、安装加载或业务可用性。正式0.35.0不包含新入口。
+四单元需同步采用 0.37.0 版本，旧调用方式不强制迁移。源码候选、本地测试及静态退出均不能证明其在正式渠道中的可用性、安装加载能力或业务适用性。0.36.0 不包含此新功能。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

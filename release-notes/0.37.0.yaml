@@ -1,0 +1,15 @@
+version: 0.37.0
+date: 2026-11-05
+locales:
+  en:
+    summary: "`foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged."
+    changes:
+      changed:
+        - "`foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged."
+    upgradeNotes: Adopt all four units at 0.37.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. Version 0.36.0 does not contain the new entry.
+  zh-CN:
+    summary: 在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+    changes:
+      changed:
+        - 在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+    upgradeNotes: 四单元需同步采用 0.37.0 版本，旧调用方式不强制迁移。源码候选、本地测试及静态退出均不能证明其在正式渠道中的可用性、安装加载能力或业务适用性。0.36.0 不包含此新功能。

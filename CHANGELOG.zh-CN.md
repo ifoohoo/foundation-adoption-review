@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.37.0 locale=zh-CN baseline=sha256:0bc314df4168c2875bc3f261286a2cb8d6ec0ebe945f8eacec3fba7bf7c508e3 -->
+## [0.37.0] - 2026-11-05
+
+在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+
+### 变更
+
+- 在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+
+### 升级说明
+
+四单元需同步采用 0.37.0 版本，旧调用方式不强制迁移。源码候选、本地测试及静态退出均不能证明其在正式渠道中的可用性、安装加载能力或业务适用性。0.36.0 不包含此新功能。
+<!-- release-skill:changelog:end version=0.37.0 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.36.0 locale=zh-CN baseline=sha256:ac390211637382f8cbe1e34ba2cf410445048ba8714e8c6c02a6a7ee003dbf46 -->
 ## [0.36.0] - 2026-11-03
 

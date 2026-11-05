@@ -1,19 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.36.0 -->
+<!-- release-skill:release-version: 0.37.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.36.0** (2026-11-03)
+**0.37.0** (2026-11-05)
 
-`foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
+`foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
 
 **Changed**
 
-- `foundation-adoption-review` extends the existing `foundation-engineering-check` with a new mechanical scope: "selected peer adapters in common closure." It makes real calls to the new root-level API, saves full original outputs for the original reader. Mechanical results are not manually filled via `proof-create`; original outputs are stored separately per scope and not merged into a unified audit PASS. It does not assess Audit/SOURCE final state, source authority, independent resources, or platform metadata, nor does it execute targets or generators, nor does it validate release, host installation, or loading workflows.
+- `foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
 
 **Upgrade Notes**
 
-Adopt all four units at 0.36.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. The formal 0.35.0 package does not contain the new API.
+Adopt all four units at 0.37.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. Version 0.36.0 does not contain the new entry.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

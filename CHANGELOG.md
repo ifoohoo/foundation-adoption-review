@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.37.0 locale=en baseline=sha256:e3611508de40f9d899805f9e18ba42f0e3fd1c7464e71af67d8ac0be5b6d6a3e -->
+## [0.37.0] - 2026-11-05
+
+`foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
+
+### Changed
+
+- `foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
+
+### Upgrade Notes
+
+Adopt all four units at 0.37.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. Version 0.36.0 does not contain the new entry.
+<!-- release-skill:changelog:end version=0.37.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.36.0 locale=en baseline=sha256:95143334e4d3cd4b6dcaf337bfb2113c81c908ffb8b90be659d4e5d5177e6b02 -->
 ## [0.36.0] - 2026-11-03
 
