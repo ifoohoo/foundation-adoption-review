@@ -1,19 +1,22 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.37.0 -->
+<!-- release-skill:release-version: 0.38.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.37.0** (2026-11-05)
+**0.38.0** (2026-11-06)
 
-`foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
+foundation-engineering-check adds two explicit optional scopes: "specified Skill text declaration correspondence" and "specified native projection content and resource correspondence," and extends existing fixed file reference checking to support limited leading ../ paths in raw literal, with target strictly within root. Adds fixed Schema declaration and usage chain check capability, independently verifying Markdown declaration against the actual Schema identity and required fixed version, optionally validating that Schema loading and validation in Python implementation occur before business interpretation, with JSON decoding and direct version header reading considered valid precedence; unclassifiable cases result in insufficient implementation only while preserving declaration; Kit has no dedicated CLI; Plugin invokes the API and public reader via explicit scope selection.
 
 **Changed**
 
-- `foundation-engineering-check` adds a mechanical scope for selected native-entry identities. It calls runNativeEntryBindingCheck or check native-entry-bindings, saves the original professional-conclusion, and lets the existing proof reader interpret local four-comparison results. Mechanical results are not filled through proof-create. Existing public-surface six-comparison and peer joint-equivalence scopes remain unchanged.
+- foundation-engineering-check adds two explicit optional scopes: "specified Skill text declaration correspondence" and "specified native projection content and resource correspondence," verified via real calls to runSkillSurfaceBindingCheck or runNativeProjectionCheck and corresponding CLI, with original professional-conclusion preserved and passed to the original proof reader.
+- The existing fixed file reference check is extended to support limited leading ../ paths: raw literal may begin with one or more consecutive ../ followed by valid file segments separated by /, with the target strictly within root; path.posix.join is always applied regardless of baseDir value. This scope calls the existing `runStaticReferenceCheck` package-root API and reads the actual return through the public proof reader.
+- Local mechanical results are used based on actual scope. The caller ensures business consistency, authority, and completeness of the selected set, and domain-level adaptation or violation judgment is the caller’s responsibility.
+- Adds fixed Schema declaration and usage chain check capability, independently comparing the full $id and schemaVersion=N in Markdown against the actual required version const of the standard 2020-12 Schema. Optionally verifies in a limited, direct, unambiguous CST chain the actual Schema file used by the Python validator, the same data binding, and validation before business interpretation. JSON decoding and direct version header reading are valid precedence. Unclassifiable cases result in insufficient implementation only while preserving the declaration. Kit has no dedicated CLI. Plugin invokes the API and public reader via explicit scope selection using the exact API name runFixedSchemaUseCheck and readProfessionalProof.
 
 **Upgrade Notes**
 
-Adopt all four units at 0.37.0; existing callers need no forced migration. Source candidates, local testing, or static exits cannot validate formal channels, installation, loading, or business readiness. Version 0.36.0 does not contain the new entry.
+All four units must adopt the exact 0.38.0 release version in sync, with verification required at each stage: source candidate, local testing, official channel, installation, loading, and business outcome. The caller is responsible for ensuring business consistency, authority, and completeness of the selected set; adaptation or violation judgment is the caller’s responsibility. The new fixed Schema check requires independent verification of declaration-to-Schema correspondence, optional validation of Schema loading and validation preceding business interpretation in implementation, with JSON decoding and direct version header reading considered valid precedence; unclassifiable cases result in insufficient implementation only while preserving declaration; Kit has no dedicated CLI; Plugin invokes the API and public reader via real call with explicit scope selection.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

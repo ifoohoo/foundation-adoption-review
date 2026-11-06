@@ -1,19 +1,22 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.37.0 -->
+<!-- release-skill:release-version: 0.38.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.37.0** (2026-11-05)
+**0.38.0** (2026-11-06)
 
-在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+foundation-engineering-check 新增两个显式可选范围，指定Skill文本声明对应与指定原生投影内容与资源对应，同时扩展原有固定文件引用检查，支持 raw literal 以连续 ../ 开头并接合法文件段，目标必须严格位于 root 内。新增固定Schema声明与采用链路检查能力，独立核对Markdown中完整$id与schemaVersion=N及实际普通2020-12 Schema必需版本const，可选在有限、直接、无歧义CST链路中验证Python实现中Schema加载与验证早于业务解释，JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明，Kit包根API无专用CLI，Plugin通过显式范围真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof。
 
 **变更**
 
-- 在 0.37.0 版本中，`foundation-engineering-check` 新增对指定原生入口身份关系的机械检查范围，真实调用 `runNativeEntryBindingCheck` 或 `check native-entry-bindings`，保存原始 `professional-conclusion`，交由已有证明读取器解析局部四组比较结果。机械结果不通过 `proof-create` 手动填写。旧有双入口六比较逻辑与 peer 联合一致性范围维持不变。
+- foundation-engineering-check 新增两个显式可选范围，指定Skill文本声明对应与指定原生投影内容与资源对应，分别通过真实调用 runSkillSurfaceBindingCheck 或 runNativeProjectionCheck 及对应 CLI 验证，结果保留原始 professional-conclusion 并交`readProfessionalProof`。
+- 原有固定文件引用检查能力扩展支持有限前置 ../ 路径，raw literal 可以一个或多个连续 ../ 开头，后接由 / 分隔的合法文件段，目标必须严格位于 root 内，路径由 path.posix.join 处理并执行规范化。 该范围直接调用 `runStaticReferenceCheck` 包根 API，并由公共读取器解释实际返回。
+- 局部机械结果按实际 scope 使用，调用方负责选集的业务一致性、权威性与完整性，领域允许适配或违规由调用方 LLM 判断。
+- 新增固定Schema声明与采用链路检查能力，独立比较Markdown中完整$id与schemaVersion=N及实际普通2020-12 Schema必需版本const。可选在有限、直接、无歧义CST链路中核对Python实现中实际采用的Schema文件、同一数据绑定与验证早于业务解释。JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明。Kit包根API无专用CLI，Plugin通过显式范围真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof。
 
 **升级说明**
 
-四单元需同步采用 0.37.0 版本，旧调用方式不强制迁移。源码候选、本地测试及静态退出均不能证明其在正式渠道中的可用性、安装加载能力或业务适用性。0.36.0 不包含此新功能。
+四单元必须同步采用精确版本 0.38.0，各阶段（源码候选、本地自测、正式渠道、安装、加载、业务结果）需分别核收。调用方需确保选集业务一致、权威完整，适配或违规由调用方 LLM 判断。新增固定Schema检查需独立核对声明与实际Schema对应关系，可选验证实现中Schema加载与验证早于业务解释，JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明，Kit无专用CLI，Plugin通过真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof 完成。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

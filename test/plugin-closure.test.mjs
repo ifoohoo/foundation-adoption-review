@@ -134,7 +134,7 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.37.0");
+  assert.equal(packageJson.version, "0.38.0");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
@@ -194,13 +194,16 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   // Root adopted the original Astra/high final cross-stage whole-Skill expectation on 2026-11-03.
   // 0.37.0 unpublished source candidate: four host manifests are version-only replacements of 0.36.0;
   // engineering-check SKILL.md hash follows the required native-entry write-set. Not independently reviewed, not published.
+  // 0.38.0 same-batch expectations were independently accepted by the original Astra reviewer.
+  // Root independently rederived the four version-only manifests and adopted the whole Skill hash.
+  // Source is independent-product-review-038.json, I038-2, SHA256 39b654334f78e3486d84a40d50d9adb1136431d56e1434219dfb2979ef9a23b4.
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "923b6dc4e9e3edada4e513a178a4e37a6a9a6be011f0087de43e5ded7a9f909c"],
-    [".claude-plugin/plugin.json", "65e2cc3000de34e95881af14b8b96ae1d02a7551ed71698d1731c5f7bd699639"],
-    [".kimi-plugin/plugin.json", "65e2cc3000de34e95881af14b8b96ae1d02a7551ed71698d1731c5f7bd699639"],
-    [".qoder-plugin/plugin.json", "65e2cc3000de34e95881af14b8b96ae1d02a7551ed71698d1731c5f7bd699639"],
+    [".codex-plugin/plugin.json", "ce7179d4539d78aca347a03840afecdb1a584564918f9ab8d35900f529e51b7b"],
+    [".claude-plugin/plugin.json", "5e62df86d21b49e0ed099f61e3493eeb59194f8c4fd4c6ac2b3b0627d7edc220"],
+    [".kimi-plugin/plugin.json", "5e62df86d21b49e0ed099f61e3493eeb59194f8c4fd4c6ac2b3b0627d7edc220"],
+    [".qoder-plugin/plugin.json", "5e62df86d21b49e0ed099f61e3493eeb59194f8c4fd4c6ac2b3b0627d7edc220"],
     ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
-    ["skills/foundation-engineering-check/SKILL.md", "71355e9f022d7272be9402f136cdd91b100a06e6c274919a300a8782d9e8ad39"],
+    ["skills/foundation-engineering-check/SKILL.md", "4e98c5285c19edfcbb15610cb69bfc720517e355c3bc18909cbc31947403b1bd"],
     ["skills/foundation-initialize/SKILL.md", "c04eaa17fad211c4c87fe2512360ebad0156c7fb6c98d1f67275b9c6cdc0ee2d"],
     ["skills/foundation-initialize/references/execution-design.md", "9f5345f86cf629836b8bc58292e7d3dc21e5e0a6caff828e9bec470bfa4cb64d"],
     ["skills/foundation-initialize/references/foundation-wiring.md", "73906ce654a6fed529fa5c3cc586b98bba0ce19ebc2e5ecaa321c63a890f6b43"],

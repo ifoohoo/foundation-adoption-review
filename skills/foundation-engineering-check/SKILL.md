@@ -11,10 +11,10 @@ description: Run Foundation's complete static engineering review for a caller-se
 
 ## 输入
 
-业务选择仅限三项；输出根由宿主安排，不向业务用户索取临时目录：
+业务选择共三项，输出根由宿主安排，无需向业务用户索取临时目录。
 
 1. 目标根。
-2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选同级适配器共同闭包、已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应、指定原生入口身份关系，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
+2. 本次适用的工程范围。可选工程声明、公共能力采用、公共调用关系与参数边界，以及原生文件目录角色区分、原生运行闭包、原生公开边界，以及已选同级适配器共同闭包、已选文档结构与字节基准、来源与生成根方向，以及指定分支字段与 Schema 对应、指定双入口与共同协议声明对应、指定原生入口身份关系，以及指定 Skill 文本声明对应、指定原生投影内容与资源对应，以及指定固定Schema声明与采用链路，可分别选择或合选。三项原生工程范围的检查身份和实际范围见原生工程范围小节。未选中的项写入限制，不补跑。
 3. 可选的已有本族证明，路径必须落在调用方明确给出的读取根内。有旧证明时只读取，不重新扫描。
 
 不要无条件索取 `token_estimate_record`、固定旧注册对象清单或旧 0.15 能力集合，也不要求全部 Foundation 能力都适用。
@@ -164,32 +164,19 @@ skill-family-kit adopt-plan --root <target> --no-git-spawn
 
 ### 已选固定文件引用
 
-当已选公共调用关系或原生运行闭包包含固定文件调用时，按下述方式核对。先确认这些文字是实际调用，并确认选集涵盖当前范围的全部必要固定引用。
+当公共Skill的调用关系或原生运行闭包中包含实际固定文件引用时，需按以下流程核对。首先确认所选范围为真实调用，且选集覆盖当前语义范围内的全部必要引用，各平台（源码、适配器等）的引用须分别记录 `sourceRef`、`line`、`literal`、`baseDir`，不得以一处源码替代其他平台。
 
-**使用前提**
-- 仅适用于已明确的固定文件调用，不支持动态路径、通配符或运行时解析。
-- 每个平台（源码、适配器等）的调用需分别记录 `sourceRef`、`line`、`literal`、`baseDir`，不得以一处源码替代其他平台。
-- 调用方必须先实际阅读来源与基准说明，确认为真实调用，而非注释、否定句或示例。
+调用方应确保 `root` 为显式非空目录，`references` 为非空数组，每项恰含 `sourceRef`、`line`、`literal`、`baseDir`，其中三个路径字段为非空字符串，`line` 为从 1 开始的安全整数，选集不含重复项或未知键。调用 `runStaticReferenceCheck({root, references})`，传入完整选集。API 逐项返回 `checked` 或 `insufficient`，不生成 `findings`。
 
-**执行流程**
-1. 确认调用方已提供获准根目录与解析基准；路径安全机制由 API 调用。
-2. 调用 `runStaticReferenceCheck`，传入完整选集。
-3. 读取返回的 `professional-conclusion`，逐项核对 `details.references` 中的 `status`、`reason`、`source`、`target` 及 `cause`（若有）。
-4. 将实际读取的来源摘要与本次冻结目标的来源摘要进行比对，确保一致性。
-5. 若所有必要项均完成且语义前提成立，方可将此机械子项记为 `pass`。
+支持三类路径形态分别为普通相对路径（如 `utils/helper.js`）、单个 `./` 前缀路径（如 `./config/index.mjs`），以及新增的 `raw literal` 形式——以一个或多个连续 `../` 开头，后接由 `/` 分隔的普通文件段。各段仅含 ASCII 字母、数字、点、下划线、连字符，整体不为 `.` 或 `..`。合法示例包括`baseDir=scripts` 时 `literal=../runtime/index.mjs`，结果 `targetRef=runtime/index.mjs`；`baseDir=nested/scripts` 时 `literal=../../runtime/index.mjs`，目标仍在根内。中间 `../` 形态如 `nested/scripts/../../runtime/index.mjs` 仍不支持。不支持 `./../file`、`.././file`、`../`、空后缀、变量/glob/空白/非ASCII/反斜杠/绝对路径/URI/动态路径或模块搜索。
 
-**状态处理**
-- `ENGINEERING_CLEAR` 仅覆盖所选固定引用选集，不表示完整 Foundation 静态审阅通过。
-- `ENGINEERING_CHECK_INCOMPLETE` 必须在适用检查记录中保留 `insufficient`、来源、未覆盖项，并保留原始 `code`、`kind`（若有）。不得仅写 `limitations` 或直接判定为 `findings`。
-- 本入口不处理参数、权限、自然语言条件、方法身份或完整工程审阅，这些职责仍由当前所选语义职责覆盖。
-- 未采用 Schema 的接口不强制补 Schema。
-- 动态路径、不支持路径不运行目标补证，不增加声明或全语言解析器。不得仅凭局部机械 `CLEAR` 跳过语义和覆盖核收、手填完整 `FOUNDATION_STATIC_CLEAR`；所选范围的完整语义核收完成后，仍按该明确限定范围沿既有 `proof-create` 出证。
+处理流程为以下步骤。复制验证请求，解析 `root`，用 `readFileStrict` 读取 `sourceRef`，在指定行绑定 `literal`，校验有限词法，若 `baseDir` 非 `.` 则用 `resolveContained` 核实基准，通过 `path.posix.join(baseDir, literal)` 派生 `targetRef`，再用 `readFileStrict` 严格读取目标文件。`join` 执行 POSIX 词法规范化，但 `literal` 保持原样；越出 `root` 的相对 `..` 仍保留在目标坐标，由 Harness 拒绝。目标可离开 `baseDir`，但必须严格位于 `root` 内。`sourceRef` 和 `baseDir` 的安全政策不变，不因新规则放宽。FND-DES-039 的本次合法修订仅准入上述前置父相对形态，其余路径安全政策沿用。
 
-**边界与限制**
-- 读取失败、文件缺失、来源失配、动态路径均视为检查不足，不作为目标违规。
-- 闭包摘要不符或计算失败时，受影响项降级为 `insufficient`，但其他项仍可完成；仅闭包整体失败时，所有参与项转为不足，`closure` 为 `null`。
-- 不改变 `root` 与 `baseDir` 的语义，不将闭包相等视为原子快照。
+安全由现有 Harness 负责，不引入新 walker 或解析器。最终文件符号链接由严格读 `no-follow` 拒绝，真实路径逃逸、符号链接逃逸、非普通文件按原机制拒绝，根别名与中间目录沿原政策处理。不扫描传递依赖，非运行时模块解析。保留来源与目标真实 `ref`、`sha256`、`bytes` 回执，以及 `details.references` 和 `closure`。可完成项用 `computeResourceClosure` 核摘要，重复读取或闭包漂移撤销依赖项，独立稳定项保留；整体闭包失败则 `closure=null`。未知异常传播，不吞为不足。
 
+返回状态按下列组合解释。全部 `checked` 为 `complete/ENGINEERING_CLEAR`，至少一项 `checked` 但有不足为 `partial/ENGINEERING_CHECK_INCOMPLETE`，无 `checked` 为 `not-performed/ENGINEERING_CHECK_INCOMPLETE`。`not-performed` 非逐项状态，不等于未调用。缺失、不可读、歧义、不支持、越界为不足，保留 `reason` 与已有 `cause`（若有）。宿主保存实际返回，再由 `readProfessionalProof({proofRoot,proof})` 读取。核对各项 `details.references` 中的状态、原因、回执及已有错误类别，并将实际来源摘要与调用方冻结目标核对。读取器不重新扫描、不鉴定作者。结果为观察时刻的局部状态，语义、权限、业务完整性由调用方负责。执行不写、不运行目标代码、不启动进程或联网。
+
+本修订 0.38.0 为开发候选，当前正式版为 0.37.0，公开消费依实际安装版本。`runStaticReferenceCheck` 已存在，本次仅扩大 `literal` 子集，无新 API、CLI、导出、模式、字段、证明格式、Schema、依赖或 Harness 算法。原 038 的另两项新 API 独立存在，本单元不涉及，不增加执行依赖。无专用固定引用 CLI，Skill 直接调用包根 API 与公共 reader。核对结果仅用于局部机械检查，完整语义核收与 `proof-create` 仍按原职责执行，不得仅凭 `ENGINEERING_CLEAR` 跳过语义审阅。
 
 ### 已选文档结构与字节基准
 
@@ -436,6 +423,101 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 当仅选择本范围时，直接交付原始专业结论与读取器返回结果，不进入手写 review 或 proof-create 投影流程。若与其他机械或语义范围合并选择，各范围结果分别保留原件，局部 `CLEAR` 不代表 Markdown 正文、方法契约版本、安装加载或发布批准。
 
+### 指定 Skill 文本声明对应
+
+本范围自 0.38.0 版本起引入，仅在调用方显式选择时执行。源码候选用于已批准的开发验证，正式消费时需核对实际精确发布的版本与公开导出的接口。维护者在拥有自然语言 Skill 声明、key=value 参数声明及共同 Markdown 合同时，须确认其实际属于同一业务逻辑与条件后，方可使用现存文件选集进行检查，不得为目标补全骨架、路由或方法 JSON。
+
+调用 API `runSkillSurfaceBindingCheck({root, bindings})`，或使用 CLI 命令 `skill-family-kit check skill-surface-bindings --root <dir> --selection <rel> --json`。每条绑定同时包含下列字段。
+
+- `naturalSkill` 含路径字符串 `ref` 与协议片段对象 `protocolRef`。
+- `parameterDeclaration` 含路径字符串 `ref` 与赋值片段对象 `parameterLiteral`。
+- `commonMethod` 含路径字符串 `ref`，以及 `methodId`、`methodValue`、`implementationRef` 三个片段对象。
+- `parameterName` 为参数键名。
+
+所有片段均按真实原件提取，坐标为 `line`、`column`、`length`，以 UTF-16 码元计数，行列从 1 开始，不拆分代理对。`methodValue` 是同一行内 `methodId` 中严格较短的片段，参数声明与共同方法指向同一实际文件。完整闭字段、直接 key=value 与路径子集详见 Engineering Kit 的公开 API 说明。
+
+API 执行下列四组比较。
+
+1. Skill 文首 `name` 与共同方法身份一致性。
+2. 实际参数字面量与 `parameterName + "=" + methodValue`（局部值取共同原件）的匹配。
+3. 共同实现路径与所选 Skill 实际文件的一致性。
+4. Skill 协议路径与共同合同实际文件的一致性。
+
+预期值均取自共同原件。读取现存文件，不运行其内容。
+
+返回结果为 `skill-family.professional-conclusion`，其中 `provider.entry` 为对应 API 名称，保留原件读取回执、实际选集/文本位置/值或文件身份、比较结果、闭包信息、`scope.checked` 与 `scope.limitations`。完整执行且无发现为 `complete/ENGINEERING_CLEAR`。全部完成但存在冲突为 `complete/ENGINEERING_FINDINGS`。发现与不足混合为 `partial/ENGINEERING_FINDINGS`。无发现但部分完成为 `partial/ENGINEERING_CHECK_INCOMPLETE`。全部不足为 `not-performed/ENGINEERING_CHECK_INCOMPLETE`。CLI 退出码 0 表示完整无发现，1 表示发现或不足，2 表示非法请求或未处理机制错误。
+
+缺失、不支持、歧义、读取失败、坐标不可定位及闭包漂移将导致整个依赖绑定的比较被撤销，但独立稳定绑定仍保留。未知程序异常将传播至调用方。真实 API 输出独占保存于授权证据目录，通过 `readProfessionalProof({proofRoot, proof})` 或 `check proof` 读取，不重扫、不鉴作者。机械原件不得手填 `proof-create`。
+
+与其他范围合选时，各范围独立保留原件，局部结论仅解释实际范围。调用方须确认权威性、同业务条件、选集完整性与领域语义。静态观察限于本次字节，非原子快照。
+
+仅选择本范围时，直接返回实际 API 原始结果及 reader，不进入手写审阅投影。对原目标只读且无选择文件时，使用 API 内存选集。CLI 仅使用已获准的根内选集，测试副本 CLI 结果保留副本身份。调用方法和文件缺失不能被静态 0 或其他机械结果替代。
+
+### 指定原生投影内容与资源对应
+
+本范围自 0.38.0 版本起引入，仅在调用方显式选择时执行。源码开发阶段用于候选验证，正式消费时需核对实际精确发布的版本与公开导出的接口。调用方须明确提供每项 `commonManifestRef`、`commonSkillIndex`、`platformManifestRef`、`mappingIndex` 和 `resources` 数组，前四字段沿用原 `runNativeEntryBindingCheck` 的共同清单/平台映射选择合同，`resources` 中每项仅包含非空的 `commonRef` 与 `platformRef` 根内相对路径。数组可为空，但路径字符串本身不可为空。结果仅覆盖明确选中资源，不推测缺失映射，不要求目标补 `source` 字段或生成历史。
+
+调用 API `runNativeProjectionCheck({root, bindings})`，或使用 CLI 命令 `skill-family-kit check native-projections --root <dir> --selection <rel> --json`。请求组内需同时具备下列字段与类型。
+
+- `commonManifestRef` 为字符串，指向共同清单文件路径。
+- `commonSkillIndex` 为非负安全整数，标识共同技能在清单中的索引。
+- `platformManifestRef` 为字符串，指向平台映射清单文件路径。
+- `mappingIndex` 为非负安全整数，标识平台映射在清单中的索引。
+- `resources` 为数组，每项含 `commonRef` 与 `platformRef`，均为根内相对路径字符串。
+
+API 复用前述“指定原生入口身份关系检查”小节中的四组实际比较，再读取两端完整 Skill 进行内容比对。
+
+内容只采用一项规范化。对 `name` 字段，若其为严格 YAML 中的唯一直接单行标量（plain、单引号或双引号均可），则两端该区间统一替换为同一固定值后，其余字节全部进行完整比较。`name` 别名、合并键、重复键、未知标签、间接引用、多行或不唯一范围，以及无损 UTF-8 解码失败，均导致相关绑定视为不足，不参与比较。
+
+资源双路径仅表达位置对应，不参与语义解析。资源原始字节完整比较，`name` 之外的已知正文、权限或协议字节差异均作为 `findings` 记录。额外正文适配不支持，闭合输入不增字段。`findings` 仅说明已知身份或字节不等，允许调用方或 LLM 根据上下文判断适配性与领域违规含义。不得据此默认符合或违反某项 Audit 领域规则。
+
+返回结果为 `skill-family.professional-conclusion`，其中 `provider.entry` 为对应 API 名称，保留原件读取回执、实际选集/文本位置/值或文件身份、比较结果、闭包信息、`scope.checked` 与 `scope.limitations`。全部完成且无发现为 `complete/ENGINEERING_CLEAR`。全部完成但存在冲突为 `complete/ENGINEERING_FINDINGS`。发现与不足混合为 `partial/ENGINEERING_FINDINGS`。无发现但部分完成为 `partial/ENGINEERING_CHECK_INCOMPLETE`。全部不足为 `not-performed/ENGINEERING_CHECK_INCOMPLETE`。CLI 退出码 0 表示完整无发现，1 表示发现或不足，2 表示非法请求或未处理机制错误。
+
+缺失、不支持、歧义、读取失败、坐标不可定位及闭包漂移将导致整个依赖绑定的比较被撤销，但独立稳定绑定仍保留。未知程序异常传播至调用方。真实 API 输出独占保存于授权证据目录，通过 `readProfessionalProof({proofRoot, proof})` 或 `check proof` 读取，不重扫、不鉴作者。机械原件不得手填 `proof-create`。
+
+与其他范围合选时，各范围独立保留原件，局部结论仅解释实际范围。调用方须确认权威性、同业务条件、选集完整性与领域语义。静态观察限于本次字节，非原子快照。
+
+`scope.checked` 逐项列出以下三类比较项。
+
+- `binding:N:native-identity:K`（K1 到 K4，对应四组原生身份比较）
+- `binding:N:skill-content`（完整 Skill 内容字节比较）
+- `"binding:" + N + ":resource:" + M + ":bytes"`（第 M 个资源的原始字节比较）
+
+不足绑定无归属比较项。宿主核实际绑定数、独立资源对数与绑定资源引用数，不混成一个覆盖数。仅选择本范围时，直接返回实际 API 原始结果及 reader，不进入手写审阅投影。对原目标只读且无选择文件时，使用 API 内存选集。CLI 仅使用已获准的根内选集，测试副本 CLI 结果保留副本身份。调用方法和文件缺失不能被静态 0 或其他机械结果替代。
+
+
+原四身份范围仍可单独选择，其既有记录只按原实际范围解释。
+
+### 指定固定Schema声明与采用链路
+
+公开入口唯一为 `runFixedSchemaUseCheck({root, bindings})`。`root` 为显式非空获准目录，`bindings` 为非空数组。每项 `binding` 仅含必需 `declaration` 对象和可选 `implementation` 对象。
+
+`declaration` 恰含以下字段。`ref`（非空路径字符串）、`unit`、`schemaPath`、`schemaId`、`schemaVersion`。后四项均为片段对象，非字符串，每项恰含 `line`、`column`、`length` 三个正安全整数，按一基 UTF16 码元计。三个子片段须完全位于同一单物理行 `unit`，实际位置/边界唯一，不切开代理对，同文件不同 `unit` 不交叉重叠。
+
+`implementation` 若存在，恰含 `ref`、`dataLoad`、`validation`。后两项恰含一基正安全整数 `line`、`column`，选择唯一实际直接节点起点。请求首次 `await` 前同步复制全部嵌套值，未知键、重复项及非法坐标抛既有 SFC2003。
+
+001 独立声明子检查仅读取 `declaration.ref` 与从真实 `schemaPath` 子片段解析的根内实际 Schema 文件。`schemaPath` 与 `schemaId` 为片段实际读取值，`schemaVersion` 片段的文字仅支持 `schemaVersion=N`，`N` 为正安全整数。支持真实直接 2020-12 自包含 JSON Schema 根对象，非空直接 `$id`，`type=object`，`required` 实际含 `schemaVersion`，`properties.schemaVersion.const` 为正安全整数，并沿既有 Contracts 公开编译校验入口确认可解析性。支持已有自包含 `$defs` 和 `#` 内部引用，不能禁止 `$schema` / `$defs`；外部引用、异步或其他不能确认格式为不足，不冒充 Schema 已有效。比较真实 `schemaId` 与 Schema `$id` 字符串，比较真实 `N` 与实际 `const` 数字。既有无歧义 JSON 读取复用。
+
+005 在提供 `implementation` 时选中，依赖实际声明/Schema 对应和实际 Python，资源须列真实共享依赖。完整 strict Python CST 无错误，`dataLoad` 和 `validation` 为唯一无参数顶层 `main` 的同一 `try` Body 直接节点。`dataLoad` 仅支持 `dataLocal = json.loads(Path(args.review).read_text())` 直接赋值，其中 `review` 示意实际源码中的直接参数名。`validation` 仅支持 `jsonschema.Draft202012Validator(schemaLocal).validate(dataLocal)`。实际 `schemaLocal` 从 CST 独立找到其唯一直接赋值 `json.loads((root / "固定普通路径").read_text())`，此处引号中的固定普通路径是实际 Python 字符串，不是请求字段。`root` 源于 `main` 先行唯一 `Path(__file__).resolve().parent.parent` 直接赋值。`json` / `jsonschema` / `Path` 是直接唯一导入，相关局部名无重绑定 / 写入 / 动态执行。验证前不能有未分类别名或逃逸，验证后本案明确字段读取和结果嵌入可分类，其他相关用途不足。不同局部名若实际加载同一 Schema 文件，不凭名称制造矛盾。
+
+JSON 语法解码只是文本到对象；它可先于或后于 Schema 加载，二者各自在实际对应验证前即可。数据直接 `schemaVersion` 头部读取允许先行，仅用于辨识，不表示已兼容，也不是业务解释。Schema 的 `$id` / `$schema` / `const` 是合同元数据。其他头部形态或动态选择不能解释时 005 不足。明确业务解释是读取真实 Schema `properties` 中除 `schemaVersion` 外的业务字段，或把整个数据嵌入业务结果。在本次实际 `Draft202012Validator` 对完整固定版本 Schema 施加约束之前发生明确业务解释，且没有其他未分类版本守卫时，才是本有限形态的顺序发现。另一兼容策略 / 分支 / 循环 / 其他作用域 / `except` / `finally` 或未分类用途只产生 005 不足，不按行号或更晚验证制造发现。实际验证用了另一已加载且身份 / 版本不同的 Schema，也是对应关系发现。`const` 单值或调用方说 `compatible` 均不等于任意兼容认证。
+
+001 与 005 按子检查各自记录状态、比较、实际值与读取回执。001 读声明和所选 Schema；005 另外读 Python 及实际加载 Schema。共同声明 / Schema 漂移撤销真实依赖子检查，Python 单独漂移仅撤 005。保留独立稳定完成或发现。沿既有 `computeResourceClosure` 及重复读 / 闭包摘要一致性与未知异常传播，闭包整体失败撤所有参与者。各子检查的闭包重叠包含共享资源，跨闭包核对其实际摘要。
+
+原 `professional-conclusion` 结构沿用，`details` 内逐 `binding` 列 `declaration` 及可选 `implementation` 子结果，`scope.checked` 列真实已完成比较，`provider.entry` 为 `runFixedSchemaUseCheck`。按所有被选择的子检查及真实比较聚合五种状态。
+
+- 全完成无发现：`complete/ENGINEERING_CLEAR`
+- 全完成有发现：`complete/ENGINEERING_FINDINGS`
+- 部分完成且有稳定发现：`partial/ENGINEERING_FINDINGS`
+- 部分完成且无发现：`partial/ENGINEERING_CHECK_INCOMPLETE`
+- 无完成：`not-performed/ENGINEERING_CHECK_INCOMPLETE`
+
+`findings` 本身属于完成的比较；没有 `implementation` 就完全未选 005，不生成 005 不足。宿主保存真实返回，调用 `readProfessionalProof({proofRoot, proof})` 只解释真实已选局部范围，Audit 保留规则适用与完整语义核收。
+
+调用方先以实际 Skill / 共同方法原文确认公开性、同业务条件、声明 `unit` 含义和全部必要选集。工具不接受预期通过码、预期身份版本、caller 兼容布尔值或顺序作为通过依据，必须重新读取实际字段和源码关系。新增有限专业算法落 Kit，复用原严格读 / 收容 / UTF16 / Lezer / Schema / 回执 / 闭包 / reader。没有通用 AST / 控制流框架、依赖、Harness 算法、目标 IR / Schema / Registry、新证明 Schema、模式开关或专用 CLI。
+
+实际选择需覆盖当前语义范围的全部必要声明及明确实现，相关片段与节点来自读取的真实原件。仅选择“指定固定Schema声明与采用链路”时，必须保存真实 `runFixedSchemaUseCheck` 返回结果，并通过 `readProfessionalProof` 读取后直接结束，不进入手写审阅JSON或 `proof-create` 流程。与语义范围合选时，各自保留实际原件，语义范围沿原审阅与 `proof-create` 流程独立出证。
+
 ### 静态语义审阅
 
 声明式版本检查或入口检查已经说明当前所选声明分支没有数组，并且未进入实体核对时，只把这一声明项记为 `insufficient`，`reason` 保留这次命令已经返回的原始诊断。不得把 `insufficient` 写成通过，也不得手填 `FOUNDATION_STATIC_CLEAR`。缺声明只限制这一项。用户同时选了仍可独立执行的公共能力采用或公共调用关系与参数边界时，这些项继续按下面的原文阅读目标实际采用的公共目录、导出和合同，不因声明分支没有数组而跳过，也不要写完这一条就直接出证。有声明且数组仍在时，下面的原文同样继续执行。
@@ -481,7 +563,7 @@ SOURCE_GENERATED_DECLARATION_SCHEMA_ID
 
 ## 出证
 
-仅选择“已选同级适配器共同闭包”、“指定分支字段与 Schema 对应”、“指定双入口与共同协议声明对应”或“指定原生入口身份关系”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
+仅选择“已选同级适配器共同闭包”、“指定分支字段与 Schema 对应”、“指定双入口与共同协议声明对应”、“指定原生入口身份关系”、“指定 Skill 文本声明对应”、“指定原生投影内容与资源对应”或“指定固定Schema声明与采用链路”机械范围时，保留公共入口返回的原始专业结论，并由原证明读取器解释，不进入下述手写审阅投影。与语义范围合选时分别保留实际原件，不以手填工程码替代机械结果。
 
 审阅结束后，把领域结果写成 JSON。结构为 `{subject:{ref,revision?}, checks:[{id,status,sourceRefs,reason}], limitations:[]}`。`checks` 不能为空。`status` 只能是 `pass`、`findings`、`insufficient`、`not_applicable`。`sourceRefs` 和 `reason` 必须是这次实际读到的依据，不能手填通过结果。
 
