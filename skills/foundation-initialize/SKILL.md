@@ -25,6 +25,8 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 其他经验证的等价流程材料也可作为输入；不把某一来源工具设为唯一许可路径。
 
+原作者与改编贡献者由项目自定义许可 Profile 分别声明为 `author` 与 `contributor`，加载路径为 `--profiles-root`。CC-BY-NC-SA-4.0 的 `noticeRequired` 为 `true`，若原始版权年份无法证实，则 `copyrightYear` 显式设为 `null`；MIT 与 Apache 许可仍要求整数年份。
+
 ## 流程
 
 每一步只读取当时需要的那份参考，不预先加载全部。
@@ -47,7 +49,9 @@ description: Initialize a sustainable skill family engineering project from a pr
 
    业务源码写在 `skills/<skill-id>/SKILL.md` 及同目录必要文本，这是本入口的约定位置，不是 Foundation 强制目录。凡要通过宿主投影作为正式入口的业务 Skill，其入口 `SKILL.md` 必须携带该宿主加载器要求的 YAML frontmatter——Codex 要求以 `---` 包裹的 frontmatter，含 `name`/`description` 等该宿主合同要求的字段（0.154.0 加载器实测拒绝无 frontmatter 的入口：`missing YAML frontmatter delimited by ---`）；具体字段清单以目标宿主的正式合同与 Design 记录的宿主事实为准，不凭记忆虚构。写出后立即静态正面校验 frontmatter 存在且必需字段齐全；该校验只读字节、不依赖运行时试运行；宿主合同未确认时保留此前提为未确认，不把无 frontmatter 的正文交付宿主投影。命令、参数与前提见 `references/foundation-wiring.md`，到这一步才读取。
 
-5. **登记新增文件**：只登记真正新增且尚未登记的手写源，按显式清单调用 `skill-family-kit check relock --files <清单>`。`relock` 要求目标已有合法三份官方登记，不为缺锁工程播种；首次非空登记走第 4 步的 `check register-existing`。宿主投影、构建清单、生成锁和运行日志按项目既有受管或可再生分类及原生成入口处理，不纳入手写登记。缺适用公开入口时保留接线缺口，不手改 registry、不新建分类器；不用自动发现纳入无关文件。
+5. **登记新增文件**：手写分类只登记真正新增且尚未登记的手写源，按显式清单调用 `skill-family-kit check relock --files <清单>`。`relock` 要求目标已有合法三份官方登记，不为缺锁工程播种；首次非空登记走第 4 步的 `check register-existing`。宿主投影、构建清单、生成锁和运行日志按项目既有受管或可再生分类及原生成入口处理，不纳入手写登记。缺适用公开入口时保留接线缺口，不手改 registry、不新建分类器；不用自动发现纳入无关文件。
+
+   首次初始化与中途接入均需先读取实际发布工具配置，确认该版本提供方声明的运行路径。运行产物、可编辑源配置与持久工具锁分别归类。`/.release-skill/runs/` 为运行时自动生成的记录目录，按实际采用情况登记为运行产物；同级其他目录或别名文件仅按实际声明路径纳入管理，不得默认包含。`.release-skill/project.yaml` 与 `.release-skill/testing/requirements.json` 属于源配置文件，制品图锁仍登记于 `trackedToolLocks`。`.gitignore` 由工具生成时，维护者修改其生成源。采用手写忽略规则的项目，则直接补齐该文件，登记 artifacts 本身不修改 `.gitignore`，也不主动创建运行目录。
 
 6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。细节同在 `references/foundation-wiring.md`。
 

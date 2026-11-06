@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.39.0 locale=en baseline=sha256:358951e8d7026e3ed995655be2d0a47319b53f9452ba0e99342d9ccdeab1ccdd -->
+## [0.39.0] - 2026-11-06
+
+Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.
+
+### Changed
+
+- Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.
+
+### Upgrade Notes
+
+Adopt all four 0.39.0 release units together and verify new entries in the exact published package. Existing default registration, MIT and Apache behavior is retained.
+<!-- release-skill:changelog:end version=0.39.0 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.38.0 locale=en baseline=sha256:06c8bf9fb268c05914c9cdbe7c1608bc36e9569a19370e508fc288566b469846 -->
 ## [0.38.0] - 2026-11-06
 

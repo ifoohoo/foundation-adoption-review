@@ -1,0 +1,15 @@
+version: 0.39.0
+date: 2026-11-06
+locales:
+  zh-CN:
+    summary: foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
+    upgradeNotes: 四个发行单元同步采用0.39.0。新入口须核实精确正式包；旧默认登记、MIT及Apache路径保持兼容。
+    changes:
+      changed:
+        - foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
+  en:
+    summary: Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.
+    upgradeNotes: Adopt all four 0.39.0 release units together and verify new entries in the exact published package. Existing default registration, MIT and Apache behavior is retained.
+    changes:
+      changed:
+        - Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.

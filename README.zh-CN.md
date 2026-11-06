@@ -1,22 +1,19 @@
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.38.0 -->
+<!-- release-skill:release-version: 0.39.0 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.38.0** (2026-11-06)
+**0.39.0** (2026-11-06)
 
-foundation-engineering-check 新增两个显式可选范围，指定Skill文本声明对应与指定原生投影内容与资源对应，同时扩展原有固定文件引用检查，支持 raw literal 以连续 ../ 开头并接合法文件段，目标必须严格位于 root 内。新增固定Schema声明与采用链路检查能力，独立核对Markdown中完整$id与schemaVersion=N及实际普通2020-12 Schema必需版本const，可选在有限、直接、无歧义CST链路中验证Python实现中Schema加载与验证早于业务解释，JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明，Kit包根API无专用CLI，Plugin通过显式范围真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof。
+foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
 
 **变更**
 
-- foundation-engineering-check 新增两个显式可选范围，指定Skill文本声明对应与指定原生投影内容与资源对应，分别通过真实调用 runSkillSurfaceBindingCheck 或 runNativeProjectionCheck 及对应 CLI 验证，结果保留原始 professional-conclusion 并交`readProfessionalProof`。
-- 原有固定文件引用检查能力扩展支持有限前置 ../ 路径，raw literal 可以一个或多个连续 ../ 开头，后接由 / 分隔的合法文件段，目标必须严格位于 root 内，路径由 path.posix.join 处理并执行规范化。 该范围直接调用 `runStaticReferenceCheck` 包根 API，并由公共读取器解释实际返回。
-- 局部机械结果按实际 scope 使用，调用方负责选集的业务一致性、权威性与完整性，领域允许适配或违规由调用方 LLM 判断。
-- 新增固定Schema声明与采用链路检查能力，独立比较Markdown中完整$id与schemaVersion=N及实际普通2020-12 Schema必需版本const。可选在有限、直接、无歧义CST链路中核对Python实现中实际采用的Schema文件、同一数据绑定与验证早于业务解释。JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明。Kit包根API无专用CLI，Plugin通过显式范围真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof。
+- foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
 
 **升级说明**
 
-四单元必须同步采用精确版本 0.38.0，各阶段（源码候选、本地自测、正式渠道、安装、加载、业务结果）需分别核收。调用方需确保选集业务一致、权威完整，适配或违规由调用方 LLM 判断。新增固定Schema检查需独立核对声明与实际Schema对应关系，可选验证实现中Schema加载与验证早于业务解释，JSON解码与直接版本头读取先行合法，无法分类仅实现不足并保留声明，Kit无专用CLI，Plugin通过真实调用 runFixedSchemaUseCheck 及公共 readProfessionalProof 完成。
+四个发行单元同步采用0.39.0。新入口须核实精确正式包；旧默认登记、MIT及Apache路径保持兼容。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。

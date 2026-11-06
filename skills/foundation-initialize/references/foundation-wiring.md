@@ -169,7 +169,7 @@ skill-family-kit check relock --root <target> --files <relative-paths>
   - 缺少适用登记入口时，仅将对应工程资格标为未通过，列明具体接入缺口；其他路径继续处理。
 - **登记类别区分**：
   - 持久工具锁使用独立登记类别，**不归入手写源**；
-  - API 参数 `registrationClass` 仅接受 `handwritten` 或 `trackedToolLocks`；
+  - API 参数 `registrationClass` 接受 `handwritten`、`trackedToolLocks` 或 `artifacts`；
   - CLI 对应 `--registration-class`；
   - 已采用的精确版本公开接口支持新模式时，显式登记原工具生成的锁：
 
@@ -246,3 +246,11 @@ skill-family-kit adopt-plan --list-capabilities --all --scope <scope>
 | 文件输出 | `writeFileAtomic`；拒绝覆盖用 `publishFileExclusive`；获准替换用 `replaceFileAtomic` | 内容、路径策略、覆盖授权与后续行为由调用方负责；单文件原子性不代表整任务事务 |
 
 只有实际需要机制执行的业务才增加调用机制的薄脚本；纯文本 Skill 不为形式完整强插代码。未修改上游内部算法时复用其同版本证据，目标侧只验证入口、参数、机制组合和领域结果。实际写出节点需要的保证无法由运行版本满足时，说明所缺保证、只暂停依赖片段，最小能力缺口交上游，不在目标工程生成平行机制；调用前提不符时指出具体条件，保持该接线未完成，原输入和已有输出保持可检查。
+
+### 运行目录和第三方许可接入
+
+首次初始化与中途接入均需先读取实际发布工具配置，确认该版本提供方声明的运行路径。运行产物、可编辑源配置与持久工具锁分别归类。`/.release-skill/runs/` 为运行时自动生成的记录目录，按实际采用情况登记为运行产物；同级其他目录或别名文件仅按实际声明路径纳入管理，不得默认包含。`.release-skill/project.yaml` 与 `.release-skill/testing/requirements.json` 属于源配置文件，制品图锁仍登记于 `trackedToolLocks`。`.gitignore` 由工具生成时，维护者修改其生成源。采用手写忽略规则的项目，则直接补齐该文件，登记 artifacts 本身不修改 `.gitignore`，也不主动创建运行目录。
+
+非空且尚未登记的项目，沿用 `check register-existing` 命令，通过 `--artifacts` 传入核实后的忽略项。已有合法三份登记且无受管漂移的项目，应使用命令 `skill-family-kit check relock --root <target> --registration-class artifacts --files /.release-skill/runs/`。对应 API 接口为 `runRelock/relockAction`，其中 `registrationClass` 取值为 `artifacts`，`files` 为非空显式清单。新模式仅支持以项目根目录为起点的精确字面文件或尾随斜杠目录，允许尚未生成的路径。登记表与受管锁仅在必要时更新，原锁版本历史完整保留，重复项的 `registered` 为空数组，不写入，也不递增 `lockVersion`。未发生写入时，报告中省略 `publicationState`。符号链接、路径越界、源与工具锁冲突、无法证明与手写通配源分离，或存在既有受管漂移的情况，均在首写前拒绝。半写发布失败时，继续按原机制报告实际状态，不伪造发布收据。
+
+原作者与改编贡献者由项目自定义许可 Profile 分别声明为 `author` 与 `contributor`，加载路径为 `--profiles-root`。CC-BY-NC-SA-4.0 的 `noticeRequired` 为 `true`，若原始版权年份无法证实，则 `copyrightYear` 显式设为 `null`；MIT 与 Apache 许可仍要求整数年份。生成的完整原样 CC 法律正文写入 `LICENSE`，`NOTICE` 文件保留每位声明者的姓名、角色及 CC 许可引用，不将贡献者自动视为版权权利人。项目已有的上游 URL、历史署名与改编说明应原样保留，并由维护者核对。检查器核对标准全文、每位署名及许可引用，不联网判断链接有效性或许可适用性。采用 0.39.0 新入口前须核对实际已发布 SDK。入口尚未提供时保留对应接线缺口，0.38.0 不包含这些新增能力。

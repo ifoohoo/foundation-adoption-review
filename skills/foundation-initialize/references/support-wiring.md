@@ -22,7 +22,12 @@
 
 扫描阶段需明确列出三类问题：一是缺失的必需公开文件（路径必须具体）；二是误入载荷的日志草稿或私有设计；三是尚未确认是否公开的项。配置变更走已有 `release-config` 技能：确认是配置-only 差异后，按该技能评估、准备与写入。禁止虚构 Foundation 自带的 config CLI，禁止自动覆盖已有配置，禁止把接线成功写成已发布。
 
-运行记录只放根级 `/.runs/`，证据只放根级 `/.evidence/`。这是新项目默认目录约定，不是强制把旧运行目录迁过去。这两个默认目录会被忽略，不进入跟踪源面，也不进入公开载荷。公开边界核对使用目标已有 `.release-skill/project.yaml` 和 release-skill 的原生结果；本入口只核对接线参数、列出具体漏失项并路由到 `release-config`，不复制载荷算法。
+新项目默认把自有运行记录放在根级 `/.runs/`，自有证据放在根级 `/.evidence/`。这是新项目默认目录约定，不是强制把旧运行目录迁过去。这两个默认目录会被忽略，不进入跟踪源面，也不进入公开载荷。公开边界核对使用目标已有 `.release-skill/project.yaml` 和 release-skill 的原生结果；本入口只核对接线参数、列出具体漏失项并路由到 `release-config`，不复制载荷算法。
+
+
+首次初始化与中途接入均需先读取实际发布工具配置，确认该版本提供方声明的运行路径。运行产物、可编辑源配置与持久工具锁分别归类。`/.release-skill/runs/` 为运行时自动生成的记录目录，按实际采用情况登记为运行产物；同级其他目录或别名文件仅按实际声明路径纳入管理，不得默认包含。`.release-skill/project.yaml` 与 `.release-skill/testing/requirements.json` 属于源配置文件，制品图锁仍登记于 `trackedToolLocks`。`.gitignore` 由工具生成时，维护者修改其生成源。采用手写忽略规则的项目，则直接补齐该文件，登记 artifacts 本身不修改 `.gitignore`，也不主动创建运行目录。
+
+具体增补入口及许可接入方法见 [Foundation 公共机制接线](foundation-wiring.md#运行目录和第三方许可接入)。
 
 ## 制品接线（artifact-chain-assistant / artifact-graph）
 
