@@ -1,6 +1,6 @@
 {
   "name": "foundation-adoption-review",
-  "version": "0.39.0",
+  "version": "0.39.1",
   "private": true,
   "description": "Authorized initialization of a skill family engineering project from a proven minimal business Skill, plus read-only Foundation adoption diagnosis and static engineering checks.",
   "author": {
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/ifoohoo/foundation-adoption-review.git"
   },
-  "homepage": "https://github.com/ifoohoo/foundation-adoption-review",
+  "homepage": "https://ifoohoo.github.io/skill-family-foundation-site/",
   "bugs": {
     "url": "https://github.com/ifoohoo/foundation-adoption-review/issues"
   },

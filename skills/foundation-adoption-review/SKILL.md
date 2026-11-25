@@ -1,6 +1,6 @@
 ---
 name: foundation-adoption-review
-description: Read caller-provided Foundation capability catalog and adopt-plan results to diagnose reuse, thin adaptation, candidate matches, and missed existing capabilities without changing projects or making qualification decisions.
+description: 只读消费调用方提供的 Foundation 能力目录与 adopt-plan 输出，诊断直接复用、薄层适配、候选匹配与漏看已有能力，不修改目标项目也不代替资格裁决。
 ---
 
 # Foundation 采用诊断
@@ -53,6 +53,7 @@ description: Read caller-provided Foundation capability catalog and adopt-plan r
 - **依赖与范围**：后项输入依赖前项结果、请求超限或包含该入口未支持的操作时，不直接合批；保留既有原路径（原对象入口或逐项调用），或在诊断中报告能力缺口。
 - **版本可用性**：调用方锁定的精确版本目录没有该入口时，说明当前版本不可用，并给出核对包含该能力的正式发布版本的动作；迁移建议要求消费者升级精确版本后，按既有身份与来源绑定规则重建官方 Bundle，不指导导入私有工作树。
 - **成熟度边界**：目录把该入口标为 `candidate` 时，保留候选事实；候选命中或批量成功运行都不写成稳定采用完成，也不把候选能力清单转成已经支持的接口。
+- **内部依赖范围与同名技能遮蔽排障**：若调用方需求涉及同主版本（`0.x` 或 `N.x`）内部依赖自动选版、下限抬升、底层支撑仓同代对齐或业务仓分级提醒，核对目录中的 `foundation.kit.internal-dependency-resolution`（`resolveInternalDependencies` / `bumpInternalDependencyMin` / `checkSupportWorkspaceDependencies` / `describePublishTopology` / `linkWorkspaceDependencies`）；若涉及十宿主（含 `antigravity`、`grok`）多层同名技能覆盖排障，核对 `foundation.kit.skill-shadowing-check`（`checkSkillShadowing` / `skill-family-kit check shadowing`）；若涉及长程任务的 `state-store` 事件链、排他锁与子进程轨迹本地实时可视化观测，核对 `foundation.kit.runtime-monitor`（`skill-family-kit check monitor ensure`），不自建平行选版器、目录遍历脚本或各仓私有监控看板。
 
 ## 明确禁止
 

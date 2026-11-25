@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.39.1 locale=en baseline=sha256:35b23a925ca8767446eada9a98f89d710404bf20edf205be4d5c5f05d2079d48 -->
+## [0.39.1] - 2026-11-25
+
+Lockstep 0.39.1 patch release aligning CLI command guidance and updating the Plugin homepage, bilingual READMEs, and initialization reference links to the standalone ifoohoo/skill-family-foundation-site documentation site while keeping Skill Family Hub as the public Marketplace entry.
+
+### Changed
+
+- Advances Plugin coordinate to 0.39.1 and points homepage, bilingual READMEs, and foundation-wiring documentation links to https://ifoohoo.github.io/skill-family-foundation-site/.
+
+### Upgrade Notes
+
+Adopt 0.39.1 in lockstep across all Foundation release units. Existing read-only review and explicitly authorized initialization boundaries remain unchanged.
+<!-- release-skill:changelog:end version=0.39.1 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.39.0 locale=en baseline=sha256:358951e8d7026e3ed995655be2d0a47319b53f9452ba0e99342d9ccdeab1ccdd -->
 ## [0.39.0] - 2026-11-06
 

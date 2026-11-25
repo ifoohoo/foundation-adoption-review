@@ -1,0 +1,15 @@
+version: 0.39.1
+date: 2026-11-25
+locales:
+  zh-CN:
+    summary: 随 Foundation 0.39.1 锁步补丁发布：对齐内部依赖、遮蔽检查与监控命令指引，并将 Plugin 主页、双语 README 与初始化参考文档中的在线文档链接统一切换至独立公开文档站 ifoohoo/skill-family-foundation-site。Skill Family Hub 继续作为公开插件市场入口。
+    upgradeNotes: 与三套机制包及独立公开文档站同步采用 0.39.1；既有只读审阅与显式授权初始化边界保持不变。
+    changes:
+      changed:
+        - 锁步升至 0.39.1，更新主页、双语 README 显式文档站入口及 foundation-wiring 参考链接至 https://ifoohoo.github.io/skill-family-foundation-site/。
+  en:
+    summary: Lockstep 0.39.1 patch release aligning CLI command guidance and updating the Plugin homepage, bilingual READMEs, and initialization reference links to the standalone ifoohoo/skill-family-foundation-site documentation site while keeping Skill Family Hub as the public Marketplace entry.
+    upgradeNotes: Adopt 0.39.1 in lockstep across all Foundation release units. Existing read-only review and explicitly authorized initialization boundaries remain unchanged.
+    changes:
+      changed:
+        - Advances Plugin coordinate to 0.39.1 and points homepage, bilingual READMEs, and foundation-wiring documentation links to https://ifoohoo.github.io/skill-family-foundation-site/.

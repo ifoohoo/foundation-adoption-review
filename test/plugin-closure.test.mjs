@@ -7,17 +7,14 @@ import { fileURLToPath } from "node:url";
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const AGENT_PLUGIN_MANIFEST_PATH = "plugin.json";
-const AGENT_PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json";
 const AGENT_PLUGIN_NAME = /^(?!.*(?:--|\.\.))[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
 const AGENT_PLUGIN_FIELDS = Object.freeze([
-  "$schema",
   "name",
   "version",
   "description",
   "author",
-  "license",
 ]);
-const AGENT_PLUGIN_AUTHOR_FIELDS = Object.freeze(["email", "name", "url"]);
+const AGENT_PLUGIN_AUTHOR_FIELDS = Object.freeze(["name", "url"]);
 const MANIFEST_PATHS = Object.freeze([
   ".claude-plugin/plugin.json",
   ".codex-plugin/plugin.json",
@@ -30,12 +27,10 @@ function agentPluginProblems({ packageJson, manifest }) {
 
   const problems = [];
   const expected = {
-    $schema: AGENT_PLUGIN_SCHEMA,
     name: packageJson.name,
     version: packageJson.version,
     description: packageJson.description,
     author: packageJson.author,
-    license: packageJson.license,
   };
   for (const [field, value] of Object.entries(expected)) {
     if (!Object.hasOwn(manifest, field) || JSON.stringify(manifest[field]) !== JSON.stringify(value)) {
@@ -50,7 +45,7 @@ function agentPluginProblems({ packageJson, manifest }) {
   ) {
     problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:name`);
   }
-  for (const field of ["version", "description", "license"]) {
+  for (const field of ["version", "description"]) {
     if (typeof manifest[field] !== "string") {
       problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:${field}`);
     }
@@ -66,7 +61,9 @@ function agentPluginProblems({ packageJson, manifest }) {
       problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:author`);
     }
   }
-  if (Object.hasOwn(manifest, "skills")) problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:skills`);
+  for (const forbidden of ["$schema", "license", "skills"]) {
+    if (Object.hasOwn(manifest, forbidden)) problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:${forbidden}`);
+  }
   if (JSON.stringify(Object.keys(manifest).sort()) !== JSON.stringify([...AGENT_PLUGIN_FIELDS].sort())) {
     problems.push(`${AGENT_PLUGIN_MANIFEST_PATH}:fields`);
   }
@@ -134,11 +131,12 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.39.0");
+  assert.equal(packageJson.version, "0.39.1");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
+  const pagesSiteUrl = ["https://ifoohoo", ".github", ".io/skill-family-foundation-site/"].join("");
   assert.equal(packageJson.repository?.url, `${publicMirrorBase}.git`);
-  assert.equal(packageJson.homepage, publicMirrorBase);
+  assert.equal(packageJson.homepage, pagesSiteUrl);
   assert.equal(packageJson.bugs?.url, `${publicMirrorBase}/issues`);
   const publicMirrorLink = `[ifoohoo/foundation-adoption-review](${publicMirrorBase})`;
   assert.ok(readme.includes(publicMirrorLink), "README.md must point to the frozen public mirror");
@@ -198,18 +196,18 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   // Root independently rederived the four version-only manifests and adopted the whole Skill hash.
   // Source is independent-product-review-038.json, I038-2, SHA256 39b654334f78e3486d84a40d50d9adb1136431d56e1434219dfb2979ef9a23b4.
   // 0.39.0 same-batch values were accepted in development039-product-review.json, I039-3.
-  // Four manifest replacements and the complete initialization Skill/references were independently reviewed.
+  // B-02 convergence aligned CLI references (check shadowing / check deps / adopt-plan deps / check monitor) and installed artifact-graph 1.2.0 in skill bodies and references.
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "b49efea7a55d2f5659f479283688ec36f5ff69a35aa92f3c0be48258c58df7d7"],
-    [".claude-plugin/plugin.json", "f6c4476fb107a816b562027939a23c4e2b79b933c73ab8580587b061eb5fcafd"],
-    [".kimi-plugin/plugin.json", "f6c4476fb107a816b562027939a23c4e2b79b933c73ab8580587b061eb5fcafd"],
-    [".qoder-plugin/plugin.json", "f6c4476fb107a816b562027939a23c4e2b79b933c73ab8580587b061eb5fcafd"],
-    ["skills/foundation-adoption-review/SKILL.md", "03fad5980a5e463d0c4deb9e7f6c767b63da546f97df50d6dc1d47c01e25bbf7"],
-    ["skills/foundation-engineering-check/SKILL.md", "4e98c5285c19edfcbb15610cb69bfc720517e355c3bc18909cbc31947403b1bd"],
-    ["skills/foundation-initialize/SKILL.md", "98ad97292ef12c8a4de5f0a8b6f7aeaefad098201c18f65f79acf051002b8c73"],
+    [".codex-plugin/plugin.json", "272914d2816d43201302044e5d934ceee679f70c2aac1ae13a9b6e94512391f3"],
+    [".claude-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
+    [".kimi-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
+    [".qoder-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
+    ["skills/foundation-adoption-review/SKILL.md", "1f78a46baaa76b868da5bffc62a0a62768c023a0e21c2039b6c2b9454b0cf006"],
+    ["skills/foundation-engineering-check/SKILL.md", "400f5842805f725e42e4d48564b386b1e1c5d45f4df5ce943fbccd438935043a"],
+    ["skills/foundation-initialize/SKILL.md", "d0278310fa2644b3c5ced7aa083cd87d2a2e00b90030da487122e0c0ebfcd590"],
     ["skills/foundation-initialize/references/execution-design.md", "9f5345f86cf629836b8bc58292e7d3dc21e5e0a6caff828e9bec470bfa4cb64d"],
-    ["skills/foundation-initialize/references/foundation-wiring.md", "5b3cee9d0005ade42b437a9825dd3e89bf2b5fcd4e86767c342663adda423301"],
-    ["skills/foundation-initialize/references/support-wiring.md", "913c9dcd12c17483f214aa9f6ed00b7109d2cff1d915ea4e8fdb6b37bbeed57c"],
+    ["skills/foundation-initialize/references/foundation-wiring.md", "ba86297ee49e927d1215f5588e619c9b58038627f6aac5426564b1554ce41527"],
+    ["skills/foundation-initialize/references/support-wiring.md", "ae162e5e14abfb7bc9df3498f552f560edc8e43f4c87193d549be2d82500eb45"],
     ["release-notes/0.1.0.yaml", "642a997262dda1db5d50129276504da5775d2446fad9238adcdf5cb1ca0d422f"],
   ]);
   for (const [relativePath, expected] of expectedHashes) {
@@ -248,15 +246,19 @@ test("plugin closure rejects missing or drifted Qoder metadata and extra Skill c
   assert.ok(manifestProblems(copiedSkill).includes("skills:directories"));
 });
 
-test("plugin closure rejects missing or drifted Agent Plugin metadata and explicit Skill routing", async () => {
+test("plugin closure rejects missing or drifted root plugin metadata and non-whitelist keys", async () => {
   const packageJson = JSON.parse(await readFile(path.join(PACKAGE_ROOT, "package.json"), "utf8"));
   const manifest = JSON.parse(await readFile(path.join(PACKAGE_ROOT, AGENT_PLUGIN_MANIFEST_PATH), "utf8"));
 
   assert.ok(agentPluginProblems({ packageJson, manifest: undefined }).includes("plugin.json:missing"));
 
-  const driftedSchema = structuredClone(manifest);
-  driftedSchema.$schema = "https://agent-plugins.org/schemas/0.9.0/plugin.schema.json";
-  assert.ok(agentPluginProblems({ packageJson, manifest: driftedSchema }).includes("plugin.json:$schema"));
+  const withSchema = structuredClone(manifest);
+  withSchema.$schema = "https://example.com/schemas/1.0.0/plugin.schema.json";
+  assert.ok(agentPluginProblems({ packageJson, manifest: withSchema }).includes("plugin.json:$schema"));
+
+  const withLicense = structuredClone(manifest);
+  withLicense.license = "Apache-2.0";
+  assert.ok(agentPluginProblems({ packageJson, manifest: withLicense }).includes("plugin.json:license"));
 
   const driftedIdentity = structuredClone(manifest);
   driftedIdentity.version = "0.19.2";
@@ -278,7 +280,6 @@ test("plugin closure rejects missing or drifted Agent Plugin metadata and explic
   for (const [field, value] of [
     ["version", 193],
     ["description", ["read-only"]],
-    ["license", null],
   ]) {
     const invalidIdentity = {
       packageJson: structuredClone(packageJson),
@@ -296,8 +297,8 @@ test("plugin closure rejects missing or drifted Agent Plugin metadata and explic
     [],
     null,
     { name: "Foundation", company: "Example" },
+    { name: "Foundation", email: "maintainer@example.test" },
     { name: 42 },
-    { name: "Foundation", email: ["maintainer@example.test"] },
     { name: "Foundation", url: { href: "https://example.test" } },
   ]) {
     const invalidIdentity = {

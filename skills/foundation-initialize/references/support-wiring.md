@@ -39,7 +39,7 @@
 
 Graph 拥有共同最小清单、项目类型标准、阶段项和条件项；Assistant 拥有模板、制作方法与项目采用；Foundation 只做初始化推荐与交接，不另存一份清单真源。
 
-读取路径：沿目标工程已安装、可核验的 `artifact-graph` 运行时包定位公开数据，消费子路径 `artifact-graph/project-artifact-profiles`。`schema_version` 必须为 `1.0`。不导入相邻 Graph 工作树源码，不把工作区源码目录或本机旧 CLI 当作本入口的提供方。当前锁定的已发布包 `artifact-graph@0.12.0` 的 `exports` 不含该子路径；未发布候选不得表述为已发布能力。
+读取路径：沿目标工程已安装、可核验的 `artifact-graph` 运行时包定位公开数据，消费子路径 `artifact-graph/project-artifact-profiles`（已由 `artifact-graph@0.15.0+` 正式导出）。`schema_version` 必须为 `1.0`。不导入相邻 Graph 工作树源码，不把工作区源码目录或本机旧 CLI 当作本入口的提供方；若目标工程安装的旧版包 `exports` 未导出该子路径，仍按提供方缺失处理，未发布候选不得表述为已发布能力。
 
 读取成功时按下列规则推荐，并解释选择依据：
 

@@ -134,7 +134,7 @@ skill-family-kit adopt-plan --root <target> --project-id <id> --profile <profile
     - 提交未知、`commit-unconfirmed` 或 `recovery-required` 不得称成功或盲重试；
     - 机制可能创建或保留根级 `.foundation-file-apply`、日志、before/after 材料及邻接暂存文件；目录准备后拒绝也可能已留材料，写后恢复不等于零写入；
     - 收据为 `schemaVersion: 3`、`platform: win32`，其中实际文件观测使用 `mode: null` 与真实 `permissionObservation`；`fileSet` 保留原机制结果，no-op 时为 `null`，不冒充已提交；
-    - 完整参数、字段与失败恢复细则见 [Engineering Kit API 的 Windows 投影说明](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/engineering-kit/)。
+    - 完整参数、字段与失败恢复细则见 [Engineering Kit 命令与投影说明](https://ifoohoo.github.io/skill-family-foundation-site/cli-reference.html)。
 - **真实源落盘后验证**：
   - 真实源尚未落盘时，如实报告不足；
   - 一旦落盘并完成合法更新，需使用所选 SDK 的公共 API `runCoreCheck({ root: targetRoot, allowGitSpawn: false })` 执行完整工程检查，并分别运行 `skill-family-kit check --root <target> --policy declared --only version --no-git-spawn` 与 `skill-family-kit check entries --root <target> --policy declared`；
@@ -218,10 +218,13 @@ skill-family-kit scaffold host-build --root <target> --host <host-id> --path-cat
 - **发现证据**：记录本次试用工作目录、宿主正式入口列表中的技能身份及来源路径，并能与构建清单成员一一对应；
 - 无法区分候选与父目录或用户目录中的同名入口时，发现资格标为未确认；
 - 宿主当前不能从该工作区正式发现入口时，报告该路径未通过，**不临时改用直接读取正文作为成功依据**。
-- 其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理：
+- 其他宿主（十宿主注册表涵盖 `claude`、`codex`、`cursor`、`kimi-code`、`workbuddy`、`codebuddy`、`qoder`、`deepseek-harness`、`antigravity`、`grok`）按描述符的 `supported`、`manual`、`unsupported` 原样处理：
   - `supported` 仅表示机制可构建，仍需实际发现与业务试用才能声称入口可用；
-  - `manual` 路径（如 Kimi）不包装成自动接入。
+  - `manual` 路径（如 Kimi）不包装成自动接入（`antigravity`、`grok` 等预览宿主同样遵守该约束）；
+  - 当项目层、插件层与用户全局层同时存在同名技能时，用只读命令 `skill-family-kit check shadowing` 核查生效顺序与遮蔽冲突。
 - 普通受管工程投影继续用 `skill-family-kit projection --manifest <relative-path>`；**它不是任意宿主安装器**。
+- 当项目在 `skill-family.project-manifest.json` 声明 `internalDependencies` 或 `repoTier` 时，用只读命令 `skill-family-kit check deps resolve` 在同主版本轨道（`0.x` 或 `N.x`）筛选最高已验证兼容版本并生成会话收据；用 `skill-family-kit check deps --workspace-root <dir>` 检查 `support` 仓滞后与 `--topology` 查看第 0–3 层拓扑；写动作统一使用 `skill-family-kit adopt-plan deps`（如 `bump-min`、`--link-workspace` 与 `--unlink-workspace`）。
+- 当项目运行长程任务并需要实时查看 `state-store` 哈希链、`token-lock` 锁时长、`supervise-process` 子进程状态或执行计划进度时，用 `skill-family-kit check monitor ensure --id <task-id> --title "<任务名称>" --state-dir <dir> --plan <file>` 幂等挂载仅绑定 `127.0.0.1` 的零侵入监控看板，无需在项目内额外复制前端代码。
 
 ### 能力目录查询
 

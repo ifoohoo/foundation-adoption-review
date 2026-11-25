@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.39.1 locale=zh-CN baseline=sha256:37fa4f51177854f08c0e826cebdaaec043f954d6b638909805e08f2fd1542b91 -->
+## [0.39.1] - 2026-11-25
+
+随 Foundation 0.39.1 锁步补丁发布：对齐内部依赖、遮蔽检查与监控命令指引，并将 Plugin 主页、双语 README 与初始化参考文档中的在线文档链接统一切换至独立公开文档站 ifoohoo/skill-family-foundation-site。Skill Family Hub 继续作为公开插件市场入口。
+
+### 变更
+
+- 锁步升至 0.39.1，更新主页、双语 README 显式文档站入口及 foundation-wiring 参考链接至 https://ifoohoo.github.io/skill-family-foundation-site/。
+
+### 升级说明
+
+与三套机制包及独立公开文档站同步采用 0.39.1；既有只读审阅与显式授权初始化边界保持不变。
+<!-- release-skill:changelog:end version=0.39.1 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.39.0 locale=zh-CN baseline=sha256:78922b9fc9bf55faaa8d693dba7a9d6aadd5c2067fca67a77ce500b0cd82f723 -->
 ## [0.39.0] - 2026-11-06
 

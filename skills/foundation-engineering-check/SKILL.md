@@ -1,6 +1,6 @@
 ---
 name: foundation-engineering-check
-description: Run Foundation's complete static engineering review for a caller-selected scope, or read an existing Foundation professional proof, without executing target scripts or hooks.
+description: 按调用方选定范围对目标根执行只读静态工程审阅，或读取并解释既有的本族专业证明，全程不执行目标脚本与钩子。
 ---
 
 # Foundation 静态工程检查

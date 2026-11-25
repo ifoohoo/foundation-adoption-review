@@ -1,19 +1,22 @@
+> English version: [README.md](./README.md)
+> 在线文档站：<https://ifoohoo.github.io/skill-family-foundation-site/>
+
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.39.0 -->
+<!-- release-skill:release-version: 0.39.1 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.39.0** (2026-11-06)
+**0.39.1** (2026-11-25)
 
-foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
+随 Foundation 0.39.1 锁步补丁发布：对齐内部依赖、遮蔽检查与监控命令指引，并将 Plugin 主页、双语 README 与初始化参考文档中的在线文档链接统一切换至独立公开文档站 ifoohoo/skill-family-foundation-site。Skill Family Hub 继续作为公开插件市场入口。
 
 **变更**
 
-- foundation-initialize 在首次初始化和中途接入时，均读取项目实际采用的发布工具配置及生成路径声明，分别处理运行产物、源配置和持久工具锁。忽略规则由项目原有的生成源或手写文件维护。首次非空登记与既有项目增补分别使用各自的官方入口，确保锁历史完整保留。对于来自 CC 来源的 Skill，入口依据原始材料保留原许可、作者、改编贡献者信息及未知版权年份。工程生成、结构检查、宿主发现与业务结果均需分别验证，确保各环节一致性。
+- 锁步升至 0.39.1，更新主页、双语 README 显式文档站入口及 foundation-wiring 参考链接至 https://ifoohoo.github.io/skill-family-foundation-site/。
 
 **升级说明**
 
-四个发行单元同步采用0.39.0。新入口须核实精确正式包；旧默认登记、MIT及Apache路径保持兼容。
+与三套机制包及独立公开文档站同步采用 0.39.1；既有只读审阅与显式授权初始化边界保持不变。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
@@ -123,4 +126,4 @@ pnpm test
 
 Foundation Adoption Review 0.28.0 的 Windows 范围为 Windows 11 x64、本地 NTFS 和普通用户。
 
-Plugin 的工程检查入口只做只读扫描，不安装或执行目标资源。静态退出码 0、安装成功或宿主装载扫描均不构成 Windows 宿主业务通过。本版本不改变旧发布物的能力；精确版本的远端可用性须由正式发布凭据核实，真实资格需由对应宿主的业务证据核实。详见 [兼容性矩阵](https://ifoohoo.github.io/skill-family-engineering-kit/reference/compatibility/) 与 [API 文档](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/harness/)。
+Plugin 的工程检查入口只做只读扫描，不安装或执行目标资源。静态退出码 0、安装成功或宿主装载扫描均不构成 Windows 宿主业务通过。本版本不改变旧发布物的能力；精确版本的远端可用性须由正式发布凭据核实，真实资格需由对应宿主的业务证据核实。详见 [宿主支持矩阵](https://ifoohoo.github.io/skill-family-foundation-site/host-matrix.html) 与 [能力总览](https://ifoohoo.github.io/skill-family-foundation-site/capabilities.html)。

@@ -1,19 +1,22 @@
+> 简体中文版：[README.zh-CN.md](./README.zh-CN.md)
+> Documentation site: <https://ifoohoo.github.io/skill-family-foundation-site/>
+
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.39.0 -->
+<!-- release-skill:release-version: 0.39.1 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.39.0** (2026-11-06)
+**0.39.1** (2026-11-25)
 
-Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.
+Lockstep 0.39.1 patch release aligning CLI command guidance and updating the Plugin homepage, bilingual READMEs, and initialization reference links to the standalone ifoohoo/skill-family-foundation-site documentation site while keeping Skill Family Hub as the public Marketplace entry.
 
 **Changed**
 
-- Updates foundation-initialize to inventory actual provider runtime paths during initial and later onboarding, preserve source configuration and tool locks, and use the official incremental artifact registration channel without resetting lock history. Preserves confirmed original licensing, authors, adaptation contributors and unknown years.
+- Advances Plugin coordinate to 0.39.1 and points homepage, bilingual READMEs, and foundation-wiring documentation links to https://ifoohoo.github.io/skill-family-foundation-site/.
 
 **Upgrade Notes**
 
-Adopt all four 0.39.0 release units together and verify new entries in the exact published package. Existing default registration, MIT and Apache behavior is retained.
+Adopt 0.39.1 in lockstep across all Foundation release units. Existing read-only review and explicitly authorized initialization boundaries remain unchanged.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.
@@ -47,7 +50,7 @@ This is an open-source Plugin, not an npm package. Skill Family Hub is its curre
 ```text
 # Codex
 codex plugin marketplace add ifoohoo/skill-family-hub
-# Then install foundation-adoption-review from the interactive /plugins browser.
+# Next, install foundation-adoption-review from the interactive /plugins browser.
 
 # Claude
 claude plugin marketplace add ifoohoo/skill-family-hub
@@ -105,7 +108,7 @@ The adoption diagnosis reads the supplied fields, including capability entry poi
 
 Foundation's ordinary engineering checks are static: they inspect declarations, configuration, and files without running target Skills, business scripts, or hooks. Their findings are meaningful only within the selected policy's scope. Existing Foundation-style version and entry assumptions are not universal rules for a single package, an independently versioned unit, a non-npm source, or every language and host.
 
-## When something fails
+## Handling failures
 
 If installation or diagnosis fails, report the error and stop. A person should check GitHub access, the Marketplace entry and version, and whether all three inputs are complete. Do not repair the installation or inputs automatically.
 
@@ -123,4 +126,4 @@ This test verifies the Plugin's closure, manifests, README release wording, and 
 
 The Windows scope of Foundation Adoption Review 0.28.0 is Windows 11 x64, local NTFS, and ordinary users.
 
-The Plugin’s engineering-check entrypoint performs read-only scans; it does not install or execute target resources. A static exit code 0, successful install, or host load scan does not constitute Windows host qualification. This version does not change the capabilities of older releases; exact remote availability requires formal release evidence. Real qualification requires evidence from the corresponding host business run. See [compatibility matrix](https://ifoohoo.github.io/skill-family-engineering-kit/reference/compatibility/) and [API reference](https://ifoohoo.github.io/skill-family-engineering-kit/reference/api/harness/).
+The Plugin’s engineering-check entrypoint performs read-only scans; it does not install or execute target resources. A static exit code 0, successful install, or host load scan does not constitute Windows host qualification. This version does not change the capabilities of older releases; exact remote availability requires formal release evidence. Real qualification requires evidence from the corresponding host business run. See [host matrix](https://ifoohoo.github.io/skill-family-foundation-site/host-matrix.html) and [capabilities](https://ifoohoo.github.io/skill-family-foundation-site/capabilities.html).

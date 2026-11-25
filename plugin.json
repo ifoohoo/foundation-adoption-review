@@ -1,10 +1,8 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "foundation-adoption-review",
-  "version": "0.39.0",
+  "version": "0.39.1",
   "description": "Authorized initialization of a skill family engineering project from a proven minimal business Skill, plus read-only Foundation adoption diagnosis and static engineering checks.",
   "author": {
     "name": "广州市风荷科技有限公司"
-  },
-  "license": "Apache-2.0"
+  }
 }

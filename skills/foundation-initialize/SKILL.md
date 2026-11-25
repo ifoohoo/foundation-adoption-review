@@ -1,6 +1,6 @@
 ---
 name: foundation-initialize
-description: Initialize a sustainable skill family engineering project from a proven minimal business Skill, writing only within the caller's explicit authorization; the sibling diagnosis and engineering-check entries stay read-only.
+description: 从已跑通的最小业务 Skill 出发初始化可持续演进的技能族工程，仅在调用方明确授权范围内写入；同插件的采用诊断与静态工程检查保持只读。
 ---
 
 # Foundation 工程初始化
@@ -53,7 +53,7 @@ description: Initialize a sustainable skill family engineering project from a pr
 
    首次初始化与中途接入均需先读取实际发布工具配置，确认该版本提供方声明的运行路径。运行产物、可编辑源配置与持久工具锁分别归类。`/.release-skill/runs/` 为运行时自动生成的记录目录，按实际采用情况登记为运行产物；同级其他目录或别名文件仅按实际声明路径纳入管理，不得默认包含。`.release-skill/project.yaml` 与 `.release-skill/testing/requirements.json` 属于源配置文件，制品图锁仍登记于 `trackedToolLocks`。`.gitignore` 由工具生成时，维护者修改其生成源。采用手写忽略规则的项目，则直接补齐该文件，登记 artifacts 本身不修改 `.gitignore`，也不主动创建运行目录。
 
-6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；其他宿主按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。细节同在 `references/foundation-wiring.md`。
+6. **构建宿主入口**：把获准的业务文本组成 `adapter-source`，用 `skill-family-kit scaffold host-build` 在目标工程内的新构建目录生成宿主投影。投影前确认第 4 步的宿主 frontmatter 前提已满足；`host-build` 做字节透传，不替你校验。首版自动投影与真实入口验收以 Codex 项目级 Skill 为代表；十宿主注册表中的其他宿主（含 `antigravity`、`grok`）按描述符的 `supported`、`manual`、`unsupported` 原样处理，手动路径不包装成自动接入。多层目录存在同名入口疑虑时，可运行只读 `skill-family-kit check shadowing` 排查覆盖优先级。细节同在 `references/foundation-wiring.md`。
 
 7. **接通支撑入口**：按适用范围接线发布、制品、知识站与独立审计。方法见 `references/support-wiring.md`，到这一步才读取。制品接线先按该参考从已发布 `artifact-graph` 包读取正式清单并解释推荐依据，再把实际采用交给 assistant 的 `artifact-chain-bootstrap`。清单缺失或未发布时只暂停依赖清单的推荐分支；发布、知识站、审计和其余初始化步骤继续。两流 P0 已验收后，按同一参考采用 Registry 0.2.0 v1 接通默认 TEST 与项目方法覆盖，保留合法既有选择，禁用、坏覆盖、缺入口或歧义不回落。配置生成、入口验证和两消费者业务结果分别报告，不以配置完成代替业务通过。不适用的能力说明理由，不制造虚假待办。
 
@@ -75,7 +75,7 @@ description: Initialize a sustainable skill family engineering project from a pr
 
 可选 `engineering` 参数自 `0.24.0` 提供，`0.23.0` 不支持。消费前必须核对所选 SDK 的实际公共接口与三包精确锁步来源，不得仅凭版本号推导能力，不得导入相邻工作树。候选版本的验证与正式发布后的消费需分别处理：若新接口尚未提供，仅保留对应声明生成或更新缺口，原接口仍按前述兼容承诺继续使用。
 
-候选公共入口 `artifact-graph/project-artifact-profiles` 尚未出现在当前锁定的已发布包导出中。开发基线锁定 `artifact-graph@0.12.0`，其 `exports` 不含该子路径。不得把相邻工作树、未发布候选或本地复制表当作已发布能力。入口缺失、`schema_version` 不是 `1.0`、或运行时无法定位该包时，将清单推荐标为待接线，只暂停依赖该入口的推荐与交接；骨架生成、登记、宿主投影、发布接线和其他支撑接线继续。读到清单不表示项目已采用，也不表示初始化已完成正式消费验收。
+正式公共入口 `artifact-graph/project-artifact-profiles` 已由 `artifact-graph@0.15.0+` 在包 `exports` 中正式导出（当前项目已安装 `1.2.0`），可沿目标工程已安装、可核验的包直接消费。不得把相邻工作树、未发布候选或本地复制表当作已发布能力。若目标工程安装的旧版缺失该入口、`schema_version` 不是 `1.0`、或运行时无法定位该包时，仍将清单推荐标为待接线，只暂停依赖该入口的推荐与交接；骨架生成、登记、宿主投影、发布接线和其他支撑接线继续。读到清单不表示项目已采用，也不表示初始化已完成正式消费验收。
 
 ## 失败语义
 
