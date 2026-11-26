@@ -3,20 +3,20 @@
 
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.39.1 -->
+<!-- release-skill:release-version: 0.39.2 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.39.1** (2026-11-25)
+**0.39.2** (2026-11-26)
 
-Lockstep 0.39.1 patch release aligning CLI command guidance and updating the Plugin homepage, bilingual READMEs, and initialization reference links to the standalone ifoohoo/skill-family-foundation-site documentation site while keeping Skill Family Hub as the public Marketplace entry.
+Lockstep 0.39.2 version alignment with no functional entrypoint changes, preserving engineering initialization and read-only adoption review compatibility.
 
 **Changed**
 
-- Advances Plugin coordinate to 0.39.1 and points homepage, bilingual READMEs, and foundation-wiring documentation links to https://ifoohoo.github.io/skill-family-foundation-site/.
+- Aligns plugin and host manifests to 0.39.2 in lockstep with no functional changes.
 
 **Upgrade Notes**
 
-Adopt 0.39.1 in lockstep across all Foundation release units. Existing read-only review and explicitly authorized initialization boundaries remain unchanged.
+Adopt in lockstep with Foundation 0.39.2.
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` is the read-only diagnosis skill for deciding whether a project can reuse a published Foundation capability. It compares caller-provided capability-catalog and `adopt-plan` results, then distinguishes direct adoption, thin adaptation, candidate matches, no match, and missed existing capability.

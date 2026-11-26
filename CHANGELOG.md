@@ -1,5 +1,20 @@
 # Changelog
 
+<!-- release-skill:changelog:start version=0.39.2 locale=en baseline=sha256:020fc5dea873b32653d95e2c25cef3cbcd7c72add63287139168d49a592c2ed5 -->
+## [0.39.2] - 2026-11-26
+
+Lockstep 0.39.2 version alignment with no functional entrypoint changes, preserving engineering initialization and read-only adoption review compatibility.
+
+### Changed
+
+- Aligns plugin and host manifests to 0.39.2 in lockstep with no functional changes.
+
+### Upgrade Notes
+
+Adopt in lockstep with Foundation 0.39.2.
+<!-- release-skill:changelog:end version=0.39.2 locale=en -->
+
+
 <!-- release-skill:changelog:start version=0.39.1 locale=en baseline=sha256:35b23a925ca8767446eada9a98f89d710404bf20edf205be4d5c5f05d2079d48 -->
 ## [0.39.1] - 2026-11-25
 

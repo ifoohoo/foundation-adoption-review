@@ -1,5 +1,20 @@
 # 变更日志
 
+<!-- release-skill:changelog:start version=0.39.2 locale=zh-CN baseline=sha256:f7ed38b538a42cdeca0d363cc53a0a70bc82d57bdb76e951f86cd347fe005bdc -->
+## [0.39.2] - 2026-11-26
+
+随 Foundation 0.39.2 锁步版本对齐，无新增插件入口变更，保持工程初始化与只读采用审查兼容。
+
+### 变更
+
+- 插件与四宿主清单版本锁步对齐至 0.39.2（无功能接口变更）。
+
+### 升级说明
+
+与 Foundation 0.39.2 锁步采用。
+<!-- release-skill:changelog:end version=0.39.2 locale=zh-CN -->
+
+
 <!-- release-skill:changelog:start version=0.39.1 locale=zh-CN baseline=sha256:37fa4f51177854f08c0e826cebdaaec043f954d6b638909805e08f2fd1542b91 -->
 ## [0.39.1] - 2026-11-25
 

@@ -131,7 +131,7 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   const releaseNotes0193 = await readFile(path.join(PACKAGE_ROOT, "release-notes/0.19.3.yaml"), "utf8");
 
   assert.equal(packageJson.name, "foundation-adoption-review");
-  assert.equal(packageJson.version, "0.39.1");
+  assert.equal(packageJson.version, "0.39.2");
   assert.equal(packageJson.private, true);
   const publicMirrorBase = ["https://github", ".com/ifoohoo/foundation-adoption-review"].join("");
   const pagesSiteUrl = ["https://ifoohoo", ".github", ".io/skill-family-foundation-site/"].join("");
@@ -198,10 +198,10 @@ test("plugin closure contains three skills, four host manifests, and one Agent P
   // 0.39.0 same-batch values were accepted in development039-product-review.json, I039-3.
   // B-02 convergence aligned CLI references (check shadowing / check deps / adopt-plan deps / check monitor) and installed artifact-graph 1.2.0 in skill bodies and references.
   const expectedHashes = new Map([
-    [".codex-plugin/plugin.json", "272914d2816d43201302044e5d934ceee679f70c2aac1ae13a9b6e94512391f3"],
-    [".claude-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
-    [".kimi-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
-    [".qoder-plugin/plugin.json", "4604bbf3f5b37795aea01a3a076ff0cd2b745cb04048c9821a12f406a177a80c"],
+    [".codex-plugin/plugin.json", "0a4b1f594ef048d686afa9c3b6618e880b3e1b5b0b859509dc2b1f4df918f7e4"],
+    [".claude-plugin/plugin.json", "656b2f1bf30bb2ecf56d06ce66a5dc55f68bc1d6c54ba9352b47d44527a2568c"],
+    [".kimi-plugin/plugin.json", "656b2f1bf30bb2ecf56d06ce66a5dc55f68bc1d6c54ba9352b47d44527a2568c"],
+    [".qoder-plugin/plugin.json", "656b2f1bf30bb2ecf56d06ce66a5dc55f68bc1d6c54ba9352b47d44527a2568c"],
     ["skills/foundation-adoption-review/SKILL.md", "1f78a46baaa76b868da5bffc62a0a62768c023a0e21c2039b6c2b9454b0cf006"],
     ["skills/foundation-engineering-check/SKILL.md", "400f5842805f725e42e4d48564b386b1e1c5d45f4df5ce943fbccd438935043a"],
     ["skills/foundation-initialize/SKILL.md", "d0278310fa2644b3c5ced7aa083cd87d2a2e00b90030da487122e0c0ebfcd590"],

@@ -1,0 +1,15 @@
+version: 0.39.2
+date: 2026-11-26
+locales:
+  zh-CN:
+    summary: 随 Foundation 0.39.2 锁步版本对齐，无新增插件入口变更，保持工程初始化与只读采用审查兼容。
+    upgradeNotes: 与 Foundation 0.39.2 锁步采用。
+    changes:
+      changed:
+        - 插件与四宿主清单版本锁步对齐至 0.39.2（无功能接口变更）。
+  en:
+    summary: Lockstep 0.39.2 version alignment with no functional entrypoint changes, preserving engineering initialization and read-only adoption review compatibility.
+    upgradeNotes: Adopt in lockstep with Foundation 0.39.2.
+    changes:
+      changed:
+        - Aligns plugin and host manifests to 0.39.2 in lockstep with no functional changes.

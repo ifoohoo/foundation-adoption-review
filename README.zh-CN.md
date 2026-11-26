@@ -3,20 +3,20 @@
 
 # foundation-adoption-review
 
-<!-- release-skill:release-version: 0.39.1 -->
+<!-- release-skill:release-version: 0.39.2 -->
 
 <!-- release-skill:managed:start id=latest-release -->
-**0.39.1** (2026-11-25)
+**0.39.2** (2026-11-26)
 
-随 Foundation 0.39.1 锁步补丁发布：对齐内部依赖、遮蔽检查与监控命令指引，并将 Plugin 主页、双语 README 与初始化参考文档中的在线文档链接统一切换至独立公开文档站 ifoohoo/skill-family-foundation-site。Skill Family Hub 继续作为公开插件市场入口。
+随 Foundation 0.39.2 锁步版本对齐，无新增插件入口变更，保持工程初始化与只读采用审查兼容。
 
 **变更**
 
-- 锁步升至 0.39.1，更新主页、双语 README 显式文档站入口及 foundation-wiring 参考链接至 https://ifoohoo.github.io/skill-family-foundation-site/。
+- 插件与四宿主清单版本锁步对齐至 0.39.2（无功能接口变更）。
 
 **升级说明**
 
-与三套机制包及独立公开文档站同步采用 0.39.1；既有只读审阅与显式授权初始化边界保持不变。
+与 Foundation 0.39.2 锁步采用。
 <!-- release-skill:managed:end id=latest-release -->
 
 `foundation-adoption-review` 是一个只读诊断 Skill，用来判断项目能否复用已经发布的 Foundation 能力。它读取调用方提供的 capability catalog 与 `adopt-plan` 结果，把需求归为直接采用、薄适配、候选匹配、无匹配或漏看已有能力。
